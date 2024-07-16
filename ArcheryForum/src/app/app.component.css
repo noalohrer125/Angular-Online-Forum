@@ -33,6 +33,8 @@
     grid-area: content;
     width: 75vw;
     height: 80vh;
+    border: dashed 1px yellow;
+    border-radius: 20px;
 }
 
 .footer {
