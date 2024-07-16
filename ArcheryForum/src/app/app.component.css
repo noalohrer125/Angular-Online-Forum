@@ -6,7 +6,6 @@
     'header header'
     'navigationbar content'
     'footer footer';
-  gap: 10px;
   background-color: #999999;
   padding: 0;
 }
@@ -17,29 +16,39 @@
     grid-area: header;
     height: 5vh;
     padding-top: 2vh;
+    border: dashed 2px;
+    border-radius: 20px;
+    margin: 1vmax 1vmax 0 1vmax;
 }
 
 .navigationbar {
     grid-area: navigationbar;
     width: 20vw;
-    height: auto;
+    height: 80vh;
     padding-left: 2vw;
     align-items: start;
     display: flex;
     flex-direction: column;
+    border: dashed 2px;
+    border-radius: 20px;
+    margin-left: 1vw;
 }
 
 .content {
     grid-area: content;
     width: 75vw;
     height: 80vh;
-    border: dashed 1px yellow;
+    border: dashed 2px;
     border-radius: 20px;
+    margin-right: 1vmax;
 }
 
 .footer {
     display: grid;
     justify-items: center;
     grid-area: footer;
-    height: 1vh;
+    height: 5vh;
+    border: dashed 2px;
+    border-radius: 20px;
+    margin: 0 1vmax 1vmax 1vmax;
 }
