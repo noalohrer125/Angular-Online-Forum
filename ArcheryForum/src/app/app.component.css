@@ -8,6 +8,7 @@
     'footer footer';
   background-color: #999999;
   padding: 0;
+  gap: 10px;
 }
 
 .header {
@@ -25,10 +26,10 @@
     grid-area: navigationbar;
     width: 20vw;
     height: 80vh;
-    padding-left: 2vw;
     align-items: start;
     display: flex;
     flex-direction: column;
+    justify-content: start;
     border: dashed 2px;
     border-radius: 20px;
     margin-left: 1vw;
@@ -36,6 +37,7 @@
 
 .content {
     grid-area: content;
+    justify-self: end;
     width: 75vw;
     height: 80vh;
     border: dashed 2px;
