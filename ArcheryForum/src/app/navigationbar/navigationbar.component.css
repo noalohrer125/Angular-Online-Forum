@@ -1,0 +1,11 @@
+button {
+    margin: 0.5vh;
+    border: solid 1px;
+    border-radius: 5px;
+    width: auto;
+    font-size: 1vmax;
+}
+
+button:hover {
+    cursor: pointer;
+}
