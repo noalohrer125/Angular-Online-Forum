@@ -17,8 +17,6 @@
     grid-area: header;
     height: 5vh;
     padding-top: 2vh;
-    border: dashed 2px;
-    border-radius: 20px;
     margin: 1vmax 1vmax 0 1vmax;
 }
 
@@ -30,8 +28,6 @@
     display: flex;
     flex-direction: column;
     justify-content: start;
-    border: dashed 2px;
-    border-radius: 20px;
     margin-left: 1vw;
 }
 
@@ -40,8 +36,6 @@
     justify-self: end;
     width: 75vw;
     height: 80vh;
-    border: dashed 2px;
-    border-radius: 20px;
     margin-right: 1vmax;
 }
 
@@ -50,7 +44,5 @@
     justify-items: center;
     grid-area: footer;
     height: 5vh;
-    border: dashed 2px;
-    border-radius: 20px;
     margin: 0 1vmax 1vmax 1vmax;
 }
