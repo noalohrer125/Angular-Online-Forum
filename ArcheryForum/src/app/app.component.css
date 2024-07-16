@@ -1,0 +1,38 @@
+.container {
+  display: grid;
+  width: auto;
+  height: 100vh;
+  grid-template-areas:
+    'header header'
+    'navigationbar content'
+    'footer footer';
+  gap: 10px;
+  background-color: #999999;
+  padding: 0;
+}
+
+.header {
+    grid-area: header;
+    height: 5vh;
+}
+
+.navigationbar {
+    grid-area: navigationbar;
+    width: 20vw;
+    height: auto;
+    padding-left: 2vw;
+    align-items: start;
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    grid-area: content;
+    width: 75vw;
+    height: 80vh;
+}
+
+.footer {
+    grid-area: footer;
+    height: 1vh;
+}
