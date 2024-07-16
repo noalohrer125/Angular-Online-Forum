@@ -12,8 +12,11 @@
 }
 
 .header {
+    display: grid;
+    justify-items: center;
     grid-area: header;
     height: 5vh;
+    padding-top: 2vh;
 }
 
 .navigationbar {
@@ -33,6 +36,8 @@
 }
 
 .footer {
+    display: grid;
+    justify-items: center;
     grid-area: footer;
     height: 1vh;
 }

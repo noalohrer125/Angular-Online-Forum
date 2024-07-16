@@ -1,6 +1,12 @@
 <div class="container">
-    <div class="header">Header</div>
+    <app-header class="header"></app-header>
     <app-navigationbar class="navigationbar"></app-navigationbar>
-    <div class="content">Content</div>
-    <div class="footer">Footer</div>
+    <div class="content">
+        <!-- display the content dynamic by displaying the content witch is the value of a variable (conent) -->
+        <app-home *ngIf="content === 'app-home'"></app-home>
+        <app-posts *ngIf="content === 'app-posts'"></app-posts>
+        <app-post *ngIf="content === 'app-post' + 'id'"></app-post>
+        <app-my-account *ngIf="content === 'app-my-account'"></app-my-account>
+    </div>
+    <app-footer class="footer"></app-footer>
 </div>
