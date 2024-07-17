@@ -4,14 +4,30 @@
 }
 
 button {
-    margin-left: auto;
-    margin-right: auto;
+    margin: 1vh 1vw;
 }
 
 .post {
-    margin: 0 auto;
-    margin-top: 5vh;
-    width: 80%;
-    border: solid black 1px;
-    border-radius: 15px;
+    margin: 0 auto 0 auto;
+}
+
+a {
+    color: black;
+    justify-content: center;
+}
+
+.filter-sort {
+    display: flex;
+    flex-direction: row;
+}
+
+.new-post-new-topic {
+    width: max-content;
+    margin: 2vh auto 5vh auto;
+    display: flex;
+    flex-direction: row;
+
+    a {
+        margin: 0 1vw;
+    }
 }

@@ -27,6 +27,7 @@ a {
     width: auto;
     font-size: 1vmax;
     color: rgb(0, 60, 255);
+    text-decoration: none;
 }
 
 a:hover {

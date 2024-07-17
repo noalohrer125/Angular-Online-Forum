@@ -1,7 +1,19 @@
 <h1>ArcheryForum</h1>
 <h3>a place where you can ask everything about archery, bows and crossbows</h3>
 <br>
-<button>filter Posts</button>
-<button>sort Posts</button>
+<div class="new-post-new-topic">
+    <a routerLink="/new-post">
+        Add new Post
+    </a>
+    <a routerLink="/new-topic">
+        Add new Topic
+    </a>
+</div>
+<div class="filter-sort">
+    <button>filter Posts</button>
+    <button>sort Posts</button>
+</div>
 <!-- dynamicaly render the signle posts with (for example) a forEach loop witch runs trough an array of posts and generates an app-post element for each post in the array -->
-<app-post class="post"></app-post>
+<a routerLink="/post-details">
+    <app-post class="post"></app-post>
+</a>
