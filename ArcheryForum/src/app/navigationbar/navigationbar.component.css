@@ -1,6 +1,8 @@
-button {
+a {
     text-align: start;
     margin: 0.5vh;
+    padding: 0.5vmin;
+    color: black;
 }
 
 div {

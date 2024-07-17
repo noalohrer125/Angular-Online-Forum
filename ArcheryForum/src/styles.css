@@ -12,8 +12,24 @@ button {
     border-radius: 5px;
     width: auto;
     font-size: 1vmax;
+    background-color: rgb(102, 102, 102);
 }
 
 button:hover {
     cursor: pointer;
+    color: yellow;
+}
+
+a {
+    cursor: pointer;
+    border: solid 2px;
+    border-radius: 5px;
+    width: auto;
+    font-size: 1vmax;
+    color: rgb(0, 60, 255);
+}
+
+a:hover {
+    cursor: pointer;
+    color: yellow !important;
 }
