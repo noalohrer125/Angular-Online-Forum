@@ -10,10 +10,11 @@ import { NewPostComponent } from "./new-post/new-post.component";
     PostComponent,
     RouterLink,
     NewPostComponent
-],
+  ],
   templateUrl: './posts.component.html',
   styleUrl: './posts.component.css'
 })
-export class PostsComponent {
 
+export class PostsComponent {
+  
 }

@@ -1,1 +1,24 @@
-<p>new-post works!</p>
+<table>
+    <tr>
+        <td>Subject</td>
+        <td><textarea name="Subject" id="Subject"></textarea></td>
+    </tr>
+    <tr>
+        <td>Content</td>
+        <td><textarea name="Content" id="Content"></textarea></td>
+    </tr>
+    <tr>
+        <td>Topic</td>
+        <td>
+            <select name="Topic" id="Topic">
+                @for (i of topics; track i) {
+                    <option value="topics_name">{{ i.name }}</option>
+                }
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td><button (click)="submit()" type="submit">Submit</button></td>
+        <td><a routerLink="/posts">Cancel</a></td>
+    </tr>
+</table>

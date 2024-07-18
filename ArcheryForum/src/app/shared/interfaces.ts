@@ -1,25 +1,26 @@
-interface Post {
+export interface Post {
     id: number;
     subject: string;
-    conent: string;
+    content: string;
+    date: Date;
     user_id: number;
     topic_id: number;
 }
 
-interface Topic {
+export interface Topic {
     id: number;
     name: string;
     description: string;
 }
 
-interface Answer {
+export interface Answer {
     id: number;
     content: string;
     user_id: number;
     post_id: number;
 }
 
-interface User {
+export interface User {
     id: number;
     name: string;
     email: string;

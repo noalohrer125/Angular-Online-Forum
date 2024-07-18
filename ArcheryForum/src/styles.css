@@ -12,7 +12,7 @@ button {
     border-radius: 5px;
     width: auto;
     font-size: 1vmax;
-    background-color: rgb(102, 102, 102);
+    background-color: rgba(0, 0, 0, 0);
 }
 
 button:hover {
@@ -22,12 +22,12 @@ button:hover {
 
 a {
     cursor: pointer;
-    border: solid 2px;
+    border: solid 1px;
     border-radius: 5px;
     width: auto;
-    font-size: 1vmax;
-    color: rgb(0, 60, 255);
+    color: rgb(0, 0, 0);
     text-decoration: none;
+    padding: 5px;
 }
 
 a:hover {

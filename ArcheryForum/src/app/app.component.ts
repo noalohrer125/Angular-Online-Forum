@@ -8,6 +8,7 @@ import { PostsComponent } from "./content/posts/posts.component";
 import { MyAccountComponent } from "./content/my-account/my-account.component";
 import { PostComponent } from "./content/posts/post/post.component";
 import { CommonModule } from '@angular/common';
+import { Answer, Post, Topic } from './shared/interfaces';
 
 @Component({
   selector: 'app-root',
@@ -28,4 +29,40 @@ import { CommonModule } from '@angular/common';
 })
 export class AppComponent {
   title = 'ArcheryForum';
+
+  Post?: Post = {
+    id: 1,
+    subject: '',
+    content: '',
+    date: new Date(),
+    user_id: 1,
+    topic_id: 1,
+  }
+
+  Answer?: Answer = {
+    id: 1,
+    content: '',
+    user_id: 1,
+    post_id: 1,
+  }
+
+  Topic?: Topic = {
+    id: 1,
+    name: 'test',
+    description: '',
+  }
+
+  constructor() {
+
+  }
+
+  ngOnInit() {
+    this.setLocalStorage()
+  }
+
+  setLocalStorage() {
+    localStorage.setItem('Posts', JSON.stringify([this.Post]));
+    localStorage.setItem('Answers', JSON.stringify([this.Answer]));
+    localStorage.setItem('Topics', JSON.stringify([this.Topic]));
+  }
 }
