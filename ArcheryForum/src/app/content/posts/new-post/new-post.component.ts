@@ -60,13 +60,13 @@ export class NewPostComponent {
       user_id: user_id,
       topic_id: topic_id,
     };
-    
+
     let Posts = JSON.parse(localStorage.getItem('Posts') || '[]');
 
     Posts.push(post);
 
     localStorage.setItem('Posts', JSON.stringify(Posts));
 
-    window.location.href = 'http://localhost:4200/posts';
+    window.location.href = '/posts';
   }
 }
