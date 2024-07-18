@@ -4,7 +4,7 @@ export interface Post {
     content: string;
     date: Date;
     user_id: number;
-    topic_id: number;
+    topic_name: string;
 }
 
 export interface Topic {

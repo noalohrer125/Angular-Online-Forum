@@ -8,7 +8,6 @@ import { PostsComponent } from "./content/posts/posts.component";
 import { MyAccountComponent } from "./content/my-account/my-account.component";
 import { PostComponent } from "./content/posts/post/post.component";
 import { CommonModule } from '@angular/common';
-import { Answer, Post, Topic } from './shared/interfaces';
 
 @Component({
   selector: 'app-root',
