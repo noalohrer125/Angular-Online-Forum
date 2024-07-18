@@ -1,1 +1,12 @@
-<p>new-topic works!</p>
+<form (ngSubmit)="onSubmit()">
+    <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" [(ngModel)]="name">
+    </div>
+    <div>
+        <label for="description">Descripiton:</label>
+        <textarea id="description" name="description" [(ngModel)]="description"></textarea>
+    </div>
+    <button type="submit">Submit</button>
+    <button (click)="cancel()">Cancel</button>
+</form>

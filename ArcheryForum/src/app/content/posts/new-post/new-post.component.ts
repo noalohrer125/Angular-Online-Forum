@@ -20,25 +20,29 @@ export class NewPostComponent {
     this.topics = JSON.parse(localStorage.getItem('Topics') || '')
   }
 
+  cancel() {
+    window.location.href = '/posts'
+  }
+
   subject!: string;
   content!: string;
   topic!: string;
 
   onSubmit() {
     const post: Post = {
-        id: 1,
-        subject: this.subject,
-        content: this.content,
-        date: new Date(),
-        user_id: 1,
-        topic_name: this.topic,
-      };
-    
-      let Posts = JSON.parse(localStorage.getItem('Posts') || '[]');
-    
-      Posts.push(post);
-    
-      localStorage.setItem('Posts', JSON.stringify(Posts));
+      id: 1,
+      subject: this.subject,
+      content: this.content,
+      date: new Date(),
+      user_id: 1,
+      topic_name: this.topic,
+    };
+
+    let Posts = JSON.parse(localStorage.getItem('Posts') || '[]');
+
+    Posts.push(post);
+
+    localStorage.setItem('Posts', JSON.stringify(Posts));
 
     window.location.href = '/posts';
   }
