@@ -29,40 +29,4 @@ import { Answer, Post, Topic } from './shared/interfaces';
 })
 export class AppComponent {
   title = 'ArcheryForum';
-
-  Post?: Post = {
-    id: 1,
-    subject: '',
-    content: '',
-    date: new Date(),
-    user_id: 1,
-    topic_id: 1,
-  }
-
-  Answer?: Answer = {
-    id: 1,
-    content: '',
-    user_id: 1,
-    post_id: 1,
-  }
-
-  Topic?: Topic = {
-    id: 1,
-    name: 'test',
-    description: '',
-  }
-
-  constructor() {
-
-  }
-
-  ngOnInit() {
-    this.setLocalStorage()
-  }
-
-  setLocalStorage() {
-    localStorage.setItem('Posts', JSON.stringify([this.Post]));
-    localStorage.setItem('Answers', JSON.stringify([this.Answer]));
-    localStorage.setItem('Topics', JSON.stringify([this.Topic]));
-  }
 }
