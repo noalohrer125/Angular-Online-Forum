@@ -27,18 +27,19 @@ export class NewPostComponent {
   subject!: string;
   content!: string;
   topic!: string;
+  id!: number;
 
   onSubmit() {
+    let Posts = JSON.parse(localStorage.getItem('Posts') || '[]');
+
     const post: Post = {
-      id: 1,
+      id: Posts.length,
       subject: this.subject,
       content: this.content,
       date: new Date(),
       user_name: 'testuser',
       topic_name: this.topic,
     };
-
-    let Posts = JSON.parse(localStorage.getItem('Posts') || '[]');
 
     Posts.push(post);
 
