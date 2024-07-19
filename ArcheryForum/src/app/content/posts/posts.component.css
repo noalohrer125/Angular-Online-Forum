@@ -23,11 +23,15 @@ a {
 
 .new-post-new-topic {
     width: max-content;
-    margin: 2vh auto 5vh auto;
+    margin: 1vh auto 2vh auto;
     display: flex;
     flex-direction: row;
 
     a {
         margin: 0 1vw;
     }
+}
+
+.post-link {
+    margin-top: 2vh;
 }

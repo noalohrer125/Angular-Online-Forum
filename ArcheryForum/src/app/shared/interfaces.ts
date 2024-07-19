@@ -3,7 +3,7 @@ export interface Post {
     subject: string;
     content: string;
     date: Date;
-    user_id: number;
+    user_name: string;
     topic_name: string;
 }
 

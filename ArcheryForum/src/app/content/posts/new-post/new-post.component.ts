@@ -34,7 +34,7 @@ export class NewPostComponent {
       subject: this.subject,
       content: this.content,
       date: new Date(),
-      user_id: 1,
+      user_name: 'testuser',
       topic_name: this.topic,
     };
 

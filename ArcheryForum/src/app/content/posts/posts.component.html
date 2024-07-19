@@ -13,7 +13,10 @@
     <button>filter Posts</button>
     <button>sort Posts</button>
 </div>
-<!-- dynamicaly render the signle posts with (for example) a forEach loop witch runs trough an array of posts and generates an app-post element for each post in the array -->
-<a routerLink="/post-details">
-    <app-post class="post"></app-post>
-</a>
+
+<!-- posts.component.html -->
+<div *ngFor="let post of Posts">
+    <a class="post-link" routerLink="/post-details">
+        <app-post [post]="post" class="post"></app-post>
+    </a>
+</div>
