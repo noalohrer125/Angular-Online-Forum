@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Topic } from '../../../shared/interfaces';
-import { FormsModule } from '@angular/forms';
+import { FormControlDirective, FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-new-topic',

@@ -7,6 +7,6 @@
         <label for="description">Descripiton:</label>
         <textarea id="description" name="description" [(ngModel)]="description"></textarea>
     </div>
-    <button type="submit">Submit</button>
+    <button type="submit" [disabled]="!name || !description">Submit</button>
     <button (click)="cancel()">Cancel</button>
 </form>
