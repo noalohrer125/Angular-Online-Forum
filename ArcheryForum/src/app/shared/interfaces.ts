@@ -2,7 +2,7 @@ export interface Post {
     id: number;
     subject: string;
     content: string;
-    date: Date;
+    date: string;
     user_name: string;
     topic_name: string;
 }

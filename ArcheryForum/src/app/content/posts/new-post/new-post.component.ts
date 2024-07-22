@@ -28,6 +28,7 @@ export class NewPostComponent {
   content!: string;
   topic!: string;
   id!: number;
+  date = new Date()
 
   onSubmit() {
     let Posts = JSON.parse(localStorage.getItem('Posts') || '[]');
@@ -36,7 +37,7 @@ export class NewPostComponent {
       id: Posts.length,
       subject: this.subject,
       content: this.content,
-      date: new Date(),
+      date: this.date.toLocaleDateString(),
       user_name: 'testuser',
       topic_name: this.topic,
     };
