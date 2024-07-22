@@ -1,5 +1,6 @@
-<!-- dynamicaly render the signle answers with (for example) a forEach loop witch runs trough an array of all answers and generates an app-answer element for each answer in the array -->
-<app-answer></app-answer>
+<div *ngFor="let answer of Answers">
+        <app-answer [answer]="answer" class="post"></app-answer>
+</div>
 <!-- Button to add new answer -->
 <a routerLink="/new-answer">
     Answer

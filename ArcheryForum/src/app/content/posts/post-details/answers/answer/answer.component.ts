@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Answer } from '../../../../../shared/interfaces';
 
 @Component({
   selector: 'app-answer',
@@ -8,5 +9,5 @@ import { Component } from '@angular/core';
   styleUrl: './answer.component.css'
 })
 export class AnswerComponent {
-
+  @Input() answer?: Answer;
 }
