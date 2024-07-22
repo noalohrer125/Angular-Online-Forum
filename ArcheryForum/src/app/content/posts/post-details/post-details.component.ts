@@ -24,4 +24,16 @@ export class PostDetailsComponent {
 
     localStorage.setItem('CurrentPost', JSON.stringify(this.post_id))
   }
+
+  delete() {
+    const Posts: Post[] = JSON.parse(localStorage.getItem('Posts') || '[]');
+
+    const id: number = Number(localStorage.getItem('CurrentPost'))
+
+    this.Posts = Posts.filter(item => item.id !== id);
+
+    localStorage.setItem('Posts', JSON.stringify(this.Posts))
+
+    window.location.href = '/posts';
+  }
 }

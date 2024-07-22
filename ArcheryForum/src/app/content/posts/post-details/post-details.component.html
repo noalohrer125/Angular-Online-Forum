@@ -1,4 +1,7 @@
-<h1>{{ post.subject }} | {{ post.user_name }} | {{ post.date }}</h1>
-<h3>{{ post.content }}</h3>
-<br>
-<app-answers></app-answers>
+<div class="container">
+    <h1 class="h1">{{ post.subject }} | {{ post.user_name }} | {{ post.date }}</h1>
+    <button class="delete_post" (click)="delete()">Delete this Post</button>
+    <h3 class="content">{{ post.content }}</h3>
+    <br>
+    <app-answers class="answers"></app-answers>
+</div>

@@ -24,17 +24,35 @@ export class NewPostComponent {
     window.location.href = '/posts'
   }
 
+  id!: number;
   subject!: string;
   content!: string;
   topic!: string;
-  id!: number;
   date = new Date()
 
   onSubmit() {
     let Posts = JSON.parse(localStorage.getItem('Posts') || '[]');
 
+    let status = 'used';
+    let x = 0;
+
+    while (status === 'used') {
+      let found = false;
+      Posts.forEach((i: Post) => {
+        if (i.id === x) {
+          x++;
+          found = true;
+        }
+      });
+
+      if (!found) {
+        status = 'free';
+        this.id = x
+      }
+    }
+
     const post: Post = {
-      id: Posts.length,
+      id: this.id,
       subject: this.subject,
       content: this.content,
       date: this.date.toLocaleDateString(),
