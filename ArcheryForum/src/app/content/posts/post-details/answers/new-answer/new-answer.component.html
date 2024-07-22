@@ -1,1 +1,8 @@
-<!-- Form to add new Answer -->
+<form (ngSubmit)="onSubmit()">
+    <div>
+        <label for="content">Content:</label>
+        <input type="text" id="content" name="content" [(ngModel)]="content">
+    </div>
+    <button type="submit" [disabled]="!content">Submit</button>
+    <button (click)="cancel()">Cancel</button>
+</form>
