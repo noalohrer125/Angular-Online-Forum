@@ -1,4 +1,4 @@
-<form (ngSubmit)="onSubmit()">
+<form>
     <div>
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" [(ngModel)]="name">
@@ -7,6 +7,6 @@
         <label for="description">Descripiton:</label>
         <textarea id="description" name="description" [(ngModel)]="description"></textarea>
     </div>
-    <button type="submit" [disabled]="!name || !description">Submit</button>
+    <button type="submit" (click)="onSubmit()" [disabled]="!name || !description">Submit</button>
     <button (click)="cancel()">Cancel</button>
 </form>

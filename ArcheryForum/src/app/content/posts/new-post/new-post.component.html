@@ -1,4 +1,4 @@
-<form (ngSubmit)="onSubmit()">
+<form>
     <div>
         <label for="subject">Subject:</label>
         <input type="text" id="subject" name="subject" [(ngModel)]="subject">
@@ -16,6 +16,6 @@
         </select>
         <!-- <input type="text" id="topic" name="topic" [(ngModel)]="topic"> -->
     </div>
-    <button type="submit" [disabled]="!subject || !content ||!topic">Submit</button>
+    <button type="submit" (click)="onSubmit()" [disabled]="!subject || !content ||!topic">Submit</button>
     <button (click)="cancel()">Cancel</button>
 </form>
