@@ -24,7 +24,7 @@
 .navigationbar {
     grid-area: navigationbar;
     width: 20vw;
-    min-height: 70vh;
+    /* min-height: 60vh; */
     height: max-content;
     align-items: start;
     display: flex;
@@ -37,7 +37,7 @@
     grid-area: content;
     justify-self: end;
     width: 75vw;
-    min-height: 70vh;
+    /* min-height: 60vh; */
     height: max-content;
     margin-right: 1vmax;
 }

@@ -1,6 +1,6 @@
 /* Basic styling for the header */
 header {
-    background-color: #ff8800;
+    background-color: #ffaa00;
     text-align: center;
     padding: 20px;
     margin-bottom: 1vh;
@@ -12,6 +12,5 @@ header {
 
     img {
         max-height: 20vh;
-        border-radius: 15px;
     }
 }

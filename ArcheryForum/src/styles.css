@@ -1,6 +1,11 @@
 * {
     cursor: default;
     font-family: Arial, sans-serif;
+    user-select: none;
+}
+
+img {
+    pointer-events: none;
 }
 
 body {
