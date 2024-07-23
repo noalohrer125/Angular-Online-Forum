@@ -10,4 +10,19 @@ import { Answer } from '../../../../../shared/interfaces';
 })
 export class AnswerComponent {
   @Input() answer?: Answer;
+  Answers!: Answer[];
+
+  delete(answer_id: number) {
+    const post_id: number = Number(localStorage.getItem('CurrentPost'))
+
+    const Answers: Answer[] = JSON.parse(localStorage.getItem('Answers') || '[]');
+
+    const id: number = answer_id
+
+    this.Answers = Answers.filter(item => item.id !== id);
+
+    localStorage.setItem('Answers', JSON.stringify(this.Answers))
+
+    window.location.href = '/post-details/' + post_id;
+  }
 }

@@ -23,6 +23,6 @@ export class AnswersComponent {
   ngOnInit() {
     const id:number = Number(localStorage.getItem('CurrentPost'))
 
-    this.Answers = this.Answers.filter(item => item.post_id !== id);
+    this.Answers = this.Answers.filter(item => item.post_id === id);
   }
 }

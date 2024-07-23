@@ -27,23 +27,42 @@ export class NewAnswerComponent {
 
   content!: string;
   id!: number;
+  post_id!: number;
 
   onSubmit() {
     let Answers = JSON.parse(localStorage.getItem('Answers') || '[]');
 
-    this.id = Number(localStorage.getItem('CurrentPost'))
+    this.post_id = Number(localStorage.getItem('CurrentPost'))
+
+    let status = 'used';
+    let x = 0;
+
+    while (status === 'used') {
+      let found = false;
+      Answers.forEach((i: Answer) => {
+        if (i.id === x) {
+          x++;
+          found = true;
+        }
+      });
+
+      if (!found) {
+        status = 'free';
+        this.id = x
+      }
+    }
 
     const answer: Answer = {
-      id: Answers.length,
+      id: this.id,
       content: this.content,
       user_name: 'testuser',
-      post_id: this.id,
+      post_id: this.post_id,
     };
 
     Answers.push(answer);
 
     localStorage.setItem('Answers', JSON.stringify(Answers));
 
-    window.location.href = '/post-details/' + this.id;
+    window.location.href = '/post-details/' + this.post_id;
   }
 }

@@ -1,6 +1,7 @@
 <table>
     <tr>
-        <td class="username">{{ this.answer?.user_name }}</td>
-        <td class="content">{{ this.answer?.content }}</td>
+        <td class="username">{{ this.answer!.user_name }}</td>
+        <td class="content">{{ this.answer!.content }}</td>
+        <td><button (click)="delete(answer!.id)">Delete</button></td>
     </tr>
 </table>
