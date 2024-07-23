@@ -1,22 +1,17 @@
 /* Basic styling for the header */
 header {
-    background-color: #4CAF50;
-    color: white;
+    background-color: #ff8800;
     text-align: center;
     padding: 20px;
     margin-bottom: 1vh;
-}
+    display: flex;
+    flex-direction: row;
+    gap: 1vmax;
+    align-items: center;
+    border-radius: 20px;
 
-/* Customize the font and size */
-h1 {
-    font-size: 24px;
-    margin: 0;
-}
-
-/* Add a subtle border at the bottom */
-header::after {
-    content: "";
-    display: block;
-    height: 2px;
-    background-color: white;
+    img {
+        max-height: 20vh;
+        border-radius: 15px;
+    }
 }
