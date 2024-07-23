@@ -1,6 +1,6 @@
 import { Component, input } from '@angular/core';
 import { AnswersComponent } from "./answers/answers.component";
-import { Post } from '../../../shared/interfaces';
+import { Answer, Post } from '../../../shared/interfaces';
 import { PostService } from '../../../post.service';
 
 @Component({
@@ -25,7 +25,10 @@ export class PostDetailsComponent {
     localStorage.setItem('CurrentPost', JSON.stringify(this.post_id))
   }
 
+  Answers!: Answer[];
+
   delete() {
+    // delete Post
     const Posts: Post[] = JSON.parse(localStorage.getItem('Posts') || '[]');
 
     const id: number = Number(localStorage.getItem('CurrentPost'))
@@ -35,5 +38,12 @@ export class PostDetailsComponent {
     localStorage.setItem('Posts', JSON.stringify(this.Posts))
 
     window.location.href = '/posts';
+
+    // delete all answers to specific post
+    const Answers: Answer[] = JSON.parse(localStorage.getItem('Answers') || '[]');
+
+    this.Answers = Answers.filter(item => item.post_id !== id);
+
+    localStorage.setItem('Answers', JSON.stringify(this.Answers))
   }
 }
