@@ -27,7 +27,7 @@ export class PostDetailsComponent {
 
   Answers!: Answer[];
 
-  delete() {
+  delete_post() {
     // delete Post
     const Posts: Post[] = JSON.parse(localStorage.getItem('Posts') || '[]');
 
@@ -37,7 +37,6 @@ export class PostDetailsComponent {
 
     localStorage.setItem('Posts', JSON.stringify(this.Posts))
 
-    window.location.href = '/posts';
 
     // delete all answers to specific post
     const Answers: Answer[] = JSON.parse(localStorage.getItem('Answers') || '[]');
@@ -47,7 +46,14 @@ export class PostDetailsComponent {
     localStorage.setItem('Answers', JSON.stringify(this.Answers))
   }
 
+  delete() {
+    window.location.href = '/posts';
+
+    this.delete_post()
+  }
+
   edit() {
-    
+    window.location.href = '/new-post'
+
   }
 }

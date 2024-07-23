@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { PostComponent } from "./post/post.component";
 import { RouterLink } from '@angular/router';
 import { NewPostComponent } from "./new-post/new-post.component";
-import { CommonModule } from '@angular/common';
+import { CommonModule, JsonPipe } from '@angular/common';
 import { Post } from '../../shared/interfaces';
 
 @Component({
@@ -20,4 +20,8 @@ import { Post } from '../../shared/interfaces';
 
 export class PostsComponent {
   Posts = JSON.parse(localStorage.getItem('Posts') || '[]');
+
+  ngOnInit() {
+    localStorage.setItem('CurrentPost', JSON.stringify(NaN))
+  }
 }

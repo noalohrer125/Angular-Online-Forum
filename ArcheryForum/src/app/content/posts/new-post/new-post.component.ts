@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Post, Topic } from '../../../shared/interfaces';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-new-post',
@@ -9,6 +10,7 @@ import { Post, Topic } from '../../../shared/interfaces';
   imports: [
     RouterLink,
     FormsModule,
+    CommonModule,
   ],
   templateUrl: './new-post.component.html',
   styleUrl: './new-post.component.css'
@@ -66,4 +68,10 @@ export class NewPostComponent {
 
     window.location.href = '/posts';
   }
+
+  current_post: number = Number(localStorage.getItem('CurrentPost'))
+
+  Posts: Post[] = JSON.parse(localStorage.getItem('Posts') || '[]');
+
+  Post = this.Posts.filter((item: Post) => item.id === this.current_post);
 }
