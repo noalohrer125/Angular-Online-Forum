@@ -1,7 +1,7 @@
 .container {
   display: grid;
   width: auto;
-  height: 100vh;
+  min-height: 100vh;
   grid-template-areas:
     'header header'
     'navigationbar content'
@@ -15,15 +15,17 @@
     display: grid;
     justify-items: center;
     grid-area: header;
-    height: 5vh;
+    height: max-content;
     padding-top: 2vh;
     margin: 1vmax 1vmax 0 1vmax;
+    background-color: #797979;
 }
 
 .navigationbar {
     grid-area: navigationbar;
     width: 20vw;
-    height: 80vh;
+    min-height: 70vh;
+    height: max-content;
     align-items: start;
     display: flex;
     flex-direction: column;
@@ -35,14 +37,17 @@
     grid-area: content;
     justify-self: end;
     width: 75vw;
-    height: 80vh;
+    min-height: 70vh;
+    height: max-content;
     margin-right: 1vmax;
 }
 
 .footer {
     display: grid;
     justify-items: center;
+    align-self: end;
     grid-area: footer;
-    height: 5vh;
+    height: max-content;
     margin: 0 1vmax 1vmax 1vmax;
+    background-color: #797979;
 }
