@@ -19,6 +19,7 @@
     padding-top: 2vh;
     margin: 1vmax 1vmax 0 1vmax;
     background-color: #797979;
+    border-radius: 15px;
 }
 
 .navigationbar {
@@ -50,4 +51,5 @@
     height: max-content;
     margin: 0 1vmax 1vmax 1vmax;
     background-color: #797979;
+    border-radius: 15px;
 }

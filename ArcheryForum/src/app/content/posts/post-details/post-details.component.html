@@ -1,6 +1,10 @@
 <div class="container">
     <h1 class="h1">{{ post.subject }} | {{ post.user_name }} | {{ post.date }}</h1>
-    <button class="delete_post" (click)="delete()">Delete this Post</button>
+    <div class="edit_delete">
+        <button (click)="delete()">delete</button>
+        <br><br>
+        <button (click)="edit()">edit</button>
+    </div>
     <h3 class="content">{{ post.content }}</h3>
     <br>
     <app-answers class="answers"></app-answers>

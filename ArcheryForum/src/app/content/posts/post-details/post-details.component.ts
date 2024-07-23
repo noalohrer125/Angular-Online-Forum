@@ -46,4 +46,8 @@ export class PostDetailsComponent {
 
     localStorage.setItem('Answers', JSON.stringify(this.Answers))
   }
+
+  edit() {
+    
+  }
 }

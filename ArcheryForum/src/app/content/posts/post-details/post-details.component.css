@@ -7,7 +7,7 @@
     gap: 2vmax;
 }
 
-.delete_post {
+.edit_delete {
     width: max-content;
     height: max-content;
     justify-self: end;
