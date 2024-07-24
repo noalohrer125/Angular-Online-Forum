@@ -1,4 +1,11 @@
 a {
     border: none;
-    color: rgb(0, 102, 255);
+    color: rgb(0, 100, 255);
+    background-color: rgba(0, 0, 0, 0);
+}
+
+a:hover {
+    cursor: pointer;
+    color: yellow !important;
+    box-shadow: none;
 }
