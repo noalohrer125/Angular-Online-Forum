@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostBinding } from '@angular/core';
 
 @Component({
   selector: 'app-my-account',
@@ -8,5 +8,4 @@ import { Component } from '@angular/core';
   styleUrl: './my-account.component.css'
 })
 export class MyAccountComponent {
-
 }
