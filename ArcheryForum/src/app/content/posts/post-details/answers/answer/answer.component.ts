@@ -25,4 +25,8 @@ export class AnswerComponent {
 
     window.location.href = '/post-details/' + post_id;
   }
+
+  edit(id: number) {
+    window.location.href = '/edit-answer/' + id
+  }
 }
