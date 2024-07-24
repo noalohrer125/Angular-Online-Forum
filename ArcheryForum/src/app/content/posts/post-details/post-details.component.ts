@@ -1,7 +1,6 @@
 import { Component, input } from '@angular/core';
 import { AnswersComponent } from "./answers/answers.component";
 import { Answer, Post } from '../../../shared/interfaces';
-import { PostService } from '../../../post.service';
 
 @Component({
   selector: 'app-post-details',
@@ -53,7 +52,7 @@ export class PostDetailsComponent {
   }
 
   edit() {
-    window.location.href = '/new-post'
-
+    const CurrentPost: number = Number(localStorage.getItem('CurrentPost'))
+    window.location.href = '/edit-post/' + CurrentPost
   }
 }
