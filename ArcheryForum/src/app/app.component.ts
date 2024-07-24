@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavigationbarComponent } from "./navigationbar/navigationbar.component";
 import { HeaderComponent } from "./header/header.component";
-import { FooterComponent } from "./footer/footer.component";
 import { HomeComponent } from "./content/home/home.component";
 import { PostsComponent } from "./content/posts/posts.component";
 import { MyAccountComponent } from "./content/my-account/my-account.component";
@@ -16,7 +15,6 @@ import { CommonModule } from '@angular/common';
     RouterOutlet,
     NavigationbarComponent,
     HeaderComponent,
-    FooterComponent,
     HomeComponent,
     PostsComponent,
     MyAccountComponent,

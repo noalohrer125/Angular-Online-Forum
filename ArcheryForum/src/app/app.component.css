@@ -41,15 +41,5 @@
     /* min-height: 60vh; */
     height: max-content;
     margin-right: 1vmax;
-}
-
-.footer {
-    display: grid;
-    justify-items: center;
-    align-self: end;
-    grid-area: footer;
-    height: max-content;
-    margin: 0 1vmax 1vmax 1vmax;
-    background-color: #797979;
-    border-radius: 15px;
+    padding-bottom: 5vh;
 }
