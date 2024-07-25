@@ -23,6 +23,10 @@ button {
 }
 
 button:hover {
+    cursor: default;
+}
+
+button:not([disabled]):hover {
     cursor: pointer;
     color: yellow;
 }
@@ -44,4 +48,16 @@ a:hover {
     color: yellow !important;
     box-shadow: 5px 5px rgb(102, 102, 0);
     transform: translate(-5px, -5px);
+}
+
+input {
+    cursor: text;
+}
+
+textarea {
+    cursor: text;
+}
+
+select {
+    cursor: pointer;
 }
