@@ -2,15 +2,16 @@
 header {
     background-color: #ffaa00;
     text-align: center;
-    padding: 20px;
-    margin-bottom: 1vh;
     display: flex;
     flex-direction: row;
-    gap: 1vmax;
+    gap: 5vw;
     align-items: center;
-    border-radius: 20px;
+    border-radius: 15px;
+    box-shadow: 5px 5px 15px rgb(255, 60, 0);
+    width: 40vw;
+    padding: 15px;
 
     img {
-        max-height: 20vh;
+        max-height: 15vh;
     }
 }

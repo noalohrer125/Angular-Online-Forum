@@ -21,8 +21,10 @@ export class NewAnswerComponent {
     this.answers = JSON.parse(localStorage.getItem('Ansewers') || '[]')
   }
 
+  Current_Post = localStorage.getItem('CurrentPost')
+
   cancel() {
-    window.location.href = '/post-details/:' + this.id
+    window.location.href = '/post-details/' + this.Current_Post
   }
 
   content!: string;

@@ -14,6 +14,11 @@
     grid-area: header;
 }
 
+.edit-delete {
+    width: 4vw;
+    font-size: 2vmin;
+}
+
 .h1 {
     width: max-content;
     grid-area: header;
@@ -23,6 +28,6 @@
     grid-area: content;
 }
 
-.ansers {
+.answers {
     grid-area: answers;
 }

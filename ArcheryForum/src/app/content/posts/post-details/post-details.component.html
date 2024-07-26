@@ -1,9 +1,9 @@
 <div class="container">
     <h1 class="h1">{{ post.subject }} | {{ post.user_name }} | {{ post.date }}</h1>
     <div class="edit_delete">
-        <button (click)="delete()">delete</button>
+        <button class="edit-delete" (click)="delete()">delete</button>
         <br><br>
-        <button (click)="edit()">edit</button>
+        <button class="edit-delete" (click)="edit()">edit</button>
     </div>
     <h3 class="content">{{ post.content }}</h3>
     <br>

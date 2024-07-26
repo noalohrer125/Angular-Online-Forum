@@ -9,6 +9,8 @@ button {
 
 .post {
     margin: 0 auto 0 auto;
+    width: 60vw;
+    height: 4vh;
 }
 
 a {
@@ -34,4 +36,12 @@ a {
 
 .post-link {
     margin-top: 2vh;
+    background-color: rgba(255, 102, 0, 0.5);
+    border: solid 1px gray;
+    border-radius: 15px;
+}
+
+.post-link:hover {
+    box-shadow: black 5px 5px;
+    color: yellow;
 }

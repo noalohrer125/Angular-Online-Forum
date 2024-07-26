@@ -5,7 +5,7 @@
   grid-template-areas:
     'header header'
     'navigationbar content';
-  background-color: #999999;
+  background-color: rgb(170, 170, 170);
   padding: 0;
   gap: 10px;
 }
@@ -15,29 +15,37 @@
     justify-items: center;
     grid-area: header;
     height: max-content;
-    padding-top: 2vh;
-    margin: 1vmax 1vmax 0 1vmax;
-    background-color: #797979;
+    margin: 1vh 1vw;
     border-radius: 15px;
+    padding-top: 2vh;
+    padding-bottom: 5vh;
+    background-color: #8d8d8d;
 }
 
 .navigationbar {
     grid-area: navigationbar;
     width: 20vw;
-    height: 60vh;
+    height: max-content;
     align-items: start;
     display: flex;
     flex-direction: column;
     justify-content: start;
     margin-left: 1vw;
+    border-radius: 15px;
+    background-color: #9f9f9f;
 }
 
 .content {
     grid-area: content;
     justify-self: end;
-    width: 75vw;
-    height: 60vh;
-    margin-right: 1vmax;
+    width: 70vw;
+    min-height: 55vh;
+    height: max-content;
+    padding-top: 5vh;
     padding-bottom: 5vh;
-    overflow-y: scroll;
+    padding-left: 2vw;
+    padding-right: 2vw;
+    border-radius: 15px;
+    margin-right: 1vw;
+    background-color: #9f9f9f;
 }

@@ -14,39 +14,43 @@ body {
 
 button {
     cursor: pointer;
-    border: solid 1px;
+    border: solid 1px gray;
     border-radius: 5px;
     width: auto;
     font-size: 1vmax;
-    background-color: #797979;
+    background-color: #9c9c9c;
     transition: linear 0.2s;
+    background-color: rgb(255, 150, 0);
+    font-size: 2vmin;
 }
 
 button:hover {
     cursor: default;
+    border: none;
 }
 
 button:not([disabled]):hover {
     cursor: pointer;
-    color: yellow;
+    color: rgb(255, 255, 255);
 }
 
 a {
     cursor: pointer;
-    border: solid 1px;
+    border: solid 1px gray;
     border-radius: 5px;
     width: auto;
-    color: #000000;
+    color: #ffff00;
     text-decoration: none;
     padding: 5px;
     transition: linear 0.2s;
-    background-color: #797979;
+    background-color: rgb(255, 160, 0);
+    font-size: 2vmin;
 }
 
 a:hover {
     cursor: pointer;
-    color: yellow !important;
-    box-shadow: 5px 5px rgb(102, 102, 0);
+    color: rgb(255, 255, 255) !important;
+    box-shadow: 5px 5px rgb(0, 0, 0);
     transform: translate(-5px, -5px);
 }
 

@@ -3,6 +3,9 @@ a {
     margin: 0.5vh;
     padding: 0.5vmin;
     color: black;
+    font-size: 2.5vmin;
+    width: 5vw;
+    text-align: center;
 }
 
 div {
