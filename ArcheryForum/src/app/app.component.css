@@ -5,7 +5,7 @@
   grid-template-areas:
     'header header'
     'navigationbar content';
-  background-color: rgb(170, 170, 170);
+  background-color: rgb(141, 141, 141);
   padding: 0;
   gap: 10px;
 }
@@ -19,7 +19,7 @@
     border-radius: 15px;
     padding-top: 2vh;
     padding-bottom: 5vh;
-    background-color: #8d8d8d;
+    background-color: #356775ff;
 }
 
 .navigationbar {
@@ -32,7 +32,7 @@
     justify-content: start;
     margin-left: 1vw;
     border-radius: 15px;
-    background-color: #9f9f9f;
+    background-color: #3c748488;
 }
 
 .content {
@@ -47,5 +47,5 @@
     padding-right: 2vw;
     border-radius: 15px;
     margin-right: 1vw;
-    background-color: #9f9f9f;
+    background-color: #3c748488;
 }
