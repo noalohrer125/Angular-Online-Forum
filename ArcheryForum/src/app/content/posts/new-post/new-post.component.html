@@ -1,20 +1,41 @@
+<h1>Add a new Post</h1>
 <form>
-    <div>
-        <label for="subject">Subject line:</label>
-        <input type="text" id="subject" name="subject" [(ngModel)]="subject">
-    </div>
-    <div>
-        <label for="content">Content:</label>
-        <textarea id="content" name="content" [(ngModel)]="content"></textarea>
-    </div>
-    <div>
-        <label for="topic">Topic:</label>
-        <select id="topic" name="topic" [(ngModel)]="topic">
-            @for (i of topics; track i) {
-                <option value="{{ i.name }}">{{ i.name }}</option>
-            }
-        </select>
-    </div>
-    <button type="submit" (click)="onSubmit()" [disabled]="!subject || !content ||!topic">Submit</button>
-    <button (click)="cancel()">Cancel</button>
+    <table>
+        <tr>
+            <td>
+                <label for="subject">Subject line:</label>
+            </td>
+            <td>
+                <input type="text" id="subject" name="subject" [(ngModel)]="subject">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="content">Content:</label>
+            </td>
+            <td>
+                <textarea id="content" name="content" [(ngModel)]="content"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="topic">Topic:</label>
+            </td>
+            <td>
+                <select id="topic" name="topic" [(ngModel)]="topic">
+                    @for (i of topics; track i) {
+                        <option value="{{ i.name }}">{{ i.name }}</option>
+                    }
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button type="submit" (click)="onSubmit()" [disabled]="!subject || !content ||!topic">Submit</button>
+            </td>
+            <td>
+                <button routerLink="/posts">Cancel</button>
+            </td>
+        </tr>
+    </table>
 </form>

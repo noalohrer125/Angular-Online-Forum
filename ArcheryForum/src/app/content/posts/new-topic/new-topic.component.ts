@@ -1,21 +1,19 @@
 import { Component } from '@angular/core';
 import { Topic } from '../../../shared/interfaces';
 import { FormControlDirective, FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-new-topic',
   standalone: true,
   imports: [
     FormsModule,
+    RouterLink,
   ],
   templateUrl: './new-topic.component.html',
   styleUrl: './new-topic.component.css'
 })
 export class NewTopicComponent {
-  cancel() {
-    window.location.href = '/posts'
-  }
-
   name!: string;
   description!: string;
 

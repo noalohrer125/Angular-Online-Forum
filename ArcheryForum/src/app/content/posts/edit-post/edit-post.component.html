@@ -16,5 +16,5 @@
         </select>
     </div>
     <button type="submit" (click)="onSubmit()" [disabled]="!subject || !content ||!topic">Submit</button>
-    <button (click)="cancel()">Cancel</button>
+    <button [routerLink]="['/post-details', CurrentPostId()]">Cancel</button>
 </form>

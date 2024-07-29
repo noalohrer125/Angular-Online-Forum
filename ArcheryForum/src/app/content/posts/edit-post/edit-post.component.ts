@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, input } from '@angular/core';
 import { Answer, Post, Topic } from '../../../shared/interfaces';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-edit-post',
@@ -9,6 +10,7 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     FormsModule,
+    RouterLink,
   ],
   templateUrl: './edit-post.component.html',
   styleUrl: './edit-post.component.css'
@@ -26,11 +28,6 @@ export class EditPostComponent {
     this.subject = CurrentPost!.subject
     this.content = CurrentPost!.content
     this.topic = CurrentPost!.topic_name
-  }
-
-  // cancel edit
-  cancel() {
-    window.location.href = '/post-details/' + this.CurrentPostId()
   }
 
   // delete old post
