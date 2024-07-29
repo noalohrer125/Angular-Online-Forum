@@ -3,7 +3,7 @@
     <div class="edit_delete">
         <button class="edit-delete" (click)="delete()">delete</button>
         <br><br>
-        <button class="edit-delete" (click)="edit()">edit</button>
+        <button class="edit-delete" [routerLink]="['/edit-post', postId()]">edit</button>
     </div>
     <h3 class="content">{{ post.content }}</h3>
     <br>
