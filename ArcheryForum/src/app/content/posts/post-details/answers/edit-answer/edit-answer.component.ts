@@ -2,6 +2,7 @@ import { Component, input } from '@angular/core';
 import { Answer } from '../../../../../shared/interfaces';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-edit-answer',
@@ -9,6 +10,7 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     FormsModule,
+    RouterLink,
   ],
   templateUrl: './edit-answer.component.html',
   styleUrl: './edit-answer.component.css'
@@ -22,15 +24,13 @@ export class EditAnswerComponent {
   id!: number;
   post_id!: number;
 
+  CurrentPostId = Number(localStorage.getItem('CurrentPost'))
+
   ngOnInit() {
     this.answers = JSON.parse(localStorage.getItem('Answers') || '[]');
     const CurrentAnswer = this.answers.find((item: Answer) => item.id === Number(this.CurrentAnswerId()))
     
     this.content = String(CurrentAnswer!.content)
-  }
-
-  cancel() {
-    window.location.href = '/post-details/' + Number(localStorage.getItem('CurrentPost'))
   }
 
   delete(answer_id: number) {

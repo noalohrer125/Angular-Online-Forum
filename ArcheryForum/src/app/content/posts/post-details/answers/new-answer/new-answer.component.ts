@@ -16,15 +16,11 @@ import { PostService } from '../../../../../post.service';
 })
 export class NewAnswerComponent {
   answers: Answer[] = [];
+  
+  CurrentPostId = Number(localStorage.getItem('CurrentPost'))
 
   ngOnInit() {
     this.answers = JSON.parse(localStorage.getItem('Ansewers') || '[]')
-  }
-
-  Current_Post = localStorage.getItem('CurrentPost')
-
-  cancel() {
-    window.location.href = '/post-details/' + this.Current_Post
   }
 
   content!: string;
