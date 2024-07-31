@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Answer, Post } from '../../../../../shared/interfaces';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { PostService } from '../../../../../post.service';
 
 @Component({
   selector: 'app-new-answer',
