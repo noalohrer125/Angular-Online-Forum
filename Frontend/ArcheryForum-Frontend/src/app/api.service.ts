@@ -9,14 +9,31 @@ export class ApiService {
     private httpClient = inject(HttpClient)
 
   getPosts() {
-    return this.httpClient.get<{ Posts: Post[]}>('http://localhost:8000/posts/');
+    return this.httpClient.get<{ Posts: Post[]}>('http://localhost:8000/get_posts/');
   }
 
   getAnswers() {
-    return this.httpClient.get<{ Answers: Answer[]}>('http://localhost:8000/answers/');
+    return this.httpClient.get<{ Answers: Answer[]}>('http://localhost:8000/get_answers/');
   }
 
   getTopics() {
-    return this.httpClient.get<{ Topics: Topic[]}>('http://localhost:8000/topics/');
+    return this.httpClient.get<{ Topics: Topic[]}>('http://localhost:8000/get_topics/');
+  }
+
+
+  addPost() {
+    
+  }
+
+  addAnswer() {
+
+  }
+
+  addTopic() {
+
+  }
+
+  addUser() {
+
   }
 }
