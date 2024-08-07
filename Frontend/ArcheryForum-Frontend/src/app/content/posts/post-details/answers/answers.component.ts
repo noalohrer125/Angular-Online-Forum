@@ -4,6 +4,7 @@ import { NewAnswerComponent } from "./new-answer/new-answer.component";
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Answer } from '../../../../shared/interfaces';
+import { ApiService } from '../../../../api.service';
 
 @Component({
   selector: 'app-answers',
@@ -18,11 +19,18 @@ import { Answer } from '../../../../shared/interfaces';
   styleUrl: './answers.component.css'
 })
 export class AnswersComponent {
-  Answers: Answer[] = JSON.parse(localStorage.getItem('Answers') || '[]');
+  constructor(private apisercive: ApiService) {}
+
+  Answers!: Answer[];
+  // current post id
+  post_id!: number;
 
   ngOnInit() {
-    const id:number = Number(localStorage.getItem('CurrentPost'))
+    this.apisercive.getAnswers().subscribe(response => {
+      this.Answers = response.Answers
+    })
+    
 
-    this.Answers = this.Answers.filter(item => item.post_id === id);
+    this.Answers = this.Answers.filter(item => item.post_id === this.post_id);
   }
 }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Answer, Post } from '../../../../../shared/interfaces';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { ApiService } from '../../../../../api.service';
 
 @Component({
   selector: 'app-new-answer',
@@ -14,51 +15,30 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './new-answer.component.css'
 })
 export class NewAnswerComponent {
-  answers: Answer[] = [];
+  constructor(private apiservice: ApiService) {}
+
+  Answers: Answer[] = [];
   
-  CurrentPostId = Number(localStorage.getItem('CurrentPost'))
+  CurrentPostId!: Number;
 
   ngOnInit() {
-    this.answers = JSON.parse(localStorage.getItem('Ansewers') || '[]')
+    this.apiservice.getAnswers().subscribe(response => {
+      this.Answers = response.Answers
+    })
   }
 
   content!: string;
   id!: number;
+  // curren post id
   post_id!: number;
 
   onSubmit() {
-    let Answers = JSON.parse(localStorage.getItem('Answers') || '[]');
+    let Answers = this.Answers
 
-    this.post_id = Number(localStorage.getItem('CurrentPost'))
-
-    let status = 'used';
-    let x = 0;
-
-    while (status === 'used') {
-      let found = false;
-      Answers.forEach((i: Answer) => {
-        if (i.id === x) {
-          x++;
-          found = true;
-        }
-      });
-
-      if (!found) {
-        status = 'free';
-        this.id = x
-      }
-    }
-
-    const answer: Answer = {
-      id: this.id,
+    const answer = {
       content: this.content,
-      user_name: 'testuser',
       post_id: this.post_id,
     };
-
-    Answers.push(answer);
-
-    localStorage.setItem('Answers', JSON.stringify(Answers));
 
     window.location.href = '/post-details/' + this.post_id;
   }
