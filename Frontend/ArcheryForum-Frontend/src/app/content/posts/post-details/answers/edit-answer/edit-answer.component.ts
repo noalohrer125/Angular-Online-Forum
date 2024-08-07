@@ -24,7 +24,8 @@ export class EditAnswerComponent {
 
   content!: string;
   id!: number;
-  post_id: number = Number(localStorage.getItem('CurrentPost'))
+  // current post id
+  post_id!: number;
 
   ngOnInit() {
     this.apiservice.getAnswers().subscribe(response => {
