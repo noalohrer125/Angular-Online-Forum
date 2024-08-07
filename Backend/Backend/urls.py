@@ -16,12 +16,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-
-from Backend_App.views import answers, posts, topics
+from Backend_App.views import get_answers, get_posts, get_topics, add_post, add_answer, add_topic, add_user
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('posts/', posts, name='posts'),
-    path('answers/', answers, name='answers'),
-    path('posts/', topics, name='topics'),
+    # get-URLs
+    path('get_posts/', get_posts, name='get_posts'),
+    path('get_answers/', get_answers, name='get_answers'),
+    path('get_topics/', get_topics, name='get_topics'),
+    # add-URLs
+    path('add_post/', add_post, name='add_post'),
+    path('add_answer/', add_answer, name='add_answer'),
+    path('add_topic/', add_topic, name='add_topic'),
+    path('add_user/', add_user, name='add_user'),
 ]

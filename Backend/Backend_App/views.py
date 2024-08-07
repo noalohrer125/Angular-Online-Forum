@@ -2,6 +2,7 @@ import json
 from django.http import HttpResponse
 from .models import Post, Answer, Topic
 from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404
 
 # Posts
 def get_posts(request):
@@ -11,13 +12,19 @@ def get_posts(request):
 def add_post(request):
     if request.method == 'POST':
         data = json.loads(request.body)
-        post = Post.objects.create(
-            Subject=data['Subject'],
-            Content=data['Content'],
-            User_id=data['User_id'],
-            Topic_id=data['Topic_id']
-        )
-        post.save()
+        subject = data.get('subject')
+        content = data.get('content')
+        topic_name = data.get('topic_name')
+
+        topic_id = get_object_or_404(Topic, name=topic_name).id
+
+    post = Post.objects.create(
+        Subject=subject,
+        Content=content,
+        User_id=current_user(),
+        Topic_id=topic_id
+    )
+    post.save()
 
 #Answers
 def get_answers(request):
@@ -34,13 +41,21 @@ def add_answer(Content, User_id, Post_id):
 
 # Topics
 def get_topics(request):
-    topics = Topic.objects.all()
-    return HttpResponse(topics)
+    topics = Topic.objects.all().values('id', 'name')
+    print(list(topics))
+    return HttpResponse(list(topics))
+
+# def get_topics(request):
+#     topics = Topic.objects.all()
+#     formatted_topics = [{topic.name} for topic in topics]
+#     print(formatted_topics)
+#     return HttpResponse(formatted_topics)
+
 
 def add_topic(name, descripiton):
     topic = Topic.objects.create(
         name=name,
-        descripiton=descripiton
+        description=descripiton
         )
     topic.save()
 

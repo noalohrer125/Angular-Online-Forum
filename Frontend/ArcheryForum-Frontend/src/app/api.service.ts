@@ -20,9 +20,8 @@ export class ApiService {
     return this.httpClient.get<{ Topics: Topic[]}>('http://localhost:8000/get_topics/');
   }
 
-
-  addPost() {
-    
+  addPost(post: any) {
+    return this.httpClient.post('http://localhost:8000/addPost/', post);
   }
 
   addAnswer() {
