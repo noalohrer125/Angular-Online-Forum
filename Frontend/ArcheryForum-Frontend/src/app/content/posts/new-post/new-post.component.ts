@@ -5,6 +5,7 @@ import { Post, Topic } from '../../../shared/interfaces';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../../api.service';
 import { HttpClient } from '@angular/common/http';
+import { appConfig } from '../../../app.config';
 
 @Component({
   selector: 'app-new-post',
@@ -18,17 +19,16 @@ import { HttpClient } from '@angular/common/http';
   styleUrl: './new-post.component.css'
 })
 export class NewPostComponent {
-  constructor(private apiService: ApiService, private httpClient: HttpClient) {}
+  constructor(private apiService: ApiService) {}
   
 
   topics: any;
 
   ngOnInit() {
-    this.httpClient.get('http://localhost:8000/get_topics/').subscribe(Response => {
-      this.topics = Response;
-    })
-
-    console.log(this.topics)
+    this.apiService.getTopics().subscribe(response => {
+      console.log('data: ' + response)
+      this.topics = response;
+    });
   }
 
   cancel() {
@@ -46,11 +46,7 @@ export class NewPostComponent {
       topic_name: this.topic,
     };
 
-    this.apiService.addPost(post).subscribe(response => {
-      console.log('Post added successfully', response);
-      window.location.href = '/posts';
-    }, error => {
-      console.error('Error adding post', error);
-    });
+    this.apiService.addPost(post).subscribe();
+    window.location.href = '/posts';
   }
 }

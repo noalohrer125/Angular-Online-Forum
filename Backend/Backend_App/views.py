@@ -3,12 +3,14 @@ from django.http import HttpResponse
 from .models import Post, Answer, Topic
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
+from django.views.decorators.csrf import csrf_exempt
 
 # Posts
 def get_posts(request):
     posts = Post.objects.all()
     return HttpResponse(posts)
 
+@csrf_exempt
 def add_post(request):
     if request.method == 'POST':
         data = json.loads(request.body)
@@ -16,15 +18,14 @@ def add_post(request):
         content = data.get('content')
         topic_name = data.get('topic_name')
 
-        topic_id = get_object_or_404(Topic, name=topic_name).id
+        topic = get_object_or_404(Topic, name=topic_name)
 
     post = Post.objects.create(
         Subject=subject,
         Content=content,
-        User_id=current_user(),
-        Topic_id=topic_id
+        # User_id=current_user(request),
+        Topic_id=topic
     )
-    post.save()
 
 #Answers
 def get_answers(request):
@@ -34,16 +35,17 @@ def get_answers(request):
 def add_answer(Content, User_id, Post_id):
     answer = Answer.objects.create(
         Content=Content,
-        User_id=User_id,
+        # User_id=User_id,
         Post_id=Post_id
         )
-    answer.save()
 
 # Topics
+from django.http import JsonResponse
+
 def get_topics(request):
-    topics = Topic.objects.all().values('id', 'name')
-    print(list(topics))
-    return HttpResponse(list(topics))
+    topics = list(Topic.objects.all().values('id', 'name'))
+    return JsonResponse(topics, safe=False)
+
 
 # def get_topics(request):
 #     topics = Topic.objects.all()
@@ -57,12 +59,10 @@ def add_topic(name, descripiton):
         name=name,
         description=descripiton
         )
-    topic.save()
 
 #Users
 def add_user(name, password):
     user = User.objects.create_user(username=name, password=password)
-    user.save()
 
 def current_user(request):
     return request.user

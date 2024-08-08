@@ -17,16 +17,16 @@ import { ApiService } from '../../../api.service';
   styleUrl: './edit-post.component.css'
 })
 export class EditPostComponent {
-  constructor(private apiservice: ApiService) {}
+  constructor(private apiService: ApiService) {}
 
   CurrentPostId = input.required<string>()
-  topics: Topic[] = [];
+  topics: any;
 
   ngOnInit() {
-    this.apiservice.getTopics().subscribe((response: { Topics: Topic[] }) => {
-      this.topics = response.Topics;
-    })
-
+    this.apiService.getTopics().subscribe(response => {
+      console.log('data: ' + response)
+      this.topics = response;
+    });
 
     // fill edit-form with data of current-post
       // this.subject = CurrentPost!.subject

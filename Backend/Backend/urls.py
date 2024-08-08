@@ -25,7 +25,7 @@ urlpatterns = [
     path('get_answers/', get_answers, name='get_answers'),
     path('get_topics/', get_topics, name='get_topics'),
     # add-URLs
-    path('add_post/', add_post, name='add_post'),
+    path('add_post/', add_post, name="add_post"),
     path('add_answer/', add_answer, name='add_answer'),
     path('add_topic/', add_topic, name='add_topic'),
     path('add_user/', add_user, name='add_user'),
