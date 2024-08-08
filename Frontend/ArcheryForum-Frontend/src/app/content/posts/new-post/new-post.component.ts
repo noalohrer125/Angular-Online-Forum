@@ -1,11 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { Post, Topic } from '../../../shared/interfaces';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../../api.service';
-import { HttpClient } from '@angular/common/http';
-import { appConfig } from '../../../app.config';
 
 @Component({
   selector: 'app-new-post',
@@ -22,11 +19,10 @@ export class NewPostComponent {
   constructor(private apiService: ApiService) {}
   
 
-  topics: any;
+  topics!: any[];
 
   ngOnInit() {
     this.apiService.getTopics().subscribe(response => {
-      console.log('data: ' + response)
       this.topics = response;
     });
   }

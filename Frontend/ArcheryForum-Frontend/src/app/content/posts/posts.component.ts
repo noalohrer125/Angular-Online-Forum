@@ -3,7 +3,6 @@ import { PostComponent } from "./post/post.component";
 import { RouterLink } from '@angular/router';
 import { NewPostComponent } from "./new-post/new-post.component";
 import { CommonModule } from '@angular/common';
-import { Post } from '../../shared/interfaces';
 import { ApiService } from '../../api.service';
 
 @Component({
@@ -22,14 +21,14 @@ import { ApiService } from '../../api.service';
 export class PostsComponent {
   constructor(private apiService: ApiService) {}
 
-  Posts!: Post[];
+  Posts!: any[];
 
   ngOnInit() {
     this.apiService.getPosts().subscribe(response => {
-      this.Posts = response.Posts
+      this.Posts = response
     })
 
     // set current_post
-    // localStorage.setItem('CurrentPost', JSON.stringify(NaN))
+    // ...
   }
 }

@@ -7,8 +7,8 @@ from django.views.decorators.csrf import csrf_exempt
 
 # Posts
 def get_posts(request):
-    posts = Post.objects.all()
-    return HttpResponse(posts)
+    posts = list(Post.objects.all().values('id', 'Subject', 'Content', 'Topic_id'))
+    return JsonResponse(posts, safe=False)
 
 @csrf_exempt
 def add_post(request):
@@ -46,13 +46,8 @@ def get_topics(request):
     topics = list(Topic.objects.all().values('id', 'name'))
     return JsonResponse(topics, safe=False)
 
-
-# def get_topics(request):
-#     topics = Topic.objects.all()
-#     formatted_topics = [{topic.name} for topic in topics]
-#     print(formatted_topics)
-#     return HttpResponse(formatted_topics)
-
+def get_specific_topic(id):
+    return Topic.objects.filter(id=id)
 
 def add_topic(name, descripiton):
     topic = Topic.objects.create(
