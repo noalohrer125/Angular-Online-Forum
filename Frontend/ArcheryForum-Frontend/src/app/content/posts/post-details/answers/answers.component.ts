@@ -27,7 +27,9 @@ export class AnswersComponent {
 
   ngOnInit() {
     this.apisercive.getAnswers().subscribe(response => {
-      this.Answers = response.Answers
+      this.Answers = response
+
+      console.log(this.Answers)
     })
     
 

@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from Backend_App.views import get_answers, get_posts, get_topics, add_post, add_answer, add_topic, add_user, get_specific_topic
+from Backend_App.views import get_answers, get_posts, get_topics, add_post, add_answer, add_topic, add_user, get_specific_topic, get_specific_Post
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,5 +30,7 @@ urlpatterns = [
     path('add_topic/', add_topic, name='add_topic'),
     path('add_user/', add_user, name='add_user'),
     # get_specifi_topic
-    path('get_topic/<int:topic_id>/', get_specific_topic, name='get_specific_topic'),
+    path('get_specific_topic/<int:topic_id>/', get_specific_topic, name='get_specific_topic'),
+    # get_specifi_post
+    path('get_specific_post/<int:topic_id>/', get_specific_Post, name='get_specific_Post'),
 ]

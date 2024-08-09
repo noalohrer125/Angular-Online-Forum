@@ -1,11 +1,11 @@
 <div class="container">
-    <h1 class="h1">{{ post.subject }} | {{ post.user_name }} | {{ post.date }}</h1>
+    <h1 class="h1">{{ subject }} | {{ 'user_name' }}</h1>
     <div class="edit_delete">
         <button class="edit-delete" (click)="delete()">delete</button>
         <br><br>
         <button class="edit-delete" [routerLink]="['/edit-post', postId()]">edit</button>
     </div>
-    <h3 class="content">{{ post.content }}</h3>
+    <h3 class="content">{{ content }}</h3>
     <br>
     <app-answers class="answers"></app-answers>
 </div>

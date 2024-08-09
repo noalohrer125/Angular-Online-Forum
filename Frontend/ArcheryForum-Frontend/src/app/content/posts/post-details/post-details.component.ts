@@ -1,6 +1,5 @@
 import { Component, input } from '@angular/core';
 import { AnswersComponent } from "./answers/answers.component";
-import { Answer, Post } from '../../../shared/interfaces';
 import { RouterLink } from '@angular/router';
 import { ApiService } from '../../../api.service';
 
@@ -15,38 +14,33 @@ import { ApiService } from '../../../api.service';
   styleUrl: './post-details.component.css'
 })
 export class PostDetailsComponent {
-  constructor(private apiService: ApiService) {}
+  postId = input.required()
 
-  postId = input.required<string>()
+  constructor(private apiService: ApiService) { }
+
   post_id_number!: number;
-  Posts!: Post[];
-  post!: Post;
-  
-  // get curren post
-  // ...
-  
+  post!: any;
+
+  subject!: string;
+  // user_name!: string;
+  content!: string;
+
   ngOnInit() {
-    this.apiService.getPosts().subscribe(response => {
-      this.Posts = response.Posts
-    })
+    this.post_id_number = Number(this.postId());
 
-    this.post_id_number= Number(this.postId())
-    this.post = this.Posts.filter(item => item.id === this.post_id_number)[0]
+    this.apiService.getSpecificPost(this.post_id_number).subscribe(response => {
+      this.post = response;
 
-    // set current Post
-    // ...
-  }
-
-  delete_post() {
-    // delete Post
-
-    // delete all answers to specific post
+      this.subject = response.subject
+      this.content = response.content
+      console.log('done till here')
+    });
   }
 
   delete() {
     window.location.href = '/posts';
 
-    this.delete_post()
+    // delete post with all related answers
+    // ...
   }
-  
 }

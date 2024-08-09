@@ -18,17 +18,16 @@ export class PostComponent {
 
   topics!: any[];
 
-  topic_name!: string;
+  topic_name!: any;
 
   ngOnInit() {
-    this.apiService.getSpecificTopic(this.post.id).subscribe(data => {
-      this.topic_name = data;
+
+    this.apiService.getSpecificTopic(this.post.Topic_id).subscribe(response => {
+      this.topic_name = response.name;
+
+      // this.name = this.post.user_name
+      this.topic = this.topic_name
+      this.subject = this.post.Subject
     });
-
-    console.log(this.topics)
-
-    // this.name = this.post.user_name
-    this.topic = this.post.Topic_id
-    this.subject = this.post.Subject
   }
 }

@@ -20,8 +20,12 @@ export class ApiService {
     return this.httpClient.get('http://localhost:8000/get_topics/')
   }
 
-  getSpecificTopic(id: number): Observable<any> {
-    return this.httpClient.get<any>(`http://localhost:8000/get_specific_topic/}${id}/`);
+  getSpecificTopic(topic_id: number): Observable<any> {
+    return this.httpClient.get<any>(`http://localhost:8000/get_specific_topic/${topic_id}/`);
+  }
+
+  getSpecificPost(post_id: number): Observable<any> {
+    return this.httpClient.get<any>(`http://localhost:8000/get_specific_post/${post_id}/`);
   }
 
   addPost(post: any) {
