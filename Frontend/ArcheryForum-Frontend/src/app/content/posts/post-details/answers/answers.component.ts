@@ -3,7 +3,6 @@ import { AnswerComponent } from "./answer/answer.component";
 import { NewAnswerComponent } from "./new-answer/new-answer.component";
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Answer } from '../../../../shared/interfaces';
 import { ApiService } from '../../../../api.service';
 
 @Component({
@@ -23,12 +22,12 @@ export class AnswersComponent {
 
   Answers!: any[];
   // current post id
-  post_id!: number;
+  post_id: number = Number(localStorage.getItem('current_post'));
 
   ngOnInit() {
     this.apisercive.getAnswers().subscribe(response => {
-      this.Answers = response      
-      this.Answers = this.Answers.filter(item => item.post_id === this.post_id);
+      this.Answers = response
+      this.Answers = this.Answers.filter(item => item.Post_id === this.post_id);
     })
   }
 }

@@ -1,5 +1,4 @@
 import { Component, input } from '@angular/core';
-import { Answer } from '../../../../../shared/interfaces';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
@@ -20,7 +19,7 @@ export class EditAnswerComponent {
   constructor(private apiservice: ApiService) {}
 
   CurrentAnswerId = input.required<string>()
-  Answers!: Answer[];
+  Answers!: any[];
 
   content!: string;
   id!: number;
@@ -32,7 +31,7 @@ export class EditAnswerComponent {
       this.Answers = response.Answers
     })
 
-    const CurrentAnswer = this.Answers.find((item: Answer) => item.id === Number(this.CurrentAnswerId()))
+    const CurrentAnswer = this.Answers.find((item: any) => item.id === Number(this.CurrentAnswerId()))
     
     this.content = String(CurrentAnswer!.content)
   }

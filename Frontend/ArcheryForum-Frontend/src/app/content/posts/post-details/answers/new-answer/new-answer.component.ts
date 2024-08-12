@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Answer, Post } from '../../../../../shared/interfaces';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ApiService } from '../../../../../api.service';
@@ -17,7 +16,7 @@ import { ApiService } from '../../../../../api.service';
 export class NewAnswerComponent {
   constructor(private apiService: ApiService) {}
 
-  Answers: Answer[] = [];
+  Answers: any[] = [];
 
   ngOnInit() {
     this.apiService.getAnswers().subscribe(response => {

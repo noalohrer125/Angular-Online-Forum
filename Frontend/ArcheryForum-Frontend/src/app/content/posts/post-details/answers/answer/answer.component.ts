@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { Answer } from '../../../../../shared/interfaces';
 import { ApiService } from '../../../../../api.service';
 
 @Component({
@@ -12,8 +11,8 @@ import { ApiService } from '../../../../../api.service';
 export class AnswerComponent {
   constructor(private apiservice: ApiService) {}
 
-  @Input() answer?: Answer;
-  Answers!: Answer[];
+  @Input() answer?: any;
+  Answers!: any[];
 
   delete(answer_id: number) {
     // delete answer

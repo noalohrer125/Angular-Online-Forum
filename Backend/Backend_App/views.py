@@ -42,7 +42,7 @@ def add_post(request):
 
 # Answers
 def get_answers(request):
-    topics = list(Answer.objects.all().values("id", "Content"))
+    topics = list(Answer.objects.all().values("id", "Content", "Post_id"))
     return JsonResponse(topics, safe=False)
 
 @csrf_exempt

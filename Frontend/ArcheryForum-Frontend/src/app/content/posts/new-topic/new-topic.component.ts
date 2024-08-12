@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Topic } from '../../../shared/interfaces';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { ApiService } from '../../../api.service';
