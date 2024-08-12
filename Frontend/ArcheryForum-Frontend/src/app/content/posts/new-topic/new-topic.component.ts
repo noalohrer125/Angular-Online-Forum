@@ -14,7 +14,7 @@ import { ApiService } from '../../../api.service';
   styleUrl: './new-topic.component.css'
 })
 export class NewTopicComponent {
-  constructor(private apiservice: ApiService) {}
+  constructor(private apiService: ApiService) {}
 
   name!: string;
   description!: string;
@@ -25,8 +25,7 @@ export class NewTopicComponent {
       description: this.description,
     };
 
-    // this.apiservice.addTopic(name descripiton)
-
+    this.apiService.addTopic(topic).subscribe();
     window.location.href = '/posts';
   }
 }

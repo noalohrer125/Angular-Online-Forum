@@ -54,7 +54,6 @@ def add_answer(request):
 
         post = get_object_or_404(Post, id=post_id)
 
-
     answer = Answer.objects.create(
         Content=content,
         # User_id=current_user(request),
@@ -75,10 +74,16 @@ def get_specific_topic(request, topic_id):
     topic = Topic.objects.filter(id=topic_id).first()
     return JsonResponse({'name': topic.name})
 
-def add_topic(name, descripiton):
+@csrf_exempt
+def add_topic(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        name = data.get("name")
+        description = data.get("description")
+
     topic = Topic.objects.create(
         name=name,
-        description=descripiton,
+        description=description,
     )
 
 

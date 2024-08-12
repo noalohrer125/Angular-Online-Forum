@@ -38,8 +38,8 @@ export class ApiService {
     return this.httpClient.post('http://localhost:8000/add_answer/', answer);
   }
 
-  addTopic() {
-
+  addTopic(topic: any) {
+    return this.httpClient.post('http://localhost:8000/add_topic/', topic)
   }
 
   addUser() {
