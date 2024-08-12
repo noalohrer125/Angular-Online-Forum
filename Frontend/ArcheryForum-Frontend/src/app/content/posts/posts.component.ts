@@ -31,4 +31,8 @@ export class PostsComponent {
       this.isLoading = false;
     })
   }
+
+  current_post(post_id: number) {
+    localStorage.setItem('current_post', JSON.stringify(post_id))
+  }
 }

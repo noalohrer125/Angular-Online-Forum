@@ -32,5 +32,5 @@ urlpatterns = [
     # get_specifi_topic
     path('get_specific_topic/<int:topic_id>/', get_specific_topic, name='get_specific_topic'),
     # get_specifi_post
-    path('get_specific_post/<int:topic_id>/', get_specific_Post, name='get_specific_Post'),
+    path('get_specific_post/<int:post_id>/', get_specific_Post, name='get_specific_Post'),
 ]

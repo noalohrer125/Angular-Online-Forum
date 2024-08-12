@@ -31,9 +31,10 @@ export class PostDetailsComponent {
     this.apiService.getSpecificPost(this.post_id_number).subscribe(response => {
       this.post = response;
 
-      this.subject = response.subject
-      this.content = response.content
-      console.log('done till here')
+      this.subject = response.Subject
+      this.content = response.Content
+
+      console.log('done reading post data')
     });
   }
 

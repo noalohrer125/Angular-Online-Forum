@@ -21,18 +21,14 @@ import { ApiService } from '../../../../api.service';
 export class AnswersComponent {
   constructor(private apisercive: ApiService) {}
 
-  Answers!: Answer[];
+  Answers!: any[];
   // current post id
   post_id!: number;
 
   ngOnInit() {
     this.apisercive.getAnswers().subscribe(response => {
-      this.Answers = response
-
-      console.log(this.Answers)
+      this.Answers = response      
+      this.Answers = this.Answers.filter(item => item.post_id === this.post_id);
     })
-    
-
-    this.Answers = this.Answers.filter(item => item.post_id === this.post_id);
   }
 }

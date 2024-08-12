@@ -1,4 +1,5 @@
 import json
+from django.forms import model_to_dict
 from django.http import HttpResponse
 from .models import Post, Answer, Topic
 from django.contrib.auth.models import User
@@ -11,9 +12,15 @@ def get_posts(request):
     posts = list(Post.objects.all().values("id", "Subject", "Content", "Topic_id"))
     return JsonResponse(posts, safe=False)
 
-def get_specific_Post(request, Post_id):
-    post = Post.objects.filter(id=Post_id).first()
-    return JsonResponse({'post': post})
+# def get_specific_Post(request, post_id):
+#     post = Post.objects.filter(id=post_id).first()
+#     return JsonResponse({'post': post})
+
+def get_specific_Post(request, post_id):
+    post = Post.objects.filter(id=post_id).first()
+    if post:
+        post_dict = model_to_dict(post)
+        return JsonResponse({'post': post_dict})
 
 @csrf_exempt
 def add_post(request):
@@ -35,15 +42,23 @@ def add_post(request):
 
 # Answers
 def get_answers(request):
-    topics = list(Answer.objects.all().values("id", "content"))
+    topics = list(Answer.objects.all().values("id", "Content"))
     return JsonResponse(topics, safe=False)
 
+@csrf_exempt
+def add_answer(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        content = data.get("content")
+        post_id = data.get("post_id")
 
-def add_answer(Content, User_id, Post_id):
+        post = get_object_or_404(Post, id=post_id)
+
+
     answer = Answer.objects.create(
-        Content=Content,
-        # User_id=User_id,
-        Post_id=Post_id,
+        Content=content,
+        # User_id=current_user(request),
+        Post_id=post,
     )
 
 

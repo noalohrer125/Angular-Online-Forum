@@ -15,30 +15,31 @@ import { ApiService } from '../../../../../api.service';
   styleUrl: './new-answer.component.css'
 })
 export class NewAnswerComponent {
-  constructor(private apiservice: ApiService) {}
+  constructor(private apiService: ApiService) {}
 
   Answers: Answer[] = [];
-  
-  CurrentPostId!: Number;
 
   ngOnInit() {
-    this.apiservice.getAnswers().subscribe(response => {
+    this.apiService.getAnswers().subscribe(response => {
       this.Answers = response.Answers
     })
   }
 
   content!: string;
-  id!: number;
   // curren post id
   post_id!: number;
 
   onSubmit() {
-    let Answers = this.Answers
+    this.post_id = Number(localStorage.getItem('current_post'))
+
+
 
     const answer = {
       content: this.content,
       post_id: this.post_id,
     };
+
+    this.apiService.addAnswer(answer).subscribe();
 
     window.location.href = '/post-details/' + this.post_id;
   }
