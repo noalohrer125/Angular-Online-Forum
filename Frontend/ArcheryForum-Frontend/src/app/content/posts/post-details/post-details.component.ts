@@ -22,7 +22,7 @@ export class PostDetailsComponent {
   post!: any;
 
   subject!: string;
-  // user_name!: string;
+  user_name!: string;
   content!: string;
 
   ngOnInit() {
@@ -31,8 +31,14 @@ export class PostDetailsComponent {
     this.apiService.getSpecificPost(this.post_id_number).subscribe(response => {
       this.post = response;
 
-      this.subject = response.Subject
-      this.content = response.Content
+      this.subject = response.post.Subject
+      this.user_name = 'user'
+      this.content = response.post.Content
+
+      console.log(response)
+
+      console.log('subject: ' + this.subject)
+      console.log('content: ' + this.content)
 
       console.log('done reading post data')
     });
