@@ -16,41 +16,32 @@ import { ApiService } from '../../../../../api.service';
   styleUrl: './edit-answer.component.css'
 })
 export class EditAnswerComponent {
-  constructor(private apiservice: ApiService) {}
+  constructor(private apiService: ApiService) {}
 
   CurrentAnswerId = input.required<string>()
-  Answers!: any[];
 
   content!: string;
-  id!: number;
-  // current post id
   post_id: number = Number(localStorage.getItem('current_post'));
 
   ngOnInit() {
-    this.apiservice.getAnswers().subscribe(response => {
-      this.Answers = response.Answers
-    })
-
-    const CurrentAnswer = this.Answers.find((item: any) => item.id === Number(this.CurrentAnswerId()))
-    
-    this.content = String(CurrentAnswer!.content)
-  }
-
-  delete(answer_id: number) {
-    // delete answer
-    // ...
-
-    window.location.href = '/post-details/' + this.post_id;
+    this.apiService.getSpecificAnswer(Number(this.CurrentAnswerId())).subscribe(data => {
+      this.content = data.answer.Content
+    });
   }
 
   onSubmit() {
-    this.delete(Number(this.CurrentAnswerId()))
-
     const answer = {
+      id: Number(this.CurrentAnswerId()),
       content: this.content,
-      post_id: this.post_id,
     };
 
-    window.location.href = '/post-details/' + this.post_id;
+    this.apiService.editAnswer(answer).subscribe(value => {
+      if (value) {
+        window.location.href = '/post-details/' + this.post_id;
+      }
+      else {
+        console.log('An error occured, please try again later.')
+      }
+    });
   }
 }

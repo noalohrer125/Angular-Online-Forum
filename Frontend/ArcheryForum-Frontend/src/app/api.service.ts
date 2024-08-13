@@ -29,6 +29,10 @@ export class ApiService {
     return this.httpClient.get<any>(`http://localhost:8000/get_specific_post/${post_id}/`);
   }
 
+  getSpecificAnswer(answer_id: number): Observable<any> {
+    return this.httpClient.get<any>(`http://localhost:8000/get_specific_answer/${answer_id}/`);
+  }
+
 
   addPost(post: any) {
     return this.httpClient.post('http://localhost:8000/add_post/', post);
@@ -55,11 +59,11 @@ export class ApiService {
   }
 
 
-  editPost(post: any) {
+  editPost(post: any): Observable<any> {
     return this.httpClient.post('http://localhost:8000/edit_post/', post);
   }
 
-  editAnswer(answer: any) {
+  editAnswer(answer: any): Observable<any> {
     return this.httpClient.post('http://localhost:8000/edit_answer/', answer);
   }
 

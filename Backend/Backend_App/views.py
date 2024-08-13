@@ -69,6 +69,12 @@ def get_answers(request):
     topics = list(Answer.objects.all().values("id", "Content", "Post_id"))
     return JsonResponse(topics, safe=False)
 
+def get_specific_Answer(request, answer_id):
+    answer = Answer.objects.filter(id=answer_id).first()
+    if answer:
+        answer_dict = model_to_dict(answer)
+        return JsonResponse({'answer': answer_dict})
+
 @csrf_exempt
 def add_answer(request):
     if request.method == "POST":
@@ -92,13 +98,19 @@ def delete_answer(request, id):
 
     return HttpResponse(200)
 
-def edit_answer(request, new_answer):
-    answer = Answer.objects.get(id=answer.id)
-    answer.field_name = new_answer.data
-    answer.field_name = new_answer.data
-    answer.field_name  = new_answer.data
+@csrf_exempt
+def edit_answer(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
 
-    answer.save()
+        answer_id = data.get("id")
+        
+        # Update the post
+        answer = Answer.objects.get(id=answer_id)
+        
+        answer.Content=data.get("content")
+
+        answer.save()
 
     return HttpResponse(200)
 

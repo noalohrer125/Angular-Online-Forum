@@ -16,11 +16,11 @@ import { ApiService } from '../../../api.service';
   styleUrl: './edit-post.component.css'
 })
 export class EditPostComponent {
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService) { }
 
   CurrentPostId = input.required<string>()
   topics: any;
-  
+
   // post-propertys for edit-form
   subject!: string;
   content!: string;
@@ -28,7 +28,7 @@ export class EditPostComponent {
 
 
   topic!: string;
-  
+
   ngOnInit() {
     this.apiService.getTopics().subscribe(response => {
       this.topics = response;
@@ -37,7 +37,7 @@ export class EditPostComponent {
     const post_id_number = Number(this.CurrentPostId())
 
     this.apiService.getSpecificPost(post_id_number).subscribe(response => {
-      
+
       // fill edit-form with data of current-post
       this.subject = response.post.Subject
       this.content = response.post.Content
@@ -54,10 +54,16 @@ export class EditPostComponent {
       subject: this.subject,
       content: this.content,
       // user_name: 'user',
-      topic_id: this.topic,
+      topic_id: this.topic_name,
     };
 
-    this.apiService.editPost(post).subscribe()
-    window.location.href = '/post-details/' + this.CurrentPostId();
+    this.apiService.editPost(post).subscribe(value => {
+      if (value) {
+        window.location.href = '/post-details/' + this.CurrentPostId();
+      }
+      else {
+        console.log('An error occured, please try again later.')
+      }
+    });
   }
 }
