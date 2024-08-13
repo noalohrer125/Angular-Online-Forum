@@ -39,9 +39,6 @@ export class PostDetailsComponent {
 
   delete() {
       this.apiService.deletePost(this.post_id_number).subscribe()
-
-      // delete all related answers
-      // ...
       
       window.location.href = '/posts';
     }

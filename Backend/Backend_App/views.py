@@ -43,6 +43,26 @@ def delete_post(request, id):
 
     return HttpResponse(200)
 
+@csrf_exempt
+def edit_post(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+
+        post_id = data.get("id")
+        
+        # Update the post
+        post = Post.objects.get(id=post_id)
+
+        topic = Topic.objects.get(name=data.get("topic_id"))
+
+        post.Subject=data.get("subject")
+        post.Content=data.get("content")
+        post.Topic_id=topic
+
+        post.save()
+
+    return HttpResponse(200)
+
 
 # Answers
 def get_answers(request):
@@ -68,8 +88,17 @@ def add_answer(request):
 
 def delete_answer(request, id):
     answer = Answer.objects.get(id=id)
-    print(answer)
     answer.delete()
+
+    return HttpResponse(200)
+
+def edit_answer(request, new_answer):
+    answer = Answer.objects.get(id=answer.id)
+    answer.field_name = new_answer.data
+    answer.field_name = new_answer.data
+    answer.field_name  = new_answer.data
+
+    answer.save()
 
     return HttpResponse(200)
 
@@ -103,7 +132,6 @@ def add_topic(request):
 
 def delete_topic(request, id):
     topic = Topic.objects.get(id=id)
-    print(topic)
     topic.delete()
 
     return HttpResponse(200)

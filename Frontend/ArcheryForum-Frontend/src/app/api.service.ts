@@ -54,6 +54,15 @@ export class ApiService {
     return this.httpClient.get<any>(`http://localhost:8000/delete_topic/${topic_id}/`);
   }
 
+
+  editPost(post: any) {
+    return this.httpClient.post('http://localhost:8000/edit_post/', post);
+  }
+
+  editAnswer(answer: any) {
+    return this.httpClient.post('http://localhost:8000/edit_answer/', answer);
+  }
+
   // User-Handling
   addUser() {
 
