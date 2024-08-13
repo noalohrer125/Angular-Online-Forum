@@ -21,7 +21,7 @@
                 <label for="topic">Topic:</label>
             </td>
             <td>
-                <select id="topic" name="topic" [(ngModel)]="topic">
+                <select id="topic" name="topic" [(ngModel)]="topic_name">
                     @for (i of topics; track i) {
                         <option value="{{ i.name }}">{{ i.name }}</option>
                     }

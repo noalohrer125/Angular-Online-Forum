@@ -24,6 +24,9 @@ export class EditPostComponent {
   // post-propertys for edit-form
   subject!: string;
   content!: string;
+  topic_name!: string;
+
+
   topic!: string;
   
   ngOnInit() {
@@ -40,6 +43,7 @@ export class EditPostComponent {
       this.content = response.post.Content
       this.apiService.getSpecificTopic(response.post.Topic_id).subscribe(data => {
         this.topic = data
+        this.topic_name = data.name
       });
     });
   }
@@ -54,6 +58,6 @@ export class EditPostComponent {
     };
 
     this.apiService.editPost(post).subscribe()
-    window.location.href = '/posts';
+    window.location.href = '/post-details/' + this.CurrentPostId();
   }
 }
