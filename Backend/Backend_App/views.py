@@ -12,10 +12,6 @@ def get_posts(request):
     posts = list(Post.objects.all().values("id", "Subject", "Content", "Topic_id"))
     return JsonResponse(posts, safe=False)
 
-# def get_specific_Post(request, post_id):
-#     post = Post.objects.filter(id=post_id).first()
-#     return JsonResponse({'post': post})
-
 def get_specific_Post(request, post_id):
     post = Post.objects.filter(id=post_id).first()
     if post:
@@ -39,6 +35,14 @@ def add_post(request):
         Topic_id=topic,
     )
 
+    return HttpResponse(200)
+
+def delete_post(request, id):
+    post = Post.objects.get(id=id)
+    post.delete()
+
+    return HttpResponse(200)
+
 
 # Answers
 def get_answers(request):
@@ -59,6 +63,15 @@ def add_answer(request):
         # User_id=current_user(request),
         Post_id=post,
     )
+
+    return HttpResponse(200)
+
+def delete_answer(request, id):
+    answer = Answer.objects.get(id=id)
+    print(answer)
+    answer.delete()
+
+    return HttpResponse(200)
 
 
 # Topics
@@ -86,6 +99,15 @@ def add_topic(request):
         description=description,
     )
 
+    return HttpResponse(200)
+
+def delete_topic(request, id):
+    topic = Topic.objects.get(id=id)
+    print(topic)
+    topic.delete()
+
+    return HttpResponse(200)
+
 
 # Users
 def add_user(name, password):
@@ -94,5 +116,10 @@ def add_user(name, password):
         password=password,
     )
 
+    return HttpResponse(200)
+
 def current_user(request):
     return request.user
+
+def delete_user(request, id):
+    pass

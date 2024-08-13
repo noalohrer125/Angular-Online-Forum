@@ -34,20 +34,15 @@ export class PostDetailsComponent {
       this.subject = response.post.Subject
       this.user_name = 'user'
       this.content = response.post.Content
-
-      console.log(response)
-
-      console.log('subject: ' + this.subject)
-      console.log('content: ' + this.content)
-
-      console.log('done reading post data')
     });
   }
 
   delete() {
-    window.location.href = '/posts';
+      this.apiService.deletePost(this.post_id_number).subscribe()
 
-    // delete post with all related answers
-    // ...
-  }
+      // delete all related answers
+      // ...
+      
+      window.location.href = '/posts';
+    }
 }

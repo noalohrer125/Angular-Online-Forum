@@ -42,6 +42,19 @@ export class ApiService {
     return this.httpClient.post('http://localhost:8000/add_topic/', topic)
   }
 
+  deletePost(post_id: number): Observable<any> {
+    return this.httpClient.get<any>(`http://localhost:8000/delete_post/${post_id}/`);
+  }
+
+  deleteAnswer(answer_id: number): Observable<any> {
+    return this.httpClient.get<any>(`http://localhost:8000/delete_answer/${answer_id}/`);
+  }
+
+  deleteTopic(topic_id: number): Observable<any> {
+    return this.httpClient.get<any>(`http://localhost:8000/delete_topic/${topic_id}/`);
+  }
+
+  // User-Handling
   addUser() {
 
   }

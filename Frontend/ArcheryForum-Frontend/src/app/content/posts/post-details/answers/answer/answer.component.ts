@@ -9,14 +9,15 @@ import { ApiService } from '../../../../../api.service';
   styleUrl: './answer.component.css'
 })
 export class AnswerComponent {
-  constructor(private apiservice: ApiService) {}
+  constructor(private apiService: ApiService) {}
 
   @Input() answer?: any;
   Answers!: any[];
 
   delete(answer_id: number) {
-    // delete answer
-    // ...
+    this.apiService.deleteAnswer(answer_id).subscribe()
+    
+    location.reload()
   }
 
   edit(id: number) {
