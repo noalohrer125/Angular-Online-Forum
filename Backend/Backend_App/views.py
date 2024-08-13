@@ -53,7 +53,7 @@ def edit_post(request):
         # Update the post
         post = Post.objects.get(id=post_id)
 
-        topic = Topic.objects.get(name=data.get("topic_id"))
+        topic = Topic.objects.get(name=data.get("topic_name"))
 
         post.Subject=data.get("subject")
         post.Content=data.get("content")

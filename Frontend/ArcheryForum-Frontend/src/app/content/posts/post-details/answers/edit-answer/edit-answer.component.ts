@@ -34,7 +34,6 @@ export class EditAnswerComponent {
       id: Number(this.CurrentAnswerId()),
       content: this.content,
     };
-
     this.apiService.editAnswer(answer).subscribe(value => {
       if (value) {
         window.location.href = '/post-details/' + this.post_id;

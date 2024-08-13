@@ -54,7 +54,7 @@ export class EditPostComponent {
       subject: this.subject,
       content: this.content,
       // user_name: 'user',
-      topic_id: this.topic_name,
+      topic_name: this.topic_name,
     };
 
     this.apiService.editPost(post).subscribe(value => {
