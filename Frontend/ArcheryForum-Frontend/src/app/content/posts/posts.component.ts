@@ -22,13 +22,10 @@ export class PostsComponent {
   constructor(private apiService: ApiService) {}
 
   Posts!: any[];
-  isLoading: boolean = true;
 
   ngOnInit() {
     this.apiService.getPosts().subscribe(response => {
       this.Posts = response
-
-      this.isLoading = false;
     })
   }
 

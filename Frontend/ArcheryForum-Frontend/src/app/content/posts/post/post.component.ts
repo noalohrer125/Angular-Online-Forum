@@ -12,21 +12,16 @@ export class PostComponent {
   @Input() post?: any
   constructor(private apiService: ApiService) {}
 
-  // name!: string;
-  topic: string = 'test';
+  user_name!: string;
+  topic!: string;
   subject!: string;
-
-  topics!: any[];
-
-  topic_name!: any;
 
   ngOnInit() {
 
     this.apiService.getSpecificTopic(this.post.Topic_id).subscribe(response => {
-      this.topic_name = response.name;
 
-      // this.name = this.post.user_name
-      this.topic = this.topic_name
+      this.user_name = 'this.post.user_name'
+      this.topic = response.name
       this.subject = this.post.Subject
     });
   }

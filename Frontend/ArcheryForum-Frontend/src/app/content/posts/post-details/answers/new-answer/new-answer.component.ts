@@ -16,23 +16,12 @@ import { ApiService } from '../../../../../api.service';
 export class NewAnswerComponent {
   constructor(private apiService: ApiService) {}
 
-  Answers: any[] = [];
-
-  ngOnInit() {
-    this.apiService.getAnswers().subscribe(response => {
-      this.Answers = response.Answers
-    })
-  }
+  ngOnInit() {}
 
   content!: string;
-  // curren post id
-  post_id!: number;
+  post_id: number = Number(localStorage.getItem('current_post'));
 
   onSubmit() {
-    this.post_id = Number(localStorage.getItem('current_post'))
-
-
-
     const answer = {
       content: this.content,
       post_id: this.post_id,

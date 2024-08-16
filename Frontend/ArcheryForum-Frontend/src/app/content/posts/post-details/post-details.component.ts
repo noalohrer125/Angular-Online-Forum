@@ -19,7 +19,6 @@ export class PostDetailsComponent {
   constructor(private apiService: ApiService) { }
 
   post_id_number!: number;
-  post!: any;
 
   subject!: string;
   user_name!: string;
@@ -29,7 +28,6 @@ export class PostDetailsComponent {
     this.post_id_number = Number(this.postId());
 
     this.apiService.getSpecificPost(this.post_id_number).subscribe(response => {
-      this.post = response;
 
       this.subject = response.post.Subject
       this.user_name = 'user'

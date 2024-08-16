@@ -7,7 +7,7 @@
     gap: 2vmax;
 }
 
-.edit_delete {
+.edit_delete_container {
     width: max-content;
     height: max-content;
     justify-self: end;

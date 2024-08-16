@@ -13,10 +13,8 @@
     <button>sort Posts</button>
 </div>
 -->
-<!-- <div *ngIf="!isLoading"> -->
-    <div *ngFor="let post of Posts">
-        <a class="post-link" [routerLink]="'/post-details/' + post.id" (click)="current_post(post.id)">
-            <app-post [post]="post" class="post"></app-post>
-        </a>
-    </div>
-<!-- </div> -->
+<div *ngFor="let post of Posts">
+    <a class="post-link" [routerLink]="'/post-details/' + post.id" (click)="current_post(post.id)">
+        <app-post [post]="post" class="post"></app-post>
+    </a>
+</div>
