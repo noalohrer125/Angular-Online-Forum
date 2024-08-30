@@ -1,10 +1,14 @@
 import json
+from pyexpat.errors import messages
 from django.forms import model_to_dict
 from django.http import HttpResponse
+
+from Backend.Backend_App.forms import RegisterForm
 from .models import Post, Answer, Topic
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 
 
 # Posts
@@ -149,17 +153,33 @@ def delete_topic(request, id):
     return HttpResponse(200)
 
 
-# Users
-def add_user(name, password):
-    user = User.objects.create_user(
-        username=name,
-        password=password,
-    )
+# User-Verwaltung
+def login(request):
+    if request.method == 'POST':
+        username = request.POST["username"] # Username aus Formular in Variable username speichern
+        password = request.POST["password"] # Passwort aus Formular in Variable password speichern
+        user = authenticate(request, username=username, password=password) # Ist der Username in der DB vorhanden? Ist das Passwort in der DB vohanden und gehört es zum eingegebenen User?
+        # Wenn der User valide ist wird er angemeldet und auf die Home Seite umgeleitet
+        if user is not None:
+            auth_login(request, user)
+        # Wenn die Userinformationen inkorrekt sind erscheint eine Nachricht mit 'Login Incorrect' und der User wird auf die Login Seite umgeleitet
+        else:
+            messages.info(request, 'Login incorrect!')
+    else:
+        return 0
 
-    return HttpResponse(200)
+def logout(request):
+    auth_logout(request) # User wird ausgeloggt
 
-def current_user(request):
-    return request.user
-
-def delete_user(request, id):
-    pass
+def sign_up(request):
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return 0
+        else:
+            if request:
+                messages.info(request, 'You must define a unique username and your password must contain at least 8 characters!')
+    else:
+        form = RegisterForm()
+        return 0
