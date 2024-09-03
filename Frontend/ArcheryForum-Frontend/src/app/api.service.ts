@@ -68,7 +68,19 @@ export class ApiService {
   }
 
   // User-Handling
-  addUser() {
+  login(user: object) {
+    return this.httpClient.post('http://localhost:8000/login/', user)
+  }
 
+  logout() {
+    return this.httpClient.get('http://localhost:8000/logout/')
+  }
+
+  sign_up(user: object) {
+    return this.httpClient.post('http://localhost:8000/sign_up/', user)
+  }
+
+  current_user() {
+    return this.httpClient.get('http://localhost:8000/current_user/')
   }
 }

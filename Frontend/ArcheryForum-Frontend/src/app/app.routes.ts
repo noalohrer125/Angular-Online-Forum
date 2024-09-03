@@ -8,6 +8,8 @@ import { NewTopicComponent } from "./content/posts/new-topic/new-topic.component
 import { NewAnswerComponent } from "./content/posts/post-details/answers/new-answer/new-answer.component";
 import { EditPostComponent } from "./content/posts/edit-post/edit-post.component";
 import { EditAnswerComponent } from "./content/posts/post-details/answers/edit-answer/edit-answer.component";
+import { LoginComponent } from "./user-handling/login/login.component";
+import { RegisterComponent } from "./user-handling/register/register.component";
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -20,4 +22,6 @@ export const routes: Routes = [
     { path: 'new-topic', component: NewTopicComponent},
     { path: 'new-answer', component: NewAnswerComponent},
     { path: 'edit-answer/:CurrentAnswerId', component: EditAnswerComponent},
+    { path: 'login', component: LoginComponent},
+    { path: 'sign_up', component: RegisterComponent},
 ];

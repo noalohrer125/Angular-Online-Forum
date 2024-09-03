@@ -28,6 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'http://localhost:4200/',
     'localhost',
+    '127.0.0.1',
 ]
 
 CORS_ALLOWED_ORIGINS = [
@@ -99,9 +100,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
     },
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
