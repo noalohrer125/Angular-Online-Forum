@@ -31,10 +31,6 @@ export class LoginComponent {
 
     this.apiService.login(user).subscribe();
     
-    this.apiService.current_user().subscribe((response: any) => {
-      alert(response.user + ' logged in successfully');
-    });
-
     window.location.href = '/home';
   }
 }

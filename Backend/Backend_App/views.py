@@ -220,4 +220,4 @@ def sign_up(request):
         return JsonResponse({'error': 'Invalid request method.'}, status=405)  # Handle non-POST requests
 
 def get_current_user(request):
-    return JsonResponse({'user': str(request.user)})
+    return JsonResponse({'user': str(request.user.username)})
