@@ -3,10 +3,6 @@ import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { ApiService } from '../../api.service';
 
-interface UserResponse {
-  user: string;
-}
-
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -29,8 +25,12 @@ export class LoginComponent {
       password: this.password,
     };
 
-    this.apiService.login(user).subscribe();
-    
-    window.location.href = '/home';
+    this.apiService.login(user).subscribe(response => {
+      if (response) {
+        
+      }
+
+      // window.location.href = '/home';
+    });
   }
 }

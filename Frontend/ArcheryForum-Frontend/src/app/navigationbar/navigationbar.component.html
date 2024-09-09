@@ -1,6 +1,10 @@
 <div>
     <a routerLink="/home">Home</a>
     <a routerLink="/posts">Posts</a>
+    <br>
+    <a *ngIf="isAuthenticated === false" routerLink="/login">Login</a>
+    <a *ngIf="isAuthenticated === true" routerLink="/logout">Logout</a>
+    <a routerLink="/sign_up">Register</a>
     <!-- Comming soon, My-Account page with Account-settings -->
     <!-- <a routerLink="/my-account">My Account</a> -->
 </div>

@@ -17,10 +17,5 @@ export class HeaderComponent {
   current_user!: string;
   
   ngOnInit() {
-    this.apiService.current_user().subscribe((response: any) => {
-      this.current_user = response.user
-
-      console.log('user: ' + this.current_user)
-    });
   }
 }

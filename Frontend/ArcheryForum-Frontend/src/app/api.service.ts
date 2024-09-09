@@ -77,10 +77,14 @@ export class ApiService {
   }
 
   sign_up(user: object) {
-    return this.httpClient.post('http://localhost:8000/sign_up/', user)
+    return this.httpClient.put('http://localhost:8000/sign_up/', user)
   }
 
   current_user() {
-    return this.httpClient.get('http://127.0.0.1:8000/current_user/')
+    return this.httpClient.get('http://localhost:8000/current_user/')
+  }
+
+  is_authenticated() {
+    return this.httpClient.get('http://localhost:8000/isAuthenticated/')
   }
 }

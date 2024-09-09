@@ -27,26 +27,13 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'http://localhost:4200/',
-    'http://127.0.0.1:4200/',
+    'http://127.0.0.1:4200',
     'localhost',
     '127.0.0.1',
 ]
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:4200',
-]
-
-# Application definition
-
-INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'Backend_App',
-    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -58,6 +45,18 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+]
+
+# Application definition
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'Backend_App',
+    'corsheaders',
 ]
 
 ROOT_URLCONF = 'Backend.urls'

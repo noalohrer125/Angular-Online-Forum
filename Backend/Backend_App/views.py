@@ -6,9 +6,9 @@ from .forms import RegisterForm
 from .models import Post, Answer, Topic
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.forms import AuthenticationForm
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
-
 from django.http import JsonResponse
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
@@ -123,9 +123,6 @@ def edit_answer(request):
 
 
 # Topics
-from django.http import JsonResponse
-
-
 def get_topics(request):
     topics = list(Topic.objects.all().values("id", "name"))
     return JsonResponse(topics, safe=False)
@@ -156,29 +153,27 @@ def delete_topic(request, id):
     return HttpResponse(200)
 
 
-# User-Verwaltung
-@csrf_exempt  # Exempts this view from CSRF verification
+# Benutzer-Verwaltung
+@csrf_exempt
 def login(request):
     if request.method == 'POST':  # Check if the request method is POST
         data = json.loads(request.body)  # Parse JSON data from the request body
-        username = data.get('name')  # Get the username from the parsed data
-        password = data.get('password')  # Get the password from the parsed data
-        user = authenticate(request, username=username, password=password)
+        u_name = data.get('name')  # Get the username from the parsed data
+        pw = data.get('password')  # Get the password from the parsed data
+        user = authenticate(request, username=u_name, password=pw)
 
-        # Check if username and password are provided
-        if username and password:
+        if user is not None:
             auth_login(request, user)
-            print('login successfull')
-        # Wenn die Userinformationen inkorrekt sind erscheint eine Nachricht mit 'Login Incorrect' und der User wird auf die Login Seite umgeleitet
+            return JsonResponse({'message': 'Login successful'}, status=200)
         else:
-            messages.info(request, 'Login incorrect!')
-            print('login incorrect')
-            return JsonResponse({'error': 'login incorrect'}, status=400)
+            form = AuthenticationForm()
+            return JsonResponse({'error': 'Login incorrect'}, status=400)
     else:
         return JsonResponse({'error': 'Invalid request method.'}, status=405)  # Handle non-POST requests
 
 def logout(request):
     auth_logout(request) # User wird ausgeloggt
+    return JsonResponse({'message': 'user logged out.'}, status=200)
 
 @csrf_exempt  # Exempts this view from CSRF verification
 def sign_up(request):
@@ -220,4 +215,15 @@ def sign_up(request):
         return JsonResponse({'error': 'Invalid request method.'}, status=405)  # Handle non-POST requests
 
 def get_current_user(request):
-    return JsonResponse({'user': str(request.user.username)})
+    print('user: ', request.user)
+    return JsonResponse({'user': str(request.user)})
+
+@csrf_exempt
+def isAuthenticated(request):
+    user = request.user
+    if user.is_authenticated:
+        print(True)
+        return JsonResponse({'authenticated': True})
+    else:
+        print(False)
+        return JsonResponse({'authenticated': False})

@@ -36,6 +36,7 @@ from Backend_App.views import (
     logout,
     sign_up,
     get_current_user,
+    isAuthenticated,
 )
 
 urlpatterns = [
@@ -57,7 +58,9 @@ urlpatterns = [
     path("edit_answer/", edit_answer, name="edit_answer"),
     # get_specifi_topic
     path(
-        "get_specific_topic/<int:topic_id>/", get_specific_topic, name="get_specific_topic",
+        "get_specific_topic/<int:topic_id>/",
+        get_specific_topic,
+        name="get_specific_topic",
     ),
     # get_specifi_post
     path(
@@ -76,5 +79,6 @@ urlpatterns = [
     # register
     path("sign_up/", sign_up, name="sign_up"),
     # current_user
-    path('current_user/', get_current_user, name="get_current_user")
+    path("current_user/", get_current_user, name="get_current_user"),
+    path("isAuthenticated/", isAuthenticated, name="isAuthenticated")
 ]
