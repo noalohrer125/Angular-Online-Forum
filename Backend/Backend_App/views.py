@@ -11,20 +11,24 @@ from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 from django.middleware.csrf import get_token
 
+
 def get_csrf_token(request):
     token = get_token(request)
-    return JsonResponse({'csrfToken': token})
+    return JsonResponse({"csrfToken": token})
+
 
 # Posts
 def get_posts(request):
     posts = list(Post.objects.all().values("id", "Subject", "Content", "Topic_id"))
     return JsonResponse(posts, safe=False)
 
+
 def get_specific_Post(request, post_id):
     post = Post.objects.filter(id=post_id).first()
     if post:
         post_dict = model_to_dict(post)
-        return JsonResponse({'post': post_dict})
+        return JsonResponse({"post": post_dict})
+
 
 @csrf_protect
 def add_post(request):
@@ -45,11 +49,13 @@ def add_post(request):
 
     return HttpResponse(200)
 
+
 def delete_post(request, id):
     post = Post.objects.get(id=id)
     post.delete()
 
     return HttpResponse(200)
+
 
 @csrf_protect
 def edit_post(request):
@@ -57,15 +63,15 @@ def edit_post(request):
         data = json.loads(request.body)
 
         post_id = data.get("id")
-        
+
         # Update the post
         post = Post.objects.get(id=post_id)
 
         topic = Topic.objects.get(name=data.get("topic_name"))
 
-        post.Subject=data.get("subject")
-        post.Content=data.get("content")
-        post.Topic_id=topic
+        post.Subject = data.get("subject")
+        post.Content = data.get("content")
+        post.Topic_id = topic
 
         post.save()
 
@@ -77,11 +83,13 @@ def get_answers(request):
     topics = list(Answer.objects.all().values("id", "Content", "Post_id"))
     return JsonResponse(topics, safe=False)
 
+
 def get_specific_Answer(request, answer_id):
     answer = Answer.objects.filter(id=answer_id).first()
     if answer:
         answer_dict = model_to_dict(answer)
-        return JsonResponse({'answer': answer_dict})
+        return JsonResponse({"answer": answer_dict})
+
 
 @csrf_protect
 def add_answer(request):
@@ -100,11 +108,13 @@ def add_answer(request):
 
     return HttpResponse(200)
 
+
 def delete_answer(request, id):
     answer = Answer.objects.get(id=id)
     answer.delete()
 
     return HttpResponse(200)
+
 
 @csrf_protect
 def edit_answer(request):
@@ -112,11 +122,11 @@ def edit_answer(request):
         data = json.loads(request.body)
 
         answer_id = data.get("id")
-        
+
         # Update the post
         answer = Answer.objects.get(id=answer_id)
-        
-        answer.Content=data.get("content")
+
+        answer.Content = data.get("content")
 
         answer.save()
 
@@ -131,7 +141,8 @@ def get_topics(request):
 
 def get_specific_topic(request, topic_id):
     topic = Topic.objects.filter(id=topic_id).first()
-    return JsonResponse({'name': topic.name})
+    return JsonResponse({"name": topic.name})
+
 
 @csrf_protect
 def add_topic(request):
@@ -147,6 +158,7 @@ def add_topic(request):
 
     return HttpResponse(200)
 
+
 def delete_topic(request, id):
     topic = Topic.objects.get(id=id)
     topic.delete()
@@ -157,70 +169,101 @@ def delete_topic(request, id):
 # Benutzer-Verwaltung
 @csrf_protect  # Enforces CSRF protection
 def login(request):
-    if request.method == 'POST':  # Check if the request method is POST
+    if request.method == "POST":  # Check if the request method is POST
         try:
             data = json.loads(request.body)  # Parse JSON data from the request body
-            u_name = data.get('name')  # Get the username from the parsed data
-            pw = data.get('password')  # Get the password from the parsed data
+            u_name = data.get("name")  # Get the username from the parsed data
+            pw = data.get("password")  # Get the password from the parsed data
             user = authenticate(request, username=u_name, password=pw)
 
             if user is not None:
                 auth_login(request, user)
-                return JsonResponse({'message': 'Login successful'}, status=200)
+                return JsonResponse(
+                    {"message": "Login successful"}, status=200
+                    )
             else:
-                return JsonResponse({'error': 'Invalid username or password.'}, status=200)
+                return JsonResponse(
+                    {"error": "Invalid username or password."}, status=200
+                )
         except json.JSONDecodeError:
-            return JsonResponse({'error': 'Invalid JSON data.'}, status=200)
+            return JsonResponse(
+                {"error": "Invalid JSON data."}, status=200
+                )
     else:
-        return JsonResponse({'error': 'Invalid request method.'}, status=405)
+        return JsonResponse(
+            {"error": "Invalid request method."}, status=405
+            )
+
 
 def logout(request):
-    auth_logout(request) # User wird ausgeloggt
-    return JsonResponse({'message': 'user logged out.'}, status=200)
+    auth_logout(request)  # User wird ausgeloggt
+    return JsonResponse(
+        {"message": "user logged out."}, status=200
+        )
+
 
 @csrf_protect  # Enforces CSRF protection
 def sign_up(request):
-    if request.method == 'POST' or request.method == 'PUT':  # Check if the request method is POST
+    if (
+        request.method == "POST" or request.method == "PUT"
+    ):  # Check if the request method is POST
         try:
             data = json.loads(request.body)  # Parse JSON data from the request body
-            username = data.get('name')  # Get the username from the parsed data
-            password = data.get('password')  # Get the password from the parsed data
+            username = data.get("name")  # Get the username from the parsed data
+            password = data.get("password")  # Get the password from the parsed data
 
             # Check if username and password are provided
             if not username or not password:
-                return JsonResponse({'error': 'Username and password are required.'}, status=400)
+                return JsonResponse(
+                    {"error": "Username and password are required."}, status=400
+                )
 
             # Validate the password according to Django's password validation rules
             try:
                 validate_password(password)
             except ValidationError as e:
-                return JsonResponse({'error': e.messages}, status=400)
+                return JsonResponse(
+                    {"error": e.messages}, status=400
+                    )
 
             # Check if the username already exists
             if User.objects.filter(username=username).exists():
-                return JsonResponse({'error': 'Username already exists.'}, status=400)
+                return JsonResponse(
+                    {"error": "Username already exists."}, status=400
+                    )
 
             # Create a new user with the provided username and password
             user = User.objects.create_user(username=username, password=password)
             user.save()  # Save the user to the database
 
-            return JsonResponse({'message': 'User created successfully.'}, status=201)
+            return JsonResponse(
+                {"message": "User created successfully."}, status=201
+                )
 
         except json.JSONDecodeError:  # Handle JSON decoding errors
-            return JsonResponse({'error': 'Invalid JSON data.'}, status=400)
+            return JsonResponse(
+                {"error": "Invalid JSON data."}, status=400
+                )
     else:
-        return JsonResponse({'error': 'Invalid request method.'}, status=405)  # Handle non-POST requests
+        return JsonResponse(
+            {"error": "Invalid request method."}, status=405
+        )  # Handle non-POST requests
+
 
 def get_current_user(request):
-    print('user: ', request.user)
-    return JsonResponse({'user': str(request.user)})
+    return JsonResponse(
+        {"user": str(request.user)}
+        )
+
 
 @csrf_protect
 def isAuthenticated(request):
     user = request.user
     if user.is_authenticated:
-        print(True)
-        return JsonResponse({'authenticated': True})
+        return JsonResponse(
+            {"authenticated": True}
+            )
     else:
-        print(False)
-        return JsonResponse({'authenticated': False})
+        return JsonResponse(
+            {"authenticated": False}
+            )
