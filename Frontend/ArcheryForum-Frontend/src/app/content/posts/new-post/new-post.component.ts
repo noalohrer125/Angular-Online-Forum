@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../../api.service';
@@ -16,7 +16,7 @@ import { ApiService } from '../../../api.service';
   styleUrl: './new-post.component.css'
 })
 export class NewPostComponent {
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService, private router: Router) {}
   
 
   topics!: any[];
@@ -42,7 +42,9 @@ export class NewPostComponent {
       topic_name: this.topic,
     };
 
-    this.apiService.addPost(post).subscribe();
-    window.location.href = '/posts';
+    this.apiService.addPost(post).subscribe(response =>
+      {
+        this.router.navigate(['/posts']);
+      });
   }
 }

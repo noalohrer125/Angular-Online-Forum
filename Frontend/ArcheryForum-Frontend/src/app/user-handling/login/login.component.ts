@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ApiService } from '../../api.service';
+import { HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -13,24 +14,34 @@ import { ApiService } from '../../api.service';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
-  constructor(private apiService: ApiService) {}
+export class LoginComponent implements OnInit {
+  constructor(private apiService: ApiService, private router: Router) {}
 
   name!: string;
   password!: string;
 
-  onSubmit() {
+  ngOnInit(): void {
+    // Fetch the CSRF token on initialization
+    this.apiService.getCsrfToken().subscribe(response => {
+      this.apiService.setCsrfToken(response.csrfToken);  // Save CSRF token for future requests
+    });
+  }
+
+
+  onSubmit(): void {
     const user = {
       name: this.name,
-      password: this.password,
+      password: this.password
     };
 
     this.apiService.login(user).subscribe(response => {
-      if (response) {
-        
+      if (response.message === 'Login successful') {
+        // Store the user in localStorage or handle login state
+        localStorage.setItem('user', JSON.stringify(user));
+        this.router.navigate(['/home']);
+      } else {
+        console.log('Login failed');
       }
-
-      // window.location.href = '/home';
     });
   }
 }

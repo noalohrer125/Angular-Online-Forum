@@ -15,10 +15,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
+from django import views
 from django.contrib import admin
 from django.urls import path
 from Backend_App.views import (
     get_answers,
+    get_csrf_token,
     get_posts,
     get_topics,
     add_post,
@@ -72,6 +74,7 @@ urlpatterns = [
         get_specific_Answer,
         name="get_specific_answer",
     ),
+    path('get-csrf-token/', get_csrf_token, name='get_csrf_token'),
     # login
     path("login/", login, name="login"),
     # logout

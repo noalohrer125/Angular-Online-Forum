@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -7,9 +7,32 @@ import { Observable } from 'rxjs';
 })
 export class ApiService {
   private httpClient = inject(HttpClient)
+  private baseUrl = 'http://localhost:8000';
+  public csrfToken: string | null = null;
+
+  getCsrfToken(): Observable<any> {
+    return this.httpClient.get(`${this.baseUrl}/get-csrf-token/`, { withCredentials: true });
+  }
+
+  getCsrfTokenFromCookie(): string | null {
+    const name = 'csrftoken=';
+    const decodedCookie = decodeURIComponent(document.cookie);
+    const cookies = decodedCookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      let cookie = cookies[i].trim();
+      if (cookie.indexOf(name) === 0) {
+        return cookie.substring(name.length, cookie.length);
+      }
+    }
+    return null;
+  }
+
+  setCsrfToken(token: string) {
+    this.csrfToken = token;
+  }
 
   getPosts(): Observable<any> {
-    return this.httpClient.get('http://localhost:8000/get_posts/')
+    return this.httpClient.get('http://localhost:8000/get_posts/', { withCredentials: true })
   }
 
   getAnswers(): Observable<any> {
@@ -34,8 +57,15 @@ export class ApiService {
   }
 
 
-  addPost(post: any) {
-    return this.httpClient.post('http://localhost:8000/add_post/', post);
+  addPost(post: any): Observable<any> {
+    console.log(this.csrfToken);
+    const csrfToken = this.getCsrfTokenFromCookie();
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-CSRFToken': csrfToken || ''
+    });
+    return this.httpClient.post(`${this.baseUrl}/add_post/`, post, { headers, withCredentials: true });
   }
 
   addAnswer(answer: any) {
@@ -68,16 +98,26 @@ export class ApiService {
   }
 
   // User-Handling
-  login(user: object) {
-    return this.httpClient.post('http://localhost:8000/login/', user)
+  login(user: object): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-CSRFToken': this.csrfToken || ''  // Add CSRF token to request header
+    });
+
+    return this.httpClient.post(`${this.baseUrl}/login/`, user, { headers, withCredentials: true });
   }
 
   logout() {
     return this.httpClient.get('http://localhost:8000/logout/')
   }
 
-  sign_up(user: object) {
-    return this.httpClient.put('http://localhost:8000/sign_up/', user)
+  signUp(user: object): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-CSRFToken': this.csrfToken || ''  // Add CSRF token to request header
+    });
+
+    return this.httpClient.put(`${this.baseUrl}/sign_up/`, user, { headers, withCredentials: true });
   }
 
   current_user() {
@@ -85,6 +125,6 @@ export class ApiService {
   }
 
   is_authenticated() {
-    return this.httpClient.get('http://localhost:8000/isAuthenticated/')
+    return this.httpClient.get('http://localhost:8000/isAuthenticated/', { withCredentials: true })
   }
 }

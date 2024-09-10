@@ -8,11 +8,16 @@ from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.forms import AuthenticationForm
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.http import JsonResponse
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
+from django.middleware.csrf import get_token
 
+def get_csrf_token(request):
+    token = get_token(request)
+    return JsonResponse({'csrfToken': token})
 
 # Posts
 def get_posts(request):
@@ -25,7 +30,7 @@ def get_specific_Post(request, post_id):
         post_dict = model_to_dict(post)
         return JsonResponse({'post': post_dict})
 
-@csrf_exempt
+@csrf_protect
 def add_post(request):
     if request.method == "POST":
         data = json.loads(request.body)
@@ -154,30 +159,32 @@ def delete_topic(request, id):
 
 
 # Benutzer-Verwaltung
-@csrf_exempt
+@csrf_protect  # Enforces CSRF protection
 def login(request):
     if request.method == 'POST':  # Check if the request method is POST
-        data = json.loads(request.body)  # Parse JSON data from the request body
-        u_name = data.get('name')  # Get the username from the parsed data
-        pw = data.get('password')  # Get the password from the parsed data
-        user = authenticate(request, username=u_name, password=pw)
+        try:
+            data = json.loads(request.body)  # Parse JSON data from the request body
+            u_name = data.get('name')  # Get the username from the parsed data
+            pw = data.get('password')  # Get the password from the parsed data
+            user = authenticate(request, username=u_name, password=pw)
 
-        if user is not None:
-            auth_login(request, user)
-            return JsonResponse({'message': 'Login successful'}, status=200)
-        else:
-            form = AuthenticationForm()
-            return JsonResponse({'error': 'Login incorrect'}, status=400)
+            if user is not None:
+                auth_login(request, user)
+                return JsonResponse({'message': 'Login successful'}, status=200)
+            else:
+                return JsonResponse({'error': 'Invalid username or password.'}, status=400)
+        except json.JSONDecodeError:
+            return JsonResponse({'error': 'Invalid JSON data.'}, status=400)
     else:
-        return JsonResponse({'error': 'Invalid request method.'}, status=405)  # Handle non-POST requests
+        return JsonResponse({'error': 'Invalid request method.'}, status=405)
 
 def logout(request):
     auth_logout(request) # User wird ausgeloggt
     return JsonResponse({'message': 'user logged out.'}, status=200)
 
-@csrf_exempt  # Exempts this view from CSRF verification
+@csrf_protect  # Enforces CSRF protection
 def sign_up(request):
-    if request.method == 'POST':  # Check if the request method is POST
+    if request.method == 'POST' or request.method == 'PUT':  # Check if the request method is POST
         try:
             data = json.loads(request.body)  # Parse JSON data from the request body
             username = data.get('name')  # Get the username from the parsed data
@@ -185,33 +192,27 @@ def sign_up(request):
 
             # Check if username and password are provided
             if not username or not password:
-                print('username and password are required!')
                 return JsonResponse({'error': 'Username and password are required.'}, status=400)
 
             # Validate the password according to Django's password validation rules
             try:
                 validate_password(password)
             except ValidationError as e:
-                print({'error': e.messages})
                 return JsonResponse({'error': e.messages}, status=400)
 
             # Check if the username already exists
             if User.objects.filter(username=username).exists():
-                print('username allready exists')
                 return JsonResponse({'error': 'Username already exists.'}, status=400)
 
             # Create a new user with the provided username and password
             user = User.objects.create_user(username=username, password=password)
             user.save()  # Save the user to the database
 
-            print('user created successfully')
             return JsonResponse({'message': 'User created successfully.'}, status=201)
 
         except json.JSONDecodeError:  # Handle JSON decoding errors
-            print('invalid json data')
             return JsonResponse({'error': 'Invalid JSON data.'}, status=400)
     else:
-        print('invalid request method')
         return JsonResponse({'error': 'Invalid request method.'}, status=405)  # Handle non-POST requests
 
 def get_current_user(request):
