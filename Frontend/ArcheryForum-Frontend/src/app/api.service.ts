@@ -7,11 +7,11 @@ import { Observable } from 'rxjs';
 })
 export class ApiService {
   private httpClient = inject(HttpClient)
-  private baseUrl = 'http://localhost:8000';
+  private baseUrl = 'http://localhost:8000/';
   public csrfToken: string | null = null;
 
   getCsrfToken(): Observable<any> {
-    return this.httpClient.get(`${this.baseUrl}/get-csrf-token/`, { withCredentials: true });
+    return this.httpClient.get(`${this.baseUrl}get-csrf-token/`, { withCredentials: true });
   }
 
   getCsrfTokenFromCookie(): string | null {
@@ -32,83 +32,107 @@ export class ApiService {
   }
 
   getPosts(): Observable<any> {
-    return this.httpClient.get('http://localhost:8000/get_posts/', { withCredentials: true })
+    return this.httpClient.get(`${this.baseUrl}get_posts/`)
   }
 
   getAnswers(): Observable<any> {
-    return this.httpClient.get('http://localhost:8000/get_answers/')
+    return this.httpClient.get(`${this.baseUrl}get_answers/`)
   }
 
   getTopics(): Observable<any> {
-    return this.httpClient.get('http://localhost:8000/get_topics/')
+    return this.httpClient.get(`${this.baseUrl}get_topics/`)
   }
 
 
   getSpecificTopic(topic_id: number): Observable<any> {
-    return this.httpClient.get<any>(`http://localhost:8000/get_specific_topic/${topic_id}/`);
+    return this.httpClient.get<any>(`${this.baseUrl}get_specific_topic/${topic_id}/`);
   }
 
   getSpecificPost(post_id: number): Observable<any> {
-    return this.httpClient.get<any>(`http://localhost:8000/get_specific_post/${post_id}/`);
+    return this.httpClient.get<any>(`${this.baseUrl}get_specific_post/${post_id}/`);
   }
 
   getSpecificAnswer(answer_id: number): Observable<any> {
-    return this.httpClient.get<any>(`http://localhost:8000/get_specific_answer/${answer_id}/`);
+    return this.httpClient.get<any>(`${this.baseUrl}get_specific_answer/${answer_id}/`);
   }
 
 
   addPost(post: any): Observable<any> {
-    console.log(this.csrfToken);
     const csrfToken = this.getCsrfTokenFromCookie();
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'X-CSRFToken': csrfToken || ''
     });
-    return this.httpClient.post(`${this.baseUrl}/add_post/`, post, { headers, withCredentials: true });
+    return this.httpClient.post(`${this.baseUrl}add_post/`, post, { headers, withCredentials: true });
   }
 
   addAnswer(answer: any) {
-    return this.httpClient.post('http://localhost:8000/add_answer/', answer);
+    const csrfToken = this.getCsrfTokenFromCookie();
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-CSRFToken': csrfToken || ''
+    });
+    return this.httpClient.post(`${this.baseUrl}add_answer/`, answer, { headers, withCredentials: true });
   }
 
   addTopic(topic: any) {
-    return this.httpClient.post('http://localhost:8000/add_topic/', topic)
+    const csrfToken = this.getCsrfTokenFromCookie();
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-CSRFToken': csrfToken || ''
+    });
+    return this.httpClient.post(`${this.baseUrl}add_topic/`, topic, { headers, withCredentials: true })
   }
 
   deletePost(post_id: number): Observable<any> {
-    return this.httpClient.get<any>(`http://localhost:8000/delete_post/${post_id}/`);
+    return this.httpClient.get<any>(`${this.baseUrl}delete_post/${post_id}/`);
   }
 
   deleteAnswer(answer_id: number): Observable<any> {
-    return this.httpClient.get<any>(`http://localhost:8000/delete_answer/${answer_id}/`);
+    return this.httpClient.get<any>(`${this.baseUrl}delete_answer/${answer_id}/`);
   }
 
   deleteTopic(topic_id: number): Observable<any> {
-    return this.httpClient.get<any>(`http://localhost:8000/delete_topic/${topic_id}/`);
+    return this.httpClient.get<any>(`${this.baseUrl}delete_topic/${topic_id}/`);
   }
 
 
   editPost(post: any): Observable<any> {
-    return this.httpClient.post('http://localhost:8000/edit_post/', post);
+    const csrfToken = this.getCsrfTokenFromCookie();
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-CSRFToken': csrfToken || ''
+    });
+    return this.httpClient.post(`${this.baseUrl}edit_post/`, post, { headers, withCredentials: true });
   }
 
   editAnswer(answer: any): Observable<any> {
-    return this.httpClient.post('http://localhost:8000/edit_answer/', answer);
+    const csrfToken = this.getCsrfTokenFromCookie();
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-CSRFToken': csrfToken || ''
+    });
+    return this.httpClient.post(`${this.baseUrl}edit_answer/`, answer, { headers, withCredentials: true });
   }
 
   // User-Handling
   login(user: object): Observable<any> {
+    const csrfToken = this.getCsrfTokenFromCookie();
+
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'X-CSRFToken': this.csrfToken || ''  // Add CSRF token to request header
     });
-
-    return this.httpClient.post(`${this.baseUrl}/login/`, user, { headers, withCredentials: true });
+    return this.httpClient.post(`${this.baseUrl}login/`, user, { headers, withCredentials: true });
   }
 
   logout() {
-    return this.httpClient.get('http://localhost:8000/logout/')
+    return this.httpClient.get(`${this.baseUrl}logout/`, { withCredentials: true })
   }
 
   signUp(user: object): Observable<any> {
@@ -117,14 +141,14 @@ export class ApiService {
       'X-CSRFToken': this.csrfToken || ''  // Add CSRF token to request header
     });
 
-    return this.httpClient.put(`${this.baseUrl}/sign_up/`, user, { headers, withCredentials: true });
+    return this.httpClient.put(`${this.baseUrl}sign_up/`, user, { headers, withCredentials: true });
   }
 
   current_user() {
-    return this.httpClient.get('http://localhost:8000/current_user/')
+    return this.httpClient.get(`${this.baseUrl}current_user/`)
   }
 
   is_authenticated() {
-    return this.httpClient.get('http://localhost:8000/isAuthenticated/', { withCredentials: true })
+    return this.httpClient.get(`${this.baseUrl}isAuthenticated/`, { withCredentials: true })
   }
 }

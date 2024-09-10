@@ -10,6 +10,7 @@ import { EditPostComponent } from "./content/posts/edit-post/edit-post.component
 import { EditAnswerComponent } from "./content/posts/post-details/answers/edit-answer/edit-answer.component";
 import { LoginComponent } from "./user-handling/login/login.component";
 import { RegisterComponent } from "./user-handling/register/register.component";
+import { LogoutComponent } from "./user-handling/logout/logout.component";
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -24,4 +25,5 @@ export const routes: Routes = [
     { path: 'edit-answer/:CurrentAnswerId', component: EditAnswerComponent},
     { path: 'login', component: LoginComponent},
     { path: 'sign_up', component: RegisterComponent},
+    { path: 'logout', component: LogoutComponent},
 ];

@@ -1,13 +1,9 @@
 import json
-from pyexpat.errors import messages
 from django.forms import model_to_dict
 from django.http import HttpResponse
-from .forms import RegisterForm
 from .models import Post, Answer, Topic
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
-from django.contrib.auth.forms import AuthenticationForm
-from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.http import JsonResponse
@@ -55,7 +51,7 @@ def delete_post(request, id):
 
     return HttpResponse(200)
 
-@csrf_exempt
+@csrf_protect
 def edit_post(request):
     if request.method == "POST":
         data = json.loads(request.body)
@@ -87,7 +83,7 @@ def get_specific_Answer(request, answer_id):
         answer_dict = model_to_dict(answer)
         return JsonResponse({'answer': answer_dict})
 
-@csrf_exempt
+@csrf_protect
 def add_answer(request):
     if request.method == "POST":
         data = json.loads(request.body)
@@ -110,7 +106,7 @@ def delete_answer(request, id):
 
     return HttpResponse(200)
 
-@csrf_exempt
+@csrf_protect
 def edit_answer(request):
     if request.method == "POST":
         data = json.loads(request.body)
@@ -137,7 +133,7 @@ def get_specific_topic(request, topic_id):
     topic = Topic.objects.filter(id=topic_id).first()
     return JsonResponse({'name': topic.name})
 
-@csrf_exempt
+@csrf_protect
 def add_topic(request):
     if request.method == "POST":
         data = json.loads(request.body)
@@ -172,9 +168,9 @@ def login(request):
                 auth_login(request, user)
                 return JsonResponse({'message': 'Login successful'}, status=200)
             else:
-                return JsonResponse({'error': 'Invalid username or password.'}, status=400)
+                return JsonResponse({'error': 'Invalid username or password.'}, status=200)
         except json.JSONDecodeError:
-            return JsonResponse({'error': 'Invalid JSON data.'}, status=400)
+            return JsonResponse({'error': 'Invalid JSON data.'}, status=200)
     else:
         return JsonResponse({'error': 'Invalid request method.'}, status=405)
 
@@ -219,7 +215,7 @@ def get_current_user(request):
     print('user: ', request.user)
     return JsonResponse({'user': str(request.user)})
 
-@csrf_exempt
+@csrf_protect
 def isAuthenticated(request):
     user = request.user
     if user.is_authenticated:

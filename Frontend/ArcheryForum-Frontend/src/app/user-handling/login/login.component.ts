@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { ApiService } from '../../api.service';
-import { HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +14,7 @@ import { HttpHeaders } from '@angular/common/http';
   styleUrl: './login.component.css'
 })
 export class LoginComponent implements OnInit {
-  constructor(private apiService: ApiService, private router: Router) {}
+  constructor(private apiService: ApiService) {}
 
   name!: string;
   password!: string;
@@ -38,9 +37,9 @@ export class LoginComponent implements OnInit {
       if (response.message === 'Login successful') {
         // Store the user in localStorage or handle login state
         localStorage.setItem('user', JSON.stringify(user));
-        this.router.navigate(['/home']);
+        window.location.href = '/home'
       } else {
-        console.log('Login failed');
+        window.alert(response.error);
       }
     });
   }

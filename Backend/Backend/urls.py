@@ -74,7 +74,7 @@ urlpatterns = [
         get_specific_Answer,
         name="get_specific_answer",
     ),
-    path('get-csrf-token/', get_csrf_token, name='get_csrf_token'),
+    path("get-csrf-token/", get_csrf_token, name="get_csrf_token"),
     # login
     path("login/", login, name="login"),
     # logout
@@ -83,5 +83,5 @@ urlpatterns = [
     path("sign_up/", sign_up, name="sign_up"),
     # current_user
     path("current_user/", get_current_user, name="get_current_user"),
-    path("isAuthenticated/", isAuthenticated, name="isAuthenticated")
+    path("isAuthenticated/", isAuthenticated, name="isAuthenticated"),
 ]
