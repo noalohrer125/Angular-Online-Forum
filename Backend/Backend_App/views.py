@@ -53,7 +53,6 @@ def add_post(request):
 def delete_post(request, id):
     post = Post.objects.get(id=id)
     post.delete()
-
     return HttpResponse(200)
 
 
@@ -74,7 +73,6 @@ def edit_post(request):
         post.Topic_id = topic
 
         post.save()
-
     return HttpResponse(200)
 
 
@@ -97,7 +95,6 @@ def add_answer(request):
         data = json.loads(request.body)
         content = data.get("content")
         post_id = data.get("post_id")
-
         post = get_object_or_404(Post, id=post_id)
 
     answer = Answer.objects.create(
@@ -105,14 +102,12 @@ def add_answer(request):
         # User_id=current_user(request),
         Post_id=post,
     )
-
     return HttpResponse(200)
 
 
 def delete_answer(request, id):
     answer = Answer.objects.get(id=id)
     answer.delete()
-
     return HttpResponse(200)
 
 
@@ -120,16 +115,12 @@ def delete_answer(request, id):
 def edit_answer(request):
     if request.method == "POST":
         data = json.loads(request.body)
-
         answer_id = data.get("id")
 
         # Update the post
         answer = Answer.objects.get(id=answer_id)
-
         answer.Content = data.get("content")
-
         answer.save()
-
     return HttpResponse(200)
 
 
@@ -155,14 +146,12 @@ def add_topic(request):
         name=name,
         description=description,
     )
-
     return HttpResponse(200)
 
 
 def delete_topic(request, id):
     topic = Topic.objects.get(id=id)
     topic.delete()
-
     return HttpResponse(200)
 
 
@@ -178,28 +167,20 @@ def login(request):
 
             if user is not None:
                 auth_login(request, user)
-                return JsonResponse(
-                    {"message": "Login successful"}, status=200
-                    )
+                return JsonResponse({"message": "Login successful"}, status=200)
             else:
                 return JsonResponse(
                     {"error": "Invalid username or password."}, status=200
                 )
         except json.JSONDecodeError:
-            return JsonResponse(
-                {"error": "Invalid JSON data."}, status=200
-                )
+            return JsonResponse({"error": "Invalid JSON data."}, status=200)
     else:
-        return JsonResponse(
-            {"error": "Invalid request method."}, status=405
-            )
+        return JsonResponse({"error": "Invalid request method."}, status=405)
 
 
 def logout(request):
     auth_logout(request)  # User wird ausgeloggt
-    return JsonResponse(
-        {"message": "user logged out."}, status=200
-        )
+    return JsonResponse({"message": "user logged out."}, status=200)
 
 
 @csrf_protect  # Enforces CSRF protection
@@ -222,28 +203,19 @@ def sign_up(request):
             try:
                 validate_password(password)
             except ValidationError as e:
-                return JsonResponse(
-                    {"error": e.messages}, status=400
-                    )
+                return JsonResponse({"error": e.messages}, status=400)
 
             # Check if the username already exists
             if User.objects.filter(username=username).exists():
-                return JsonResponse(
-                    {"error": "Username already exists."}, status=400
-                    )
+                return JsonResponse({"error": "Username already exists."}, status=400)
 
             # Create a new user with the provided username and password
             user = User.objects.create_user(username=username, password=password)
             user.save()  # Save the user to the database
-
-            return JsonResponse(
-                {"message": "User created successfully."}, status=201
-                )
+            return JsonResponse({"message": "User created successfully."}, status=201)
 
         except json.JSONDecodeError:  # Handle JSON decoding errors
-            return JsonResponse(
-                {"error": "Invalid JSON data."}, status=400
-                )
+            return JsonResponse({"error": "Invalid JSON data."}, status=400)
     else:
         return JsonResponse(
             {"error": "Invalid request method."}, status=405
@@ -251,19 +223,13 @@ def sign_up(request):
 
 
 def get_current_user(request):
-    return JsonResponse(
-        {"user": str(request.user)}
-        )
+    return JsonResponse({"user": str(request.user)})
 
 
 @csrf_protect
 def isAuthenticated(request):
     user = request.user
     if user.is_authenticated:
-        return JsonResponse(
-            {"authenticated": True}
-            )
+        return JsonResponse({"authenticated": True})
     else:
-        return JsonResponse(
-            {"authenticated": False}
-            )
+        return JsonResponse({"authenticated": False})

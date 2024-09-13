@@ -10,6 +10,7 @@ export class ApiService {
   private baseUrl = 'http://localhost:8000/';
   public csrfToken: string | null = null;
 
+  // Tokens
   getCsrfToken(): Observable<any> {
     return this.httpClient.get(`${this.baseUrl}get-csrf-token/`, { withCredentials: true });
   }
@@ -31,6 +32,7 @@ export class ApiService {
     this.csrfToken = token;
   }
 
+  // get-APIs
   getPosts(): Observable<any> {
     return this.httpClient.get(`${this.baseUrl}get_posts/`)
   }
@@ -43,7 +45,7 @@ export class ApiService {
     return this.httpClient.get(`${this.baseUrl}get_topics/`)
   }
 
-
+  // specific get-APIs
   getSpecificTopic(topic_id: number): Observable<any> {
     return this.httpClient.get<any>(`${this.baseUrl}get_specific_topic/${topic_id}/`);
   }
@@ -56,7 +58,7 @@ export class ApiService {
     return this.httpClient.get<any>(`${this.baseUrl}get_specific_answer/${answer_id}/`);
   }
 
-
+  // add-APIs
   addPost(post: any): Observable<any> {
     const csrfToken = this.getCsrfTokenFromCookie();
 
@@ -87,6 +89,7 @@ export class ApiService {
     return this.httpClient.post(`${this.baseUrl}add_topic/`, topic, { headers, withCredentials: true })
   }
 
+  // delete-APIs
   deletePost(post_id: number): Observable<any> {
     return this.httpClient.get<any>(`${this.baseUrl}delete_post/${post_id}/`);
   }
@@ -99,7 +102,7 @@ export class ApiService {
     return this.httpClient.get<any>(`${this.baseUrl}delete_topic/${topic_id}/`);
   }
 
-
+  // edit-APIs
   editPost(post: any): Observable<any> {
     const csrfToken = this.getCsrfTokenFromCookie();
 
@@ -122,7 +125,7 @@ export class ApiService {
 
   // User-Handling
   login(user: object): Observable<any> {
-    const csrfToken = this.getCsrfTokenFromCookie();
+    this.csrfToken = this.getCsrfTokenFromCookie();
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -144,6 +147,7 @@ export class ApiService {
     return this.httpClient.put(`${this.baseUrl}sign_up/`, user, { headers, withCredentials: true });
   }
 
+  // user-infomration
   current_user() {
     return this.httpClient.get(`${this.baseUrl}current_user/`)
   }
