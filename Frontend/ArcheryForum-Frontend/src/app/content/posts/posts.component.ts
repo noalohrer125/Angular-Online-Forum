@@ -22,10 +22,20 @@ export class PostsComponent {
   constructor(private apiService: ApiService) {}
 
   Posts!: any[];
+  current_user!: any;
+  is_superuser!: boolean;
+  is_authenticated!: boolean;
 
   ngOnInit() {
     this.apiService.getPosts().subscribe(response => {
       this.Posts = response
+    })
+    this.apiService.current_user().subscribe((response: any) => {
+      this.current_user = response
+      this.is_superuser = response.is_superuser
+    })
+    this.apiService.is_authenticated().subscribe((response: any) => {
+      this.is_authenticated = response.authenticated
     })
   }
 

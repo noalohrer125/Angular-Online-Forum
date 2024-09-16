@@ -149,7 +149,7 @@ export class ApiService {
 
   // user-infomration
   current_user() {
-    return this.httpClient.get(`${this.baseUrl}current_user/`)
+    return this.httpClient.get(`${this.baseUrl}current_user/`, { withCredentials: true })
   }
 
   is_authenticated() {

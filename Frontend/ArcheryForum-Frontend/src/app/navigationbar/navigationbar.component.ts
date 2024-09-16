@@ -21,8 +21,6 @@ export class NavigationbarComponent {
   ngOnInit() {
     this.apiService.is_authenticated().subscribe((response: any) => {
       this.isAuthenticated = response.authenticated
-
-      console.log(this.isAuthenticated)
     })
   }
 }
