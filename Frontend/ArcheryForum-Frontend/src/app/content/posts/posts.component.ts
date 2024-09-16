@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 import { NewPostComponent } from "./new-post/new-post.component";
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../api.service';
+import { current_user, Post } from '../../interfaces';
 
 @Component({
   selector: 'app-posts',
@@ -20,16 +21,22 @@ import { ApiService } from '../../api.service';
 
 export class PostsComponent {
   constructor(private apiService: ApiService) { }
-
-  Posts!: any[];
-  current_user!: any;
+  Posts!: Post[];
+  noPosts!: boolean;
+  current_user!: current_user;
   is_superuser!: boolean;
   is_authenticated!: boolean;
 
   ngOnInit() {
     this.apiService.getPosts().subscribe(response => {
-      this.Posts = response
-    })
+      if (response && response.length > 0) {
+        this.Posts = response;
+        this.noPosts = false
+      }
+      else {
+        this.noPosts = true
+      }
+    });
     this.apiService.current_user().subscribe((response: any) => {
       this.current_user = response
       this.is_superuser = response.is_superuser

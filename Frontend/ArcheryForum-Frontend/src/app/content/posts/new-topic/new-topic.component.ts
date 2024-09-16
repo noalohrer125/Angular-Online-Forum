@@ -21,6 +21,7 @@ export class NewTopicComponent {
 
   onSubmit() {
     const topic = {
+      id: 0,
       name: this.name,
       description: this.description,
     };

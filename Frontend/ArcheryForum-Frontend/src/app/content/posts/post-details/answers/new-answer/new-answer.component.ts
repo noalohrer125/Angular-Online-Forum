@@ -23,6 +23,7 @@ export class NewAnswerComponent {
 
   onSubmit() {
     const answer = {
+      id: 0,
       content: this.content,
       post_id: this.post_id,
     };

@@ -16,7 +16,7 @@ import { CommonModule } from '@angular/common';
 export class NavigationbarComponent {
   constructor(private apiService: ApiService) {}
 
-  isAuthenticated!: any;
+  isAuthenticated!: boolean;
   
   ngOnInit() {
     this.apiService.is_authenticated().subscribe((response: any) => {

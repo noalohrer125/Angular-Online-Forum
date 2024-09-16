@@ -1,9 +1,8 @@
 <table>
     <tr>
         <td class="username">{{ 'answer!.user_name' }}</td>
-        <td class="content">{{ answer!.Content }}</td>
-        <td><button (click)="delete(answer!.id)">Delete</button></td>
-        <!-- TODO: Unify Buttontext -->
+        <td class="content">{{ answer!.content }}</td>
+        <td><button (click)="delete(answer!.id)">delete</button></td>
         <td><button (click)="edit(answer!.id)">edit</button></td>
     </tr>
 </table>

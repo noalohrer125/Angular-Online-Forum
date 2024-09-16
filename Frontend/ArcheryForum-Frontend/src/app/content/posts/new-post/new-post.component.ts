@@ -3,6 +3,7 @@ import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../../api.service';
+import { Topic } from '../../../interfaces';
 
 @Component({
   selector: 'app-new-post',
@@ -17,9 +18,8 @@ import { ApiService } from '../../../api.service';
 })
 export class NewPostComponent {
   constructor(private apiService: ApiService, private router: Router) {}
-  
 
-  topics!: any[];
+  topics!: Topic[];
 
   ngOnInit() {
     this.apiService.getTopics().subscribe(response => {
@@ -37,9 +37,10 @@ export class NewPostComponent {
 
   onSubmit() {
     const post = {
-      subject: this.subject,
-      content: this.content,
-      topic_name: this.topic,
+      id: 0,
+      Subject: this.subject,
+      Content: this.content,
+      Topic_name: this.topic,
     };
 
     this.apiService.addPost(post).subscribe(response =>

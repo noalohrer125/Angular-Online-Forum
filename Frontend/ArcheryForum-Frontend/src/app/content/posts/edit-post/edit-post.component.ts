@@ -51,10 +51,10 @@ export class EditPostComponent {
   onSubmit() {
     const post = {
       id: Number(this.CurrentPostId()),
-      subject: this.subject,
-      content: this.content,
+      Subject: this.subject,
+      Content: this.content,
       // user_name: 'user',
-      topic_name: this.topic_name,
+      Topic_name: this.topic_name,
     };
 
     this.apiService.editPost(post).subscribe(value => {

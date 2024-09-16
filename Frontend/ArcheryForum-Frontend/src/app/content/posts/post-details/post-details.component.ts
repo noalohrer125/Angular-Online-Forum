@@ -14,30 +14,29 @@ import { ApiService } from '../../../api.service';
   styleUrl: './post-details.component.css'
 })
 export class PostDetailsComponent {
-  // TODO: Unify variable nameing (postIdNumber)
   postId = input.required()
 
   constructor(private apiService: ApiService) { }
 
-  post_id_number!: number;
+  postIdNumber!: number;
 
   subject!: string;
-  user_name!: string;
+  userName!: string;
   content!: string;
 
   ngOnInit() {
-    this.post_id_number = Number(this.postId());
+    this.postIdNumber = Number(this.postId());
 
-    this.apiService.getSpecificPost(this.post_id_number).subscribe(response => {
+    this.apiService.getSpecificPost(this.postIdNumber).subscribe(response => {
 
       this.subject = response.post.Subject
-      this.user_name = 'user'
+      this.userName = 'user'
       this.content = response.post.Content
     });
   }
 
   delete() {
-      this.apiService.deletePost(this.post_id_number).subscribe()
+      this.apiService.deletePost(this.postIdNumber).subscribe()
       
       window.location.href = '/posts';
     }

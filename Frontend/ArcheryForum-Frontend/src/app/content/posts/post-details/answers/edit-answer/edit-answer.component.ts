@@ -33,6 +33,7 @@ export class EditAnswerComponent {
     const answer = {
       id: Number(this.CurrentAnswerId()),
       content: this.content,
+      post_id: this.post_id,
     };
     this.apiService.editAnswer(answer).subscribe(value => {
       if (value) {

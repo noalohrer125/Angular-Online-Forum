@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Answer, Post, Topic } from './interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -32,7 +33,71 @@ export class ApiService {
     this.csrfToken = token;
   }
 
-  // TODO: Sort by User-Handling, then CRUD-Operations (first add, then get, then edit, then delete)
+
+  // User-Handling
+  login(user: object): Observable<any> {
+    this.csrfToken = this.getCsrfTokenFromCookie();
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-CSRFToken': this.csrfToken || ''  // Add CSRF token to request header
+    });
+    return this.httpClient.post(`${this.baseUrl}login/`, user, { headers, withCredentials: true });
+  }
+
+  logout() {
+    return this.httpClient.get(`${this.baseUrl}logout/`, { withCredentials: true })
+  }
+
+  signUp(user: object): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-CSRFToken': this.csrfToken || ''  // Add CSRF token to request header
+    });
+    return this.httpClient.put(`${this.baseUrl}sign_up/`, user, { headers, withCredentials: true });
+  }
+
+  // user-infomration
+  current_user() {
+    return this.httpClient.get(`${this.baseUrl}current_user/`, { withCredentials: true })
+  }
+
+  is_authenticated() {
+    return this.httpClient.get(`${this.baseUrl}isAuthenticated/`, { withCredentials: true })
+  }
+
+
+  // add-APIs
+  addPost(post: Post): Observable<any> {
+    const csrfToken = this.getCsrfTokenFromCookie();
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-CSRFToken': csrfToken || ''
+    });
+    return this.httpClient.post(`${this.baseUrl}add_post/`, post, { headers, withCredentials: true });
+  }
+
+  addAnswer(answer: Answer) {
+    const csrfToken = this.getCsrfTokenFromCookie();
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-CSRFToken': csrfToken || ''
+    });
+    return this.httpClient.post(`${this.baseUrl}add_answer/`, answer, { headers, withCredentials: true });
+  }
+
+  addTopic(topic: Topic) {
+    const csrfToken = this.getCsrfTokenFromCookie();
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-CSRFToken': csrfToken || ''
+    });
+    return this.httpClient.post(`${this.baseUrl}add_topic/`, topic, { headers, withCredentials: true })
+  }
+
 
   // get-APIs
   getPosts(): Observable<any> {
@@ -60,37 +125,28 @@ export class ApiService {
     return this.httpClient.get<any>(`${this.baseUrl}get_specific_answer/${answer_id}/`);
   }
 
-  // add-APIs
-  // TODO: Replace any with Interface datatypes
-  addPost(post: any): Observable<any> {
+
+  // edit-APIs
+  editPost(post: Post): Observable<any> {
     const csrfToken = this.getCsrfTokenFromCookie();
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'X-CSRFToken': csrfToken || ''
     });
-    return this.httpClient.post(`${this.baseUrl}add_post/`, post, { headers, withCredentials: true });
+    return this.httpClient.post(`${this.baseUrl}edit_post/`, post, { headers, withCredentials: true });
   }
 
-  addAnswer(answer: any) {
+  editAnswer(answer: Answer): Observable<any> {
     const csrfToken = this.getCsrfTokenFromCookie();
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'X-CSRFToken': csrfToken || ''
     });
-    return this.httpClient.post(`${this.baseUrl}add_answer/`, answer, { headers, withCredentials: true });
+    return this.httpClient.post(`${this.baseUrl}edit_answer/`, answer, { headers, withCredentials: true });
   }
 
-  addTopic(topic: any) {
-    const csrfToken = this.getCsrfTokenFromCookie();
-
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'X-CSRFToken': csrfToken || ''
-    });
-    return this.httpClient.post(`${this.baseUrl}add_topic/`, topic, { headers, withCredentials: true })
-  }
 
   // delete-APIs
   deletePost(post_id: number): Observable<any> {
@@ -103,59 +159,5 @@ export class ApiService {
 
   deleteTopic(topic_id: number): Observable<any> {
     return this.httpClient.get<any>(`${this.baseUrl}delete_topic/${topic_id}/`);
-  }
-
-  // edit-APIs
-  editPost(post: any): Observable<any> {
-    const csrfToken = this.getCsrfTokenFromCookie();
-
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'X-CSRFToken': csrfToken || ''
-    });
-    return this.httpClient.post(`${this.baseUrl}edit_post/`, post, { headers, withCredentials: true });
-  }
-
-  editAnswer(answer: any): Observable<any> {
-    const csrfToken = this.getCsrfTokenFromCookie();
-
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'X-CSRFToken': csrfToken || ''
-    });
-    return this.httpClient.post(`${this.baseUrl}edit_answer/`, answer, { headers, withCredentials: true });
-  }
-
-  // User-Handling
-  login(user: object): Observable<any> {
-    this.csrfToken = this.getCsrfTokenFromCookie();
-
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'X-CSRFToken': this.csrfToken || ''  // Add CSRF token to request header
-    });
-    return this.httpClient.post(`${this.baseUrl}login/`, user, { headers, withCredentials: true });
-  }
-
-  logout() {
-    return this.httpClient.get(`${this.baseUrl}logout/`, { withCredentials: true })
-  }
-
-  signUp(user: object): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'X-CSRFToken': this.csrfToken || ''  // Add CSRF token to request header
-    });
-
-    return this.httpClient.put(`${this.baseUrl}sign_up/`, user, { headers, withCredentials: true });
-  }
-
-  // user-infomration
-  current_user() {
-    return this.httpClient.get(`${this.baseUrl}current_user/`, { withCredentials: true })
-  }
-
-  is_authenticated() {
-    return this.httpClient.get(`${this.baseUrl}isAuthenticated/`, { withCredentials: true })
   }
 }
