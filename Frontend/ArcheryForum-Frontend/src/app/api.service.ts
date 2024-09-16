@@ -32,6 +32,8 @@ export class ApiService {
     this.csrfToken = token;
   }
 
+  // TODO: Sort by User-Handling, then CRUD-Operations (first add, then get, then edit, then delete)
+
   // get-APIs
   getPosts(): Observable<any> {
     return this.httpClient.get(`${this.baseUrl}get_posts/`)
@@ -59,6 +61,7 @@ export class ApiService {
   }
 
   // add-APIs
+  // TODO: Replace any with Interface datatypes
   addPost(post: any): Observable<any> {
     const csrfToken = this.getCsrfTokenFromCookie();
 

@@ -23,6 +23,7 @@
             </td>
             <td>
                 <select id="topic" name="topic" [(ngModel)]="topic">
+                    <!-- TODO: replace @for with *ngFor -->
                     @for (i of topics; track i) {
                         <option value="{{ i.name }}">{{ i.name }}</option>
                     }

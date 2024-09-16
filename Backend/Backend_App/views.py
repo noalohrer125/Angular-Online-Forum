@@ -2,6 +2,7 @@ import json
 from django.forms import model_to_dict
 from django.http import HttpResponse
 from .models import Post, Answer, Topic
+# TODO: Sort imports by alphabetical order
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_protect
@@ -19,6 +20,7 @@ def get_csrf_token(request):
 
 # Posts
 def get_posts(request):
+    # TODO: Add error handling (for the case that no posts are found)
     posts = list(Post.objects.all().values("id", "Subject", "Content", "Topic_id"))
     return JsonResponse(posts, safe=False)
 
@@ -161,10 +163,12 @@ def login(request):
     if request.method == "POST":  # Check if the request method is POST
         try:
             data = json.loads(request.body)  # Parse JSON data from the request body
+            # TODO: Unified variable naming
             u_name = data.get("name")  # Get the username from the parsed data
             pw = data.get("password")  # Get the password from the parsed data
             user = authenticate(request, username=u_name, password=pw)
 
+            # TODO: Unnecessary else statement
             if user is not None:
                 auth_login(request, user)
                 return JsonResponse({"message": "Login successful"}, status=200)

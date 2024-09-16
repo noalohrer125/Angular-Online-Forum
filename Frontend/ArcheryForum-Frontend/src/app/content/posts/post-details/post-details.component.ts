@@ -14,6 +14,7 @@ import { ApiService } from '../../../api.service';
   styleUrl: './post-details.component.css'
 })
 export class PostDetailsComponent {
+  // TODO: Unify variable nameing (postIdNumber)
   postId = input.required()
 
   constructor(private apiService: ApiService) { }

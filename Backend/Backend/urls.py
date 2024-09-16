@@ -40,7 +40,7 @@ from Backend_App.views import (
     get_current_user,
     isAuthenticated,
 )
-
+# TODO: Remove comments, unify imports
 urlpatterns = [
     path("admin/", admin.site.urls),
     # get-URLs
