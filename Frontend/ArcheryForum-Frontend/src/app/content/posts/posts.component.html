@@ -1,8 +1,8 @@
 <div class="new-post-new-topic">
-    <a routerLink="/new-post">
+    <a *ngIf="is_authenticated" routerLink="/new-post">
         Add new Post
     </a>
-    <a routerLink="/new-topic">
+    <a *ngIf="is_superuser" routerLink="/new-topic">
         Add new Topic
     </a>
 </div>
@@ -14,7 +14,8 @@
 </div>
 -->
 <div *ngFor="let post of Posts">
-    <a class="post-link" [routerLink]="'/post-details/' + post.id" (click)="current_post(post.id)">
+    <a class="post-link" [routerLink]="'/post-details/' + post.id"
+        (click)="current_post(post.id)">
         <app-post [post]="post" class="post"></app-post>
     </a>
 </div>

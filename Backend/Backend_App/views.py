@@ -8,6 +8,7 @@ from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.http import JsonResponse
+from django.core.serializers import serialize
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 from django.middleware.csrf import get_token
@@ -227,7 +228,12 @@ def sign_up(request):
 
 
 def get_current_user(request):
-    return JsonResponse({"user": str(request.user)})
+    user = request.user
+    user_data = {
+        "username": str(user.username),
+        "is_superuser": bool(user.is_superuser),
+    }
+    return JsonResponse(user_data)
 
 
 @csrf_protect
