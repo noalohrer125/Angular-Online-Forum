@@ -19,7 +19,7 @@ import { ApiService } from '../../api.service';
 })
 
 export class PostsComponent {
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService) { }
 
   Posts!: any[];
   current_user!: any;

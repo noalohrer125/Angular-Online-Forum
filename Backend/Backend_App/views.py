@@ -223,9 +223,6 @@ def sign_up(request):
         )  # Handle non-POST requests
 
 
-# def get_current_user(request):
-#     return JsonResponse({"user": str(request.user)})
-
 def get_current_user(request):
     user = request.user
     user_data = {
@@ -233,6 +230,7 @@ def get_current_user(request):
         "is_superuser": bool(user.is_superuser),
     }
     return JsonResponse(user_data)
+
 
 @csrf_protect
 def isAuthenticated(request):
