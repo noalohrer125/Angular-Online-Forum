@@ -222,3 +222,8 @@ def isAuthenticated(request):
         return JsonResponse({"authenticated": True})
     else:
         return JsonResponse({"authenticated": False})
+
+
+# Check if the backend is funning
+def health_check(request):
+    return JsonResponse({'status': 'running'})

@@ -1,4 +1,8 @@
-<div class="container">
+<div *ngIf="backend_is_running === false" class="backend_error_page">
+    <p>We currently have issues with our servers. We are fixing this as soon as possible</p>
+    <p>Thanks for your understanding.</p>
+</div>
+<div *ngIf="backend_is_running === true" class="container">
     <app-header class="header"></app-header>
     <app-navigationbar class="navigationbar"></app-navigationbar>
     <div class="content">

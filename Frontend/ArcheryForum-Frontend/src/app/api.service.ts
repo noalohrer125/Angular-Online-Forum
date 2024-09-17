@@ -160,4 +160,10 @@ export class ApiService {
   deleteTopic(topic_id: number): Observable<any> {
     return this.httpClient.get<any>(`${this.baseUrl}delete_topic/${topic_id}/`);
   }
+
+
+  // Check if backend is running
+  checkBackend(): Observable<any> {
+    return this.httpClient.get(`${this.baseUrl}health-check/`);
+  }
 }

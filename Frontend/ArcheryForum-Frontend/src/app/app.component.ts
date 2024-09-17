@@ -7,6 +7,7 @@ import { PostsComponent } from "./content/posts/posts.component";
 import { MyAccountComponent } from "./content/my-account/my-account.component";
 import { PostComponent } from "./content/posts/post/post.component";
 import { CommonModule } from '@angular/common';
+import { ApiService } from './api.service';
 
 @Component({
   selector: 'app-root',
@@ -25,5 +26,20 @@ import { CommonModule } from '@angular/common';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  
+  constructor(private apiService: ApiService) { }
+
+  status!: any;
+  backend_is_running!: boolean;
+
+  ngOnInit() {
+    this.apiService.checkBackend().subscribe(
+      response => {
+        this.backend_is_running = true;
+      },
+      error => {
+        console.log('error', error);
+        this.backend_is_running = false;
+      }
+    );
+  }
 }

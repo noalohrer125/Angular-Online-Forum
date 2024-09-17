@@ -38,6 +38,7 @@ from Backend_App.views import (
     sign_up,
     get_current_user,
     isAuthenticated,
+    health_check,
 )
 
 urlpatterns = [
@@ -62,4 +63,5 @@ urlpatterns = [
     path("sign_up/", sign_up, name="sign_up"),
     path("current_user/", get_current_user, name="get_current_user"),
     path("isAuthenticated/", isAuthenticated, name="isAuthenticated"),
+    path('health-check/', health_check, name='health_check'),
 ]
