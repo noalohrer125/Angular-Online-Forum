@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { ApiService } from '../../../api.service';
 
@@ -9,6 +9,7 @@ import { ApiService } from '../../../api.service';
   imports: [
     FormsModule,
     RouterLink,
+    ReactiveFormsModule,
   ],
   templateUrl: './new-topic.component.html',
   styleUrl: './new-topic.component.css'
@@ -16,14 +17,16 @@ import { ApiService } from '../../../api.service';
 export class NewTopicComponent {
   constructor(private apiService: ApiService) {}
 
-  name!: string;
-  description!: string;
+  topicForm = new FormGroup({
+    name: new FormControl,
+    description: new FormControl,
+  })
 
   onSubmit() {
     const topic = {
       id: 0,
-      name: this.name,
-      description: this.description,
+      name: this.topicForm.value.name,
+      description: this.topicForm.value.description,
     };
 
     this.apiService.addTopic(topic).subscribe();

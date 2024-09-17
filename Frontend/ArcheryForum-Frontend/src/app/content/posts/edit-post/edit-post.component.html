@@ -1,11 +1,11 @@
-<form>
+<form [formGroup]="postForm">
     <table>
         <tr>
             <td>
                 <label for="subject">Subject:</label>
             </td>
             <td>
-                <input type="text" id="subject" name="subject" [(ngModel)]="subject">
+                <input type="text" id="subject" name="subject" formControlName="subject">
             </td>
         </tr>
         <tr>
@@ -13,7 +13,7 @@
                 <label for="content">Content:</label>
             </td>
             <td>
-                <textarea id="content" name="content" [(ngModel)]="content"></textarea>
+                <textarea id="content" name="content" formControlName="content"></textarea>
             </td>
         </tr>
         <tr>
@@ -21,16 +21,14 @@
                 <label for="topic">Topic:</label>
             </td>
             <td>
-                <select id="topic" name="topic" [(ngModel)]="topic_name">
-                    @for (i of topics; track i) {
-                        <option value="{{ i.name }}">{{ i.name }}</option>
-                    }
+                <select id="topic" name="topic" formControlName="topic_name">
+                    <option *ngFor="let i of topics" [value]="i.name">{{ i.name }}</option>
                 </select>
             </td>
         </tr>
         <tr>
             <td>
-                <button type="submit" (click)="onSubmit()" [disabled]="!subject || !content ||!topic">Submit</button>
+                <button type="submit" (click)="onSubmit()" [disabled]="!postForm.value.subject || !postForm.value.content ||!postForm.value.topic_name">Submit</button>
             </td>
             <td>
                 <button [routerLink]="['/post-details', CurrentPostId()]">Cancel</button>

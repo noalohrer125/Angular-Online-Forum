@@ -4,7 +4,6 @@ import { NavigationbarComponent } from "./navigationbar/navigationbar.component"
 import { HeaderComponent } from "./header/header.component";
 import { HomeComponent } from "./content/home/home.component";
 import { PostsComponent } from "./content/posts/posts.component";
-import { MyAccountComponent } from "./content/my-account/my-account.component";
 import { PostComponent } from "./content/posts/post/post.component";
 import { CommonModule } from '@angular/common';
 import { ApiService } from './api.service';
@@ -18,7 +17,6 @@ import { ApiService } from './api.service';
     HeaderComponent,
     HomeComponent,
     PostsComponent,
-    MyAccountComponent,
     PostComponent,
     CommonModule,
   ],

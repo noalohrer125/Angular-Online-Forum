@@ -17,9 +17,6 @@ import { ApiService } from '../../api.service';
 export class LoginComponent implements OnInit {
   constructor(private apiService: ApiService) {}
 
-  name!: string;
-  password!: string;
-
   ngOnInit(): void {
     // Fetch the CSRF token on initialization
     this.apiService.getCsrfToken().subscribe(response => {

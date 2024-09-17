@@ -1,16 +1,16 @@
-<form>
+<form [formGroup]="editAnswer">
     <table>
         <tr>
             <td>
                 <label for="content">Your Answer:</label>
             </td>
             <td>
-                <input type="text" id="content" name="content" [(ngModel)]="content">
+                <input type="text" id="content" name="content" formControlName="content">
             </td>
         </tr>
         <tr>
             <td>
-                <button type="submit" (click)="onSubmit()" [disabled]="!content">Submit</button>
+                <button type="submit" (click)="onSubmit()" [disabled]="!editAnswer.value.content">Submit</button>
             </td>
             <td>
                 <button [routerLink]="['/post-details/' + post_id]">Cancel</button>

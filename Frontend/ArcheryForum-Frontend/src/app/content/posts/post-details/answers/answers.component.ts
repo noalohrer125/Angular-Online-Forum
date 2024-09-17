@@ -27,7 +27,7 @@ export class AnswersComponent {
   ngOnInit() {
     this.apisercive.getAnswers().subscribe(response => {
       this.Answers = response
-      this.Answers = this.Answers.filter(item => item.post_id === this.post_id);
+      this.Answers = this.Answers.filter(item => item.Post_id === this.post_id);
     })
   }
 }

@@ -1,6 +1,6 @@
 import { Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { ApiService } from '../../../../../api.service';
 
@@ -11,30 +11,37 @@ import { ApiService } from '../../../../../api.service';
     CommonModule,
     FormsModule,
     RouterLink,
+    ReactiveFormsModule,
   ],
   templateUrl: './edit-answer.component.html',
   styleUrl: './edit-answer.component.css'
 })
 export class EditAnswerComponent {
-  constructor(private apiService: ApiService) {}
-
   CurrentAnswerId = input.required<string>()
 
-  content!: string;
-  post_id: number = Number(localStorage.getItem('current_post'));
+  constructor(private apiService: ApiService) {}
 
   ngOnInit() {
     this.apiService.getSpecificAnswer(Number(this.CurrentAnswerId())).subscribe(data => {
-      this.content = data.answer.Content
+      this.editAnswer.patchValue({
+        content: data.answer.Content
+      })
     });
   }
+
+  post_id: number = Number(localStorage.getItem('current_post'));
+
+  editAnswer = new FormGroup({
+    content: new FormControl
+  })
 
   onSubmit() {
     const answer = {
       id: Number(this.CurrentAnswerId()),
-      content: this.content,
-      post_id: this.post_id,
+      Content: this.editAnswer.value.content,
+      Post_id: this.post_id,
     };
+
     this.apiService.editAnswer(answer).subscribe(value => {
       if (value) {
         window.location.href = '/post-details/' + this.post_id;

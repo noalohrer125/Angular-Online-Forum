@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ApiService } from '../../../../../api.service';
 
 @Component({
@@ -9,6 +9,7 @@ import { ApiService } from '../../../../../api.service';
   imports: [
     RouterLink,
     FormsModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './new-answer.component.html',
   styleUrl: './new-answer.component.css'
@@ -18,14 +19,17 @@ export class NewAnswerComponent {
 
   ngOnInit() {}
 
-  content!: string;
   post_id: number = Number(localStorage.getItem('current_post'));
+
+  answerForm = new FormGroup({
+    content: new FormControl(''),
+  })
 
   onSubmit() {
     const answer = {
       id: 0,
-      content: this.content,
-      post_id: this.post_id,
+      Content: this.answerForm.value.content ?? '', // Provide a default value of '' if content is null or undefined
+      Post_id: this.post_id,
     };
 
     this.apiService.addAnswer(answer).subscribe();

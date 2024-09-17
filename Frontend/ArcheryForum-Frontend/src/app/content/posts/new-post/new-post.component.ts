@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../../api.service';
 import { Topic } from '../../../interfaces';
@@ -12,6 +12,7 @@ import { Topic } from '../../../interfaces';
     RouterLink,
     FormsModule,
     CommonModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './new-post.component.html',
   styleUrl: './new-post.component.css'
@@ -31,16 +32,18 @@ export class NewPostComponent {
     window.location.href = '/posts'
   }
 
-  subject!: string;
-  content!: string;
-  topic!: string;
+  postForm = new FormGroup({
+    subject: new FormControl,
+    content: new FormControl,
+    topic: new FormControl,
+  })
 
   onSubmit() {
     const post = {
       id: 0,
-      Subject: this.subject,
-      Content: this.content,
-      Topic_name: this.topic,
+      Subject: this.postForm.value.subject,
+      Content: this.postForm.value.content,
+      Topic_name: this.postForm.value.topic,
     };
 
     this.apiService.addPost(post).subscribe(response =>

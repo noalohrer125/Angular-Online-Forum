@@ -1,16 +1,16 @@
 <h1>Add a new Topic</h1>
-<form>
+<form [formGroup]="topicForm">
     <table>
         <tr>
             <td><label for="name">Name:</label></td>
-            <td><input type="text" id="name" name="name" [(ngModel)]="name"></td>
+            <td><input type="text" id="name" name="name" formControlName="name"></td>
         </tr>
         <tr>
             <td><label for="description">Descripiton:</label></td>
-            <td><textarea id="description" name="description" [(ngModel)]="description"></textarea></td>
+            <td><textarea id="description" name="description" formControlName="description"></textarea></td>
         </tr>
         <tr>
-            <td><button type="submit" (click)="onSubmit()" [disabled]="!name || !description">Submit</button></td>
+            <td><button type="submit" (click)="onSubmit()" [disabled]="!topicForm.value.name|| !topicForm.value.description">Submit</button></td>
             <td><button routerLink="/posts">Cancel</button></td>
         </tr>
     </table>

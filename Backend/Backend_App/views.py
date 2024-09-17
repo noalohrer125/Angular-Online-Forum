@@ -36,9 +36,9 @@ def get_specific_Post(request, post_id):
 def add_post(request):
     if request.method == "POST":
         data = json.loads(request.body)
-        subject = data.get("subject")
-        content = data.get("content")
-        topic_name = data.get("topic_name")
+        subject = data.get("Subject")
+        content = data.get("Content")
+        topic_name = data.get("Topic_name")
 
         topic = get_object_or_404(Topic, name=topic_name)
 
@@ -65,9 +65,9 @@ def edit_post(request):
 
         # Update the post
         post = Post.objects.get(id=post_id)
-        topic = Topic.objects.get(name=data.get("topic_name"))
-        post.Subject = data.get("subject")
-        post.Content = data.get("content")
+        topic = Topic.objects.get(name=data.get("Topic_name"))
+        post.Subject = data.get("Subject")
+        post.Content = data.get("Content")
         post.Topic_id = topic
         post.save()
     return HttpResponse(200)
@@ -115,7 +115,7 @@ def edit_answer(request):
 
         # Update the post
         answer = Answer.objects.get(id=answer_id)
-        answer.Content = data.get("content")
+        answer.Content = data.get("Content")
         answer.save()
     return HttpResponse(200)
 

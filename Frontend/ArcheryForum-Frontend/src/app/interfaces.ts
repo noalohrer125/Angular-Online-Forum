@@ -4,8 +4,8 @@ export interface is_authenticated {
 
 export interface Answer {
     id: number;
-    content: string;
-    post_id: number;
+    Content: string;
+    Post_id: number;
 }
 
 export interface Post {
