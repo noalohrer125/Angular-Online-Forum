@@ -34,6 +34,7 @@ export class AppComponent {
   ngOnInit() {
     this.apiService.checkBackend().subscribe(
       response => {
+        this.status = response.status
         this.backend_is_running = true;
       },
       error => {
