@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { ApiService } from '../../api.service';
 
@@ -9,6 +9,7 @@ import { ApiService } from '../../api.service';
   imports: [
     FormsModule,
     RouterLink,
+    ReactiveFormsModule,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
@@ -26,11 +27,15 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  loginForm = new FormGroup({
+    name: new FormControl(''),
+    password: new FormControl(''),
+  })
 
   onSubmit(): void {
     const user = {
-      name: this.name,
-      password: this.password
+      name: this.loginForm.value.name,
+      password: this.loginForm.value.password,
     };
 
     this.apiService.login(user).subscribe(response => {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { ApiService } from '../../api.service';
 
@@ -9,16 +9,15 @@ import { ApiService } from '../../api.service';
   imports: [
     FormsModule,
     RouterLink,
+    ReactiveFormsModule,
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
 export class RegisterComponent implements OnInit {
-  name!: string;
-  password!: string;
-  csrfToken!: string;
+  constructor(private apiService: ApiService, private router: Router) { }
 
-  constructor(private apiService: ApiService, private router: Router) {}
+  csrfToken!: string;
 
   ngOnInit(): void {
     // Fetch the CSRF token on initialization
@@ -27,10 +26,15 @@ export class RegisterComponent implements OnInit {
     });
   }
 
+  registerForm = new FormGroup({
+    name: new FormControl(''),
+    password: new FormControl(''),
+  })
+
   onSubmit(): void {
     const user = {
-      name: this.name,
-      password: this.password,
+      name: this.registerForm.value.name,
+      password: this.registerForm.value.password,
     };
 
     this.apiService.signUp(user).subscribe(response => {
@@ -38,7 +42,7 @@ export class RegisterComponent implements OnInit {
         // Navigate to the login page after successful registration
         this.router.navigate(['/login']);
       } else {
-        console.log('Registration failed:', response.error);
+        window.alert('Registration failed:' + String(response.error));
       }
     });
   }
