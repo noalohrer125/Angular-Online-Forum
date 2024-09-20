@@ -1,7 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, filter, Observable } from 'rxjs';
 import { Answer, Post, Topic } from './interfaces';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -165,5 +166,39 @@ export class ApiService {
   // Check if backend is running
   checkBackend(): Observable<any> {
     return this.httpClient.get(`${this.baseUrl}health-check/`);
+  }
+
+  // Initialize a BehaviorSubject to track backend-running state, defaul = true
+  private runningBackend = new BehaviorSubject<boolean>(true);
+
+  // Method to update runningBackend state
+  setRunningBackend(value: boolean): void {
+    this.runningBackend.next(value);
+  }
+
+  // Method to get current runningBackend state
+  getRunningBackend(): Observable<boolean> {
+    return this.runningBackend.asObservable();
+  }
+
+  // Constructor to listen for URL changes
+  constructor(private router: Router) {
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd) // Filter for NavigationEnd events
+    ).subscribe((event: NavigationEnd) => {
+      this.onURLChange(); // Call onURLChange when URL change detected
+    });
+  }
+
+  // Method to check backend-status when URL change detected
+  private onURLChange() {
+    this.checkBackend().subscribe(
+      response => {
+        this.setRunningBackend(true); // runningBackend = true if the backend-check is successful
+      },
+      error => {
+        this.setRunningBackend(false); // runningBackend = false if there is an error
+      }
+    );
   }
 }

@@ -30,15 +30,9 @@ export class AppComponent {
   backend_is_running!: boolean;
 
   ngOnInit() {
-    this.apiService.checkBackend().subscribe(
-      response => {
-        this.status = response.status
-        this.backend_is_running = true;
-      },
-      error => {
-        console.log('error', error);
-        this.backend_is_running = false;
-      }
-    );
+    this.apiService.getRunningBackend().subscribe(response => {
+      this.backend_is_running = response
+      console.log('runningBackend: ', this.backend_is_running)
+    })
   }
 }
