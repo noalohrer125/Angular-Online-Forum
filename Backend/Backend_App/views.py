@@ -28,7 +28,7 @@ logging.basicConfig(
 
 def get_csrf_token(request):
     try:
-        token = get_token(1234)
+        token = get_token(request)
         return JsonResponse({"csrfToken": token})
     except Exception as ex:
         error_message = f"Exception at get_csrf_token(): {str(ex.__class__.__name__)}: {str(ex)} on line {ex.__traceback__.tb_lineno}"
