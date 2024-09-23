@@ -1,0 +1,71 @@
+2024-09-23 13:44 - INFO - C:\Users\nl\Github\Angular-Online-Forum\Backend\Backend_App\views.py changed, reloading.
+2024-09-23 13:48 - INFO - C:\Users\nl\Github\Angular-Online-Forum\Backend\Backend_App\views.py changed, reloading.
+2024-09-23 13:48 - INFO - C:\Users\nl\Github\Angular-Online-Forum\Backend\Backend_App\views.py changed, reloading.
+2024-09-23 13:48 - INFO - C:\Users\nl\Github\Angular-Online-Forum\Backend\Backend_App\views.py changed, reloading.
+2024-09-23 13:48 - INFO - C:\Users\nl\Github\Angular-Online-Forum\Backend\Backend_App\views.py changed, reloading.
+2024-09-23 13:48 - INFO - C:\Users\nl\Github\Angular-Online-Forum\Backend\Backend_App\views.py changed, reloading.
+2024-09-23 13:48 - INFO - C:\Users\nl\Github\Angular-Online-Forum\Backend\Backend_App\views.py changed, reloading.
+2024-09-23 13:48 - INFO - C:\Users\nl\Github\Angular-Online-Forum\Backend\Backend_App\views.py changed, reloading.
+2024-09-23 13:49 - INFO - C:\Users\nl\Github\Angular-Online-Forum\Backend\Backend_App\views.py changed, reloading.
+2024-09-23 13:49 - INFO - C:\Users\nl\Github\Angular-Online-Forum\Backend\Backend_App\views.py changed, reloading.
+2024-09-23 13:49 - INFO - C:\Users\nl\Github\Angular-Online-Forum\Backend\Backend_App\views.py changed, reloading.
+2024-09-23 13:49 - INFO - C:\Users\nl\Github\Angular-Online-Forum\Backend\Backend_App\views.py changed, reloading.
+2024-09-23 13:49 - INFO - C:\Users\nl\Github\Angular-Online-Forum\Backend\Backend_App\views.py changed, reloading.
+2024-09-23 13:49 - INFO - C:\Users\nl\Github\Angular-Online-Forum\Backend\Backend_App\views.py changed, reloading.
+2024-09-23 13:49 - INFO - C:\Users\nl\Github\Angular-Online-Forum\Backend\Backend_App\views.py changed, reloading.
+2024-09-23 13:49 - INFO - C:\Users\nl\Github\Angular-Online-Forum\Backend\Backend_App\views.py changed, reloading.
+2024-09-23 13:49 - INFO - C:\Users\nl\Github\Angular-Online-Forum\Backend\Backend_App\views.py changed, reloading.
+2024-09-23 13:49 - INFO - C:\Users\nl\Github\Angular-Online-Forum\Backend\Backend_App\views.py changed, reloading.
+2024-09-23 13:49 - INFO - C:\Users\nl\Github\Angular-Online-Forum\Backend\Backend_App\views.py changed, reloading.
+2024-09-23 13:53 - INFO - C:\Users\nl\Github\Angular-Online-Forum\Backend\Backend_App\views.py changed, reloading.
+2024-09-23 13:54 - ERROR - error occured: Exception at get_csrf_token(): AttributeError: 'int' object has no attribute 'META' on line 31
+2024-09-23 13:54 - ERROR - Internal Server Error: /get-csrf-token/
+Traceback (most recent call last):
+  File "C:\Users\nl\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nl\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\nl\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nl\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\rest_framework\response.py", line 59, in rendered_content
+    assert renderer, ".accepted_renderer not set on Response"
+           ^^^^^^^^
+AssertionError: .accepted_renderer not set on Response
+2024-09-23 13:54 - ERROR - error occured: Exception at get_csrf_token(): AttributeError: 'int' object has no attribute 'META' on line 31
+2024-09-23 13:54 - ERROR - Internal Server Error: /get-csrf-token/
+Traceback (most recent call last):
+  File "C:\Users\nl\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nl\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\nl\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nl\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\rest_framework\response.py", line 59, in rendered_content
+    assert renderer, ".accepted_renderer not set on Response"
+           ^^^^^^^^
+AssertionError: .accepted_renderer not set on Response
+2024-09-23 13:54 - INFO - C:\Users\nl\Github\Angular-Online-Forum\Backend\Backend_App\views.py changed, reloading.
+2024-09-23 14:19 - INFO - C:\Users\nl\Github\Angular-Online-Forum\Backend\Backend_App\views.py changed, reloading.
+2024-09-23 14:20 - ERROR - error occured: Exception at get_csrf_token(): AttributeError: 'int' object has no attribute 'META' on line 31
+2024-09-23 14:23 - ERROR - Internal Server Error: /get-csrf-token/
+Traceback (most recent call last):
+  File "C:\Users\nl\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nl\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\nl\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nl\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\rest_framework\response.py", line 59, in rendered_content
+    assert renderer, ".accepted_renderer not set on Response"
+           ^^^^^^^^
+AssertionError: .accepted_renderer not set on Response
+2024-09-23 14:39 - INFO - C:\Users\nl\Github\Angular-Online-Forum\Backend\Backend_App\views.py changed, reloading.
