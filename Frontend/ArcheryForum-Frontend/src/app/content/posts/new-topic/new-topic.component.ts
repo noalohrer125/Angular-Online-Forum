@@ -29,7 +29,13 @@ export class NewTopicComponent {
       description: this.topicForm.value.description,
     };
 
-    this.apiService.addTopic(topic).subscribe();
-    window.location.href = '/posts';
+    this.apiService.addTopic(topic).subscribe((response: any) => {
+      if (response.error_message) {
+        window.alert('failed to add new topic, try again later')
+      }
+      else {
+        window.location.href = '/posts';
+      }
+    });
   }
 }

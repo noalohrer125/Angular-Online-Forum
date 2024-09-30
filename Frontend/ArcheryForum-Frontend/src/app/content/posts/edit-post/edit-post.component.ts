@@ -25,19 +25,29 @@ export class EditPostComponent {
   
   ngOnInit() {
     this.apiService.getTopics().subscribe(response => {
-      this.topics = response;
+      if (response.error_message) {
+        window.alert('we can not reach our servers, try again later')
+      }
+      else {
+        this.topics = response;
+      }
     });
     const post_id_number = Number(this.CurrentPostId())
     
     this.apiService.getSpecificPost(post_id_number).subscribe(response => {
-      this.apiService.getSpecificTopic(response.post.Topic_id).subscribe(data => {
-        // fill edit-form with the data of the current-post
-        this.postForm.patchValue({
-          subject: response.post.Subject,
-          content: response.post.Content,
-          topic_name: data.name
-        })
-      });
+      if (response.error_message) {
+        window.alert('we have issues with our servers, try again later')
+      }
+      else {
+        this.apiService.getSpecificTopic(response.post.Topic_id).subscribe(data => {
+          // fill edit-form with the data of the current-post
+          this.postForm.patchValue({
+            subject: response.post.Subject,
+            content: response.post.Content,
+            topic_name: data.name
+          })
+        });
+      }
     });
   }
 
@@ -56,12 +66,15 @@ export class EditPostComponent {
       Topic_name: this.postForm.value.topic_name,
     };
 
-    this.apiService.editPost(post).subscribe(value => {
-      if (value) {
+    this.apiService.editPost(post).subscribe(response => {
+      if (response.error_message) {
+        window.alert('an error occured, try again later')
+      }
+      if (response) {
         window.location.href = '/post-details/' + this.CurrentPostId();
       }
       else {
-        console.log('An error occured, please try again later.')
+        window.alert('an error occured, try again later')
       }
     });
   }

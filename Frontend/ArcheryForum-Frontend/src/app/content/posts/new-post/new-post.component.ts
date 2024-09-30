@@ -24,7 +24,12 @@ export class NewPostComponent {
 
   ngOnInit() {
     this.apiService.getTopics().subscribe(response => {
-      this.topics = response;
+      if (response.error_message) {
+        window.alert('we can not reach our servers, try again later')
+      }
+      else {
+        this.topics = response;
+      }
     });
   }
 
@@ -46,9 +51,13 @@ export class NewPostComponent {
       Topic_name: this.postForm.value.topic,
     };
 
-    this.apiService.addPost(post).subscribe(response =>
-      {
+    this.apiService.addPost(post).subscribe(response => {
+      if (response.error_message) {
+        window.alert('failed to add new Post, try again later')
+      }
+      else {
         this.router.navigate(['/posts']);
-      });
+      }
+    });
   }
 }

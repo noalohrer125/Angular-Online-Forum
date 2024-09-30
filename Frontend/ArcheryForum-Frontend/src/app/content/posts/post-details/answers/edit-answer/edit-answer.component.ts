@@ -42,11 +42,14 @@ export class EditAnswerComponent {
       Post_id: this.post_id,
     };
 
-    this.apiService.editAnswer(answer).subscribe(value => {
-      if (value) {
-        window.location.href = '/post-details/' + this.post_id;
+    this.apiService.editAnswer(answer).subscribe(response => {
+      if (response.error_message) {
+        window.alert('an error occured, try again later')
       }
       else {
+        if (response) {
+          window.location.href = '/post-details/' + this.post_id;
+        }
         console.log('An error occured, please try again later.')
       }
     });

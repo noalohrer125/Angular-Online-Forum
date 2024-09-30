@@ -13,9 +13,15 @@ export class LogoutComponent {
   constructor(private apiService: ApiService, private router: Router) {}
 
   ngOnInit() {
-    this.apiService.logout().subscribe(() => {
-      window.alert('user logged out.')
-      window.location.href = '/home'
+    this.apiService.logout().subscribe((response : any) => {
+      if (response.message) {
+        window.alert(response.message)
+        window.location.href = '/home'
+      }
+      if (response.error_message) {
+        window.alert('we have issues with our servers, try again later')
+        window.location.href = '/home'
+      }
     })
   }
 }

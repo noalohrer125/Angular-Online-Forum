@@ -26,8 +26,13 @@ export class AnswersComponent {
 
   ngOnInit() {
     this.apisercive.getAnswers().subscribe(response => {
-      this.Answers = response
-      this.Answers = this.Answers.filter(item => item.Post_id === this.post_id);
+      if (response.error_message) {
+        window.alert('we can not reach our servers, try again later')
+      }
+      else {
+        this.Answers = response
+        this.Answers = this.Answers.filter(item => item.Post_id === this.post_id);
+      }
     })
   }
 }

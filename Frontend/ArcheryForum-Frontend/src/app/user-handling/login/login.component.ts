@@ -41,7 +41,12 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('user', JSON.stringify(user));
         window.location.href = '/home'
       } else {
-        window.alert(response.error);
+        if (response.error) {
+          window.alert(response.error);
+        }
+        if (response.error_message) {
+          window.alert('we have issues with our loginserver, try again later')
+        }
       }
     });
   }

@@ -28,16 +28,25 @@ export class PostDetailsComponent {
     this.postIdNumber = Number(this.postId());
 
     this.apiService.getSpecificPost(this.postIdNumber).subscribe(response => {
-
-      this.subject = response.post.Subject
-      this.userName = 'user'
-      this.content = response.post.Content
+      if (response.error_message) {
+        window.alert('we have issues with our servers, try again later')
+      }
+      else {
+        this.subject = response.post.Subject
+        this.userName = 'user'
+        this.content = response.post.Content
+      }
     });
   }
 
   delete() {
-      this.apiService.deletePost(this.postIdNumber).subscribe()
-      
-      window.location.href = '/posts';
+      this.apiService.deletePost(this.postIdNumber).subscribe(response => {
+        if (response.error_message) {
+          window.alert('failed to delete Post, try again later')
+        }
+        else {
+          window.location.href = '/posts';
+        }
+      })
     }
 }

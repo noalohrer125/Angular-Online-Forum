@@ -285,7 +285,7 @@ def delete_topic(request, id):
 
 
 # Benutzer-Verwaltung
-@csrf_protect  # Enforces CSRF protection
+@csrf_protect
 def login(request):
     try:
         if request.method == "POST":  # Check if the request method is POST
@@ -361,7 +361,7 @@ def sign_up(request):
         except Exception as ex:  # Handle other exceptions
             error_message = f"Exception at sign_up(): {str(ex.__class__.__name__)}: {str(ex)} on line {ex.__traceback__.tb_lineno} \n User: {request.user}"
             logging.error(f"error occurred: {error_message}")
-            return JsonResponse({"error": "An error occurred."}, status=500)
+            return JsonResponse({"error": "Registration failed, try again later"}, status=500)
     # Handle non-POST requests
     else:
         return JsonResponse({"error": "Invalid request method."}, status=405)

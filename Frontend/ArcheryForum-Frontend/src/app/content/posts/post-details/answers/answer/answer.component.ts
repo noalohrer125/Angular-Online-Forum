@@ -15,9 +15,14 @@ export class AnswerComponent {
   Answers!: Answer[];
 
   delete(answer_id: number) {
-    this.apiService.deleteAnswer(answer_id).subscribe()
-    
-    location.reload()
+    this.apiService.deleteAnswer(answer_id).subscribe(response => {
+      if (response.error_message) {
+        window.alert('failed to delete Answer, try again later')
+      }
+      else {
+        location.reload()
+      }
+    })
   }
 
   edit(id: number) {

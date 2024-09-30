@@ -32,8 +32,13 @@ export class NewAnswerComponent {
       Post_id: this.post_id,
     };
 
-    this.apiService.addAnswer(answer).subscribe();
-
-    window.location.href = '/post-details/' + this.post_id;
+    this.apiService.addAnswer(answer).subscribe((response: any) => {
+      if (response.error_message) {
+        window.alert('failed to add new Answer, try again later')
+      }
+      else {
+        window.location.href = '/post-details/' + this.post_id;
+      }
+    });
   }
 }
