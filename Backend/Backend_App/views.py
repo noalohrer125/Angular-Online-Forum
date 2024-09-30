@@ -314,7 +314,7 @@ def login(request):
 def logout(request):
     try:
         auth_logout(request)  # User wird ausgeloggt
-        return JsonResponse({"message": "user logged out."}, status=200)
+        return JsonResponse({"message": "user logged out"}, status=200)
     except Exception as ex:
         error_message = f"Exception at logout(): {str(ex.__class__.__name__)}: {str(ex)} on line {ex.__traceback__.tb_lineno}"
         # logging

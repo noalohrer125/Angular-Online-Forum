@@ -33,7 +33,7 @@ export class PostsComponent {
         this.Posts = response;
         this.noPosts = false
       }
-      if (response.error_message) {
+      else if (response.error_message) {
         window.alert('we have issues to reach our servers, try again later')
       }
       else {
