@@ -17,6 +17,7 @@ from rest_framework import response as drf_response
 from rest_framework import status as drf_status
 
 import logging
+
 logging.basicConfig(
     filename="Backend\Backend\Logs\Logs.log",
     encoding="utf-8",
@@ -25,6 +26,7 @@ logging.basicConfig(
     style="{",
     datefmt="%Y-%m-%d %H:%M",
 )
+
 
 def get_csrf_token(request):
     try:
@@ -330,29 +332,39 @@ def sign_up(request):
             data = json.loads(request.body)  # Parse JSON data from the request body
             username = data.get("name")  # Get the username from the parsed data
             password = data.get("password")  # Get the password from the parsed data
+
             # Check if username and password are provided
             if not username or not password:
                 return JsonResponse(
                     {"error": "Username and password are required."}, status=400
                 )
+            
             # Validate the password according to Django's password validation rules
             try:
                 validate_password(password)
             except ValidationError as e:
                 return JsonResponse({"error": e.messages}, status=400)
+            
             # Check if the username already exists
             if User.objects.filter(username=username).exists():
                 return JsonResponse({"error": "Username already exists."}, status=400)
+            
             # Create a new user with the provided username and password
             user = User.objects.create_user(username=username, password=password)
             user.save()  # Save the user to the database
             return JsonResponse({"message": "User created successfully."}, status=201)
+        
         except json.JSONDecodeError:  # Handle JSON decoding errors
+            error_message = f"Exception at sign_up(): JSONDecodeError: Invalid JSON data on line {ex.__traceback__.tb_lineno} \n User: {request.user}"
+            logging.error(f"error occurred: {error_message}")
             return JsonResponse({"error": "Invalid JSON data."}, status=400)
+        except Exception as ex:  # Handle other exceptions
+            error_message = f"Exception at sign_up(): {str(ex.__class__.__name__)}: {str(ex)} on line {ex.__traceback__.tb_lineno} \n User: {request.user}"
+            logging.error(f"error occurred: {error_message}")
+            return JsonResponse({"error": "An error occurred."}, status=500)
+    # Handle non-POST requests
     else:
-        return JsonResponse(
-            {"error": "Invalid request method."}, status=405
-        )  # Handle non-POST requests
+        return JsonResponse({"error": "Invalid request method."}, status=405)
 
 
 def get_current_user(request):
@@ -367,7 +379,9 @@ def get_current_user(request):
         error_message = f"Exception at get_current_user(): {str(ex.__class__.__name__)}: {str(ex)} on line {ex.__traceback__.tb_lineno} \n User: {request.user}"
         # logging
         logging.error(f"error occured: {error_message}")
-        return drf_response.Response(error_message, status=drf_status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return drf_response.Response(
+            error_message, status=drf_status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
 
 
 @csrf_protect
@@ -382,7 +396,9 @@ def isAuthenticated(request):
         error_message = f"Exception at isAuthenticated(): {str(ex.__class__.__name__)}: {str(ex)} on line {ex.__traceback__.tb_lineno} \n User: {request.user}"
         # logging
         logging.error(f"error occured: {error_message}")
-        return drf_response.Response(error_message, status=drf_status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return drf_response.Response(
+            error_message, status=drf_status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
 
 
 # Check if the backend is funning
@@ -393,4 +409,6 @@ def health_check(request):
         error_message = f"Exception at health_check(): {str(ex.__class__.__name__)}: {str(ex)} on line {ex.__traceback__.tb_lineno}"
         # logging
         logging.error(f"error occured: {error_message}")
-        return drf_response.Response(error_message, status=drf_status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return drf_response.Response(
+            error_message, status=drf_status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
