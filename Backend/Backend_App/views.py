@@ -338,22 +338,22 @@ def sign_up(request):
                 return JsonResponse(
                     {"error": "Username and password are required."}, status=400
                 )
-            
+
             # Validate the password according to Django's password validation rules
             try:
                 validate_password(password)
             except ValidationError as e:
                 return JsonResponse({"error": e.messages}, status=400)
-            
+
             # Check if the username already exists
             if User.objects.filter(username=username).exists():
                 return JsonResponse({"error": "Username already exists."}, status=400)
-            
+
             # Create a new user with the provided username and password
             user = User.objects.create_user(username=username, password=password)
             user.save()  # Save the user to the database
             return JsonResponse({"message": "User created successfully."}, status=201)
-        
+
         except json.JSONDecodeError:  # Handle JSON decoding errors
             error_message = f"Exception at sign_up(): JSONDecodeError: Invalid JSON data on line {ex.__traceback__.tb_lineno} \n User: {request.user}"
             logging.error(f"error occurred: {error_message}")
