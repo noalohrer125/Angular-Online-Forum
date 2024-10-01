@@ -2,7 +2,7 @@
     <tr>
         <td class="username">Created by: {{ UserName }}</td>
         <td class="content">{{ Content }}</td>
-        <td><button (click)="delete(answer!.id)">delete</button></td>
-        <td><button (click)="edit(answer!.id)">edit</button></td>
+        <td><button *ngIf="is_superuser || is_authoriced" (click)="delete(answer!.id)">delete</button></td>
+        <td><button *ngIf="is_superuser || is_authoriced" (click)="edit(answer!.id)">edit</button></td>
     </tr>
 </table>

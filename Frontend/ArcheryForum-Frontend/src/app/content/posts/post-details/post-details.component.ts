@@ -2,6 +2,7 @@ import { Component, input } from '@angular/core';
 import { AnswersComponent } from "./answers/answers.component";
 import { RouterLink } from '@angular/router';
 import { ApiService } from '../../../api.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-post-details',
@@ -9,6 +10,7 @@ import { ApiService } from '../../../api.service';
   imports: [
     AnswersComponent,
     RouterLink,
+    CommonModule,
   ],
   templateUrl: './post-details.component.html',
   styleUrl: './post-details.component.css'
@@ -23,6 +25,9 @@ export class PostDetailsComponent {
   subject!: string;
   userName!: string;
   content!: string;
+  
+  is_superuser: boolean = false;
+  is_authoriced: boolean = false;
 
   ngOnInit() {
     this.postIdNumber = Number(this.postId());
@@ -35,6 +40,13 @@ export class PostDetailsComponent {
         this.subject = response.post.Subject
         this.apiService.getSpecificUser(response.post.User).subscribe(data => {
           this.userName = data.User[1]
+
+          this.apiService.current_user().subscribe((response: any) => {
+            this.is_superuser = response.is_superuser
+            if (this.userName === response.username) {
+              this.is_authoriced = true
+            }
+          })
         })
         this.content = response.post.Content
       }

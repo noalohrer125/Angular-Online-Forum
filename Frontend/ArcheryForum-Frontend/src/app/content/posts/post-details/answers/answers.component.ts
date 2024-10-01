@@ -19,13 +19,19 @@ import { Answer } from '../../../../interfaces';
   styleUrl: './answers.component.css'
 })
 export class AnswersComponent {
-  constructor(private apisercive: ApiService) {}
+  constructor(private apiService: ApiService) {}
   Answers!: any[];
   // current post id
   post_id: number = Number(localStorage.getItem('current_post'));
+  
+  is_authenticated!: boolean;
 
   ngOnInit() {
-    this.apisercive.getAnswers().subscribe(response => {
+    this.apiService.is_authenticated().subscribe((response: any) => {
+      this.is_authenticated = response.authenticated
+    })
+
+    this.apiService.getAnswers().subscribe(response => {
       if (response.error_message) {
         window.alert('we can not reach our servers, try again later')
       }

@@ -2,6 +2,6 @@
         <app-answer [answer]="answer"></app-answer>
 </div>
 <!-- Button to add new answer -->
-<a routerLink="/new-answer">
+<a *ngIf="is_authenticated" routerLink="/new-answer">
     new Answer
 </a>

@@ -2,9 +2,9 @@
     <p class="p">Created by: {{ userName }}</p>
     <h1 class="h1">{{ subject }}</h1>
     <div class="edit_delete_container">
-        <button class="edit-delete" (click)="delete()">delete</button>
+        <button *ngIf="is_superuser || is_authoriced" class="edit-delete" (click)="delete()">delete</button>
         <br><br>
-        <button class="edit-delete" [routerLink]="['/edit-post', postId()]">edit</button>
+        <button *ngIf="is_superuser || is_authoriced" class="edit-delete" [routerLink]="['/edit-post', postId()]">edit</button>
     </div>
     <h3 class="content">{{ content }}</h3>
     <br>

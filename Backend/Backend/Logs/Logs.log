@@ -1,0 +1,32 @@
+2024-10-01 15:17 - ERROR - error occured: Exception at add_answer(): Http404: No User matches the given query. on line 176
+2024-10-01 15:17 - ERROR - Internal Server Error: /add_answer/
+Traceback (most recent call last):
+  File "C:\Users\nl\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nl\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\nl\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nl\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\rest_framework\response.py", line 59, in rendered_content
+    assert renderer, ".accepted_renderer not set on Response"
+           ^^^^^^^^
+AssertionError: .accepted_renderer not set on Response
+2024-10-01 15:17 - ERROR - error occured: Exception at add_answer(): Http404: No User matches the given query. on line 176
+2024-10-01 15:17 - ERROR - Internal Server Error: /add_answer/
+Traceback (most recent call last):
+  File "C:\Users\nl\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nl\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\nl\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nl\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\rest_framework\response.py", line 59, in rendered_content
+    assert renderer, ".accepted_renderer not set on Response"
+           ^^^^^^^^
+AssertionError: .accepted_renderer not set on Response
