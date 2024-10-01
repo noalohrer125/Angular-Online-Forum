@@ -20,7 +20,7 @@ import { Answer } from '../../../../interfaces';
 })
 export class AnswersComponent {
   constructor(private apisercive: ApiService) {}
-  Answers!: Answer[];
+  Answers!: any[];
   // current post id
   post_id: number = Number(localStorage.getItem('current_post'));
 
@@ -31,7 +31,7 @@ export class AnswersComponent {
       }
       else {
         this.Answers = response
-        this.Answers = this.Answers.filter(item => item.Post_id === this.post_id);
+        this.Answers = this.Answers.filter(item => item.Post === this.post_id);
       }
     })
   }

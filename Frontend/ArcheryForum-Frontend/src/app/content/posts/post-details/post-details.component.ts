@@ -33,7 +33,9 @@ export class PostDetailsComponent {
       }
       else {
         this.subject = response.post.Subject
-        this.userName = 'user'
+        this.apiService.getSpecificUser(response.post.User).subscribe(data => {
+          this.userName = data.User[1]
+        })
         this.content = response.post.Content
       }
     });

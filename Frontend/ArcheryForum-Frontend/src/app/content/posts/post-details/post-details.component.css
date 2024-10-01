@@ -1,7 +1,7 @@
 .container {
     display: grid;
     grid-template-areas: 
-    'header header header'
+    'user header edit-delete'
     'content content content'
     'answers answers answers';
     gap: 2vmax;
@@ -11,12 +11,16 @@
     width: max-content;
     height: max-content;
     justify-self: end;
-    grid-area: header;
+    grid-area: edit-delete;
 }
 
 .edit-delete {
     width: 4vw;
     font-size: 2vmin;
+}
+
+.p {
+    grid-area: user;
 }
 
 .h1 {

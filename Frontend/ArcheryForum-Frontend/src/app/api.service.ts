@@ -67,6 +67,10 @@ export class ApiService {
     return this.httpClient.get(`${this.baseUrl}isAuthenticated/`, { withCredentials: true })
   }
 
+  getSpecificUser(User_id: number): Observable<any> {
+    return this.httpClient.get<any>(`${this.baseUrl}get_specific_user_object/${User_id}/`);
+  }
+
 
   // add-APIs
   addPost(post: Post): Observable<any> {

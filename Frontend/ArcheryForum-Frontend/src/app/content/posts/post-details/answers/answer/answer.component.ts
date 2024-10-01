@@ -11,8 +11,18 @@ import { Answer } from '../../../../../interfaces';
 })
 export class AnswerComponent {
   constructor(private apiService: ApiService) {}
-  @Input() answer?: Answer;
+  @Input() answer?: any;
   Answers!: Answer[];
+
+  UserName!: string;
+  Content!: string;
+
+  ngOnInit() {
+    this.apiService.getSpecificUser(this.answer.User).subscribe(data => {
+      this.UserName = data.User[1]
+      this.Content = this.answer.Content
+    })
+  }
 
   delete(answer_id: number) {
     this.apiService.deleteAnswer(answer_id).subscribe(response => {

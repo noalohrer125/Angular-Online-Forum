@@ -39,6 +39,7 @@ from Backend_App.views import (
     get_current_user,
     isAuthenticated,
     health_check,
+    get_specific_user_object,
 )
 
 urlpatterns = [
@@ -64,4 +65,5 @@ urlpatterns = [
     path("current_user/", get_current_user, name="get_current_user"),
     path("isAuthenticated/", isAuthenticated, name="isAuthenticated"),
     path('health-check/', health_check, name='health_check'),
+    path("get_specific_user_object/<int:user_id>/", get_specific_user_object, name="get_specific_user_object"),
 ]

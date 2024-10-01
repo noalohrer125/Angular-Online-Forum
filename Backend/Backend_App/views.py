@@ -19,14 +19,13 @@ from rest_framework import status as drf_status
 import logging
 
 logging.basicConfig(
-    filename="Backend\Backend\Logs\Logs.log",
+    filename="C:\\Users\\nl\\Github\\Angular-Online-Forum\\Backend\\Backend\\Logs\\Logs.log",
     encoding="utf-8",
     filemode="a",
     format="{asctime} - {levelname} - {message}",
     style="{",
     datefmt="%Y-%m-%d %H:%M",
 )
-
 
 def get_csrf_token(request):
     try:
@@ -44,7 +43,7 @@ def get_csrf_token(request):
 # Posts
 def get_posts(request):
     try:
-        posts = list(Post.objects.all().values("id", "Subject", "Content", "Topic_id"))
+        posts = list(Post.objects.all().values("id", "Subject", "Content", "Topic", "User"))
         return JsonResponse(posts, safe=False)
     except Exception as ex:
         error_message = f"Exception at get_posts(): {str(ex.__class__.__name__)}: {str(ex)} on line {ex.__traceback__.tb_lineno}"
@@ -78,14 +77,13 @@ def add_post(request):
             subject = data.get("Subject")
             content = data.get("Content")
             topic_name = data.get("Topic_name")
-
             topic = get_object_or_404(Topic, name=topic_name)
 
         post = Post.objects.create(
             Subject=subject,
             Content=content,
-            # User_id=current_user(request),
-            Topic_id=topic,
+            User=get_current_user_object(request),
+            Topic=topic,
         )
         return HttpResponse(200)
     except Exception as ex:
@@ -123,7 +121,7 @@ def edit_post(request):
             topic = Topic.objects.get(name=data.get("Topic_name"))
             post.Subject = data.get("Subject")
             post.Content = data.get("Content")
-            post.Topic_id = topic
+            post.Topic = topic
             post.save()
         return HttpResponse(200)
     except Exception as ex:
@@ -138,7 +136,7 @@ def edit_post(request):
 # Answers
 def get_answers(request):
     try:
-        topics = list(Answer.objects.all().values("id", "Content", "Post_id"))
+        topics = list(Answer.objects.all().values("id", "Content", "Post", "User"))
         return JsonResponse(topics, safe=False)
     except Exception as ex:
         error_message = f"Exception at get_answers(): {str(ex.__class__.__name__)}: {str(ex)} on line {ex.__traceback__.tb_lineno}"
@@ -171,11 +169,12 @@ def add_answer(request):
             data = json.loads(request.body)
             content = data.get("Content")
             post_id = data.get("Post_id")
+            print(post_id)
             post = get_object_or_404(Post, id=post_id)
         Answer.objects.create(
             Content=content,
-            # User_id=current_user(request),
-            Post_id=post,
+            User=get_current_user_object(request),
+            Post=post,
         )
         return HttpResponse(200)
     except Exception as ex:
@@ -367,6 +366,17 @@ def sign_up(request):
         return JsonResponse({"error": "Invalid request method."}, status=405)
 
 
+def get_specific_user_object(request, user_id):
+    user_object = get_object_or_404(User, id=user_id)
+    if user_object:
+        return JsonResponse({'User': [user_object.id, user_object.username]})
+    print(user_object)
+    return user_object
+
+def get_current_user_object(request):
+    user_object = get_object_or_404(User, id=request.user.id)
+    return user_object
+
 def get_current_user(request):
     try:
         user = request.user
@@ -382,7 +392,6 @@ def get_current_user(request):
         return drf_response.Response(
             error_message, status=drf_status.HTTP_500_INTERNAL_SERVER_ERROR
         )
-
 
 @csrf_protect
 def isAuthenticated(request):
