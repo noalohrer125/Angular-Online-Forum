@@ -18,6 +18,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from Backend_App.views import (
+    get_sorted_posts,
     get_answers,
     get_csrf_token,
     get_posts,
@@ -66,4 +67,5 @@ urlpatterns = [
     path("isAuthenticated/", isAuthenticated, name="isAuthenticated"),
     path('health-check/', health_check, name='health_check'),
     path("get_specific_user_object/<int:user_id>/", get_specific_user_object, name="get_specific_user_object"),
+    path("get_sorted_posts/<str:sort_order>/", get_sorted_posts, name="get_sorted_posts"),
 ]

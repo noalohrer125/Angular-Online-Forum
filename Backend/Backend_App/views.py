@@ -38,6 +38,29 @@ def get_csrf_token(request):
         return drf_response.Response(
             error_message, status=drf_status.HTTP_500_INTERNAL_SERVER_ERROR
         )
+    
+
+# Sort-requests
+def get_sorted_posts(request, sort_order):
+    posts = Post.objects.values("id", "Subject", "Content", "Topic__name", "User")
+
+    # asc by topic
+    if (sort_order == 'asc-topic'):
+        sorted_posts = sorted(posts, key=lambda x: x['Topic__name'])
+        return JsonResponse(sorted_posts, safe=False)
+    # desc by topic
+    elif (sort_order == 'desc-topic'):
+        sorted_posts = sorted(posts, key=lambda x: x['Topic__name'], reverse=True)
+        return JsonResponse(sorted_posts, safe=False)
+
+    # # asc by voting
+    # elif (sort_order == 'asc-voting'):
+    #     sorted_posts = sorted(posts, key=lambda x: x['Voting'])
+    #     return JsonResponse(sorted_posts, safe=False)
+    # # desc by voting
+    # elif (sort_order == 'desc-voting'):
+    #     sorted_posts = sorted(posts, key=lambda x: x['Voting'], reverse=True)
+    #     return JsonResponse(sorted_posts, safe=False)
 
 
 # Posts
