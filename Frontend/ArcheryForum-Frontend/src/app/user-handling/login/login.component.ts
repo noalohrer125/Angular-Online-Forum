@@ -37,8 +37,6 @@ export class LoginComponent implements OnInit {
 
     this.apiService.login(user).subscribe(response => {
       if (response.message === 'Login successful') {
-        // Store the user in localStorage or handle login state
-        localStorage.setItem('user', JSON.stringify(user));
         window.location.href = '/home'
       } else {
         if (response.error) {

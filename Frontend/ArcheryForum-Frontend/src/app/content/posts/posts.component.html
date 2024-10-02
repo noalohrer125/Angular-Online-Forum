@@ -7,12 +7,16 @@
     </a>
 </div>
 <!-- filter and sort button -->
-<!--
-<div class="filter-sort">
-    <button>filter Posts</button>
-    <button>sort Posts</button>
+<div *ngIf="noPosts === false" class="filter-sort">
+    <!-- <button>filter Posts</button> -->
+    <button (click)="sortPosts('default')">newest first</button>
+    <button (click)="sortPosts('asc-topic')">Topics asccnding</button>
+    <button (click)="sortPosts('desc-topic')">Topics desccending</button>
+    <!--
+    <button (click)="sortPosts('asc-voting')">sort by Voting (asccnding)</button>
+    <button (click)="sortPosts('desc-voting')">sort by Voting (desccending)</button>
+    -->
 </div>
--->
 <div *ngIf="noPosts === true">
     <h2>
         There are no Posts created yet.
@@ -21,7 +25,7 @@
 <div *ngIf="noPosts === false">
     <div *ngFor="let post of Posts">
         <a class="post-link" [routerLink]="'/post-details/' + post.id"
-            (click)="current_post(post.id)">
+            (click)="currentPost(post.id)">
             <app-post [post]="post" class="post"></app-post>
         </a>
     </div>

@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, filter, Observable } from 'rxjs';
-import { Answer, Post, Topic } from './interfaces';
+import { Answer, Post, sort_order, Topic } from './interfaces';
 import { NavigationEnd, Router } from '@angular/router';
 
 @Injectable({
@@ -105,8 +105,8 @@ export class ApiService {
 
 
   // get-APIs
-  getPosts(): Observable<any> {
-    return this.httpClient.get(`${this.baseUrl}get_posts/`)
+  getPosts(sort_order: sort_order): Observable<any> {
+    return this.httpClient.get<any>(`${this.baseUrl}get_posts/${sort_order}/`);
   }
 
   getAnswers(): Observable<any> {

@@ -27,6 +27,7 @@ logging.basicConfig(
     datefmt="%Y-%m-%d %H:%M",
 )
 
+
 def get_csrf_token(request):
     try:
         token = get_token(request)
@@ -38,36 +39,34 @@ def get_csrf_token(request):
         return drf_response.Response(
             error_message, status=drf_status.HTTP_500_INTERNAL_SERVER_ERROR
         )
-    
-
-# Sort-requests
-def get_sorted_posts(request, sort_order):
-    posts = Post.objects.values("id", "Subject", "Content", "Topic__name", "User")
-
-    # asc by topic
-    if (sort_order == 'asc-topic'):
-        sorted_posts = sorted(posts, key=lambda x: x['Topic__name'])
-        return JsonResponse(sorted_posts, safe=False)
-    # desc by topic
-    elif (sort_order == 'desc-topic'):
-        sorted_posts = sorted(posts, key=lambda x: x['Topic__name'], reverse=True)
-        return JsonResponse(sorted_posts, safe=False)
-
-    # # asc by voting
-    # elif (sort_order == 'asc-voting'):
-    #     sorted_posts = sorted(posts, key=lambda x: x['Voting'])
-    #     return JsonResponse(sorted_posts, safe=False)
-    # # desc by voting
-    # elif (sort_order == 'desc-voting'):
-    #     sorted_posts = sorted(posts, key=lambda x: x['Voting'], reverse=True)
-    #     return JsonResponse(sorted_posts, safe=False)
 
 
 # Posts
-def get_posts(request):
+def get_posts(request, sort_order):
     try:
-        posts = list(Post.objects.all().values("id", "Subject", "Content", "Topic", "User"))
-        return JsonResponse(posts, safe=False)
+        posts = Post.objects.values("id", "Subject", "Content", "Topic__name", "User")
+
+        # asc by topic
+        if sort_order == "asc-topic":
+            sorted_posts = sorted(posts, key=lambda x: x["Topic__name"])
+            return JsonResponse(sorted_posts, safe=False)
+        # desc by topic
+        elif sort_order == "desc-topic":
+            sorted_posts = sorted(posts, key=lambda x: x["Topic__name"], reverse=True)
+            return JsonResponse(sorted_posts, safe=False)
+        # default
+        else:
+            posts = list(reversed(posts))
+            return JsonResponse(posts, safe=False)
+
+        # # asc by voting
+        # elif (sort_order == 'asc-voting'):
+        #     sorted_posts = sorted(posts, key=lambda x: x['Voting'])
+        #     return JsonResponse(sorted_posts, safe=False)
+        # # desc by voting
+        # elif (sort_order == 'desc-voting'):
+        #     sorted_posts = sorted(posts, key=lambda x: x['Voting'], reverse=True)
+        #     return JsonResponse(sorted_posts, safe=False)
     except Exception as ex:
         error_message = f"Exception at get_posts(): {str(ex.__class__.__name__)}: {str(ex)} on line {ex.__traceback__.tb_lineno}"
         # logging
@@ -159,8 +158,8 @@ def edit_post(request):
 # Answers
 def get_answers(request):
     try:
-        topics = list(Answer.objects.all().values("id", "Content", "Post", "User"))
-        return JsonResponse(topics, safe=False)
+        answers = list(reversed(Answer.objects.all().values("id", "Content", "Post", "User")))
+        return JsonResponse(answers, safe=False)
     except Exception as ex:
         error_message = f"Exception at get_answers(): {str(ex.__class__.__name__)}: {str(ex)} on line {ex.__traceback__.tb_lineno}"
         # logging
@@ -383,7 +382,9 @@ def sign_up(request):
         except Exception as ex:  # Handle other exceptions
             error_message = f"Exception at sign_up(): {str(ex.__class__.__name__)}: {str(ex)} on line {ex.__traceback__.tb_lineno} \n User: {request.user}"
             logging.error(f"error occurred: {error_message}")
-            return JsonResponse({"error": "Registration failed, try again later"}, status=500)
+            return JsonResponse(
+                {"error": "Registration failed, try again later"}, status=500
+            )
     # Handle non-POST requests
     else:
         return JsonResponse({"error": "Invalid request method."}, status=405)
@@ -392,13 +393,15 @@ def sign_up(request):
 def get_specific_user_object(request, user_id):
     user_object = get_object_or_404(User, id=user_id)
     if user_object:
-        return JsonResponse({'User': [user_object.id, user_object.username]})
+        return JsonResponse({"User": [user_object.id, user_object.username]})
     print(user_object)
     return user_object
+
 
 def get_current_user_object(request):
     user_object = get_object_or_404(User, id=request.user.id)
     return user_object
+
 
 def get_current_user(request):
     try:
@@ -415,6 +418,7 @@ def get_current_user(request):
         return drf_response.Response(
             error_message, status=drf_status.HTTP_500_INTERNAL_SERVER_ERROR
         )
+
 
 @csrf_protect
 def isAuthenticated(request):

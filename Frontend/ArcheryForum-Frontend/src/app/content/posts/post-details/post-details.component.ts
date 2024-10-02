@@ -54,13 +54,13 @@ export class PostDetailsComponent {
   }
 
   delete() {
-      this.apiService.deletePost(this.postIdNumber).subscribe(response => {
-        if (response.error_message) {
-          window.alert('failed to delete Post, try again later')
-        }
-        else {
-          window.location.href = '/posts';
-        }
-      })
-    }
+    this.apiService.deletePost(this.postIdNumber).subscribe(response => {
+      if (response.error_message) {
+        window.alert('failed to delete Post, try again later')
+      }
+      else {
+        window.location.href = '/posts';
+      }
+    })
+  }
 }

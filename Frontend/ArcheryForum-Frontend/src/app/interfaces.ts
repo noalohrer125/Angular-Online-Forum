@@ -24,3 +24,5 @@ export interface current_user {
     username: string;
     is_superuser: boolean;
 }
+
+export type sort_order = 'asc-topic' | 'desc-topic' | 'asc-voting' | 'desc-voting' | 'default'

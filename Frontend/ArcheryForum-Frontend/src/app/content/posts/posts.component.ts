@@ -4,7 +4,7 @@ import { RouterLink } from '@angular/router';
 import { NewPostComponent } from "./new-post/new-post.component";
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../api.service';
-import { current_user, Post } from '../../interfaces';
+import { current_user, Post, sort_order } from '../../interfaces';
 
 @Component({
   selector: 'app-posts',
@@ -28,7 +28,14 @@ export class PostsComponent {
   is_authenticated!: boolean;
 
   ngOnInit() {
-    this.apiService.getPosts().subscribe(response => {
+    const validSortOrders: sort_order[] = ['asc-topic', 'desc-topic', 'asc-voting', 'desc-voting', 'default'];
+
+    const storedSortOrder = localStorage.getItem('sort_order');
+
+    // Check if the value is valid and assign, otherwise default to 'default'
+    const sort_order: sort_order = validSortOrders.includes(storedSortOrder as sort_order) ? (storedSortOrder as sort_order) : 'default';
+
+    this.apiService.getPosts(sort_order).subscribe(response => {
       if (response && response.length > 0) {
         this.Posts = response;
         this.noPosts = false
@@ -40,6 +47,7 @@ export class PostsComponent {
         this.noPosts = true
       }
     });
+
     this.apiService.current_user().subscribe((response: any) => {
       this.current_user = response
       this.is_superuser = response.is_superuser
@@ -49,7 +57,12 @@ export class PostsComponent {
     })
   }
 
-  current_post(post_id: number) {
+  currentPost(post_id: number) {
     localStorage.setItem('current_post', JSON.stringify(post_id))
+  }
+
+  sortPosts(sort_order: sort_order) {
+    localStorage.setItem('sort_order', sort_order)
+    window.location.reload()
   }
 }
