@@ -26,7 +26,8 @@ button {
 
 button:hover {
     cursor: default;
-    border: none;
+    border: solid 1px rgb(229, 255, 0);
+    border-radius: 5px;
 }
 
 button:not([disabled]):hover {

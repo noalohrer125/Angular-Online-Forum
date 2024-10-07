@@ -11,6 +11,8 @@ class Post(models.Model):
     id = models.IntegerField(primary_key=True, unique=True)
     Subject = models.CharField(max_length=100)
     Content = models.CharField(max_length=1000)
+    liked_by = models.ManyToManyField(User, related_name='liked_posts', blank=True)
+    disliked_by = models.ManyToManyField(User, related_name='disliked_posts', blank=True)
     User = models.ForeignKey(User, on_delete=models.CASCADE)
     Topic = models.ForeignKey("Topic", on_delete=models.CASCADE)
 # Answer-Model

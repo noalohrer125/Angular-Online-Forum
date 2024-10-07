@@ -26,3 +26,5 @@ export interface current_user {
 }
 
 export type sort_order = 'asc-topic' | 'desc-topic' | 'asc-voting' | 'desc-voting' | 'default'
+
+export type voting = 'up' | 'down'

@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, filter, Observable } from 'rxjs';
-import { Answer, Post, sort_order, Topic } from './interfaces';
+import { Answer, Post, sort_order, Topic, voting } from './interfaces';
 import { NavigationEnd, Router } from '@angular/router';
 
 @Injectable({
@@ -69,6 +69,11 @@ export class ApiService {
 
   getSpecificUser(User_id: number): Observable<any> {
     return this.httpClient.get<any>(`${this.baseUrl}get_specific_user_object/${User_id}/`);
+  }
+
+  // voting-APIs
+  votePost(voting: voting, post_id: number): Observable<any> {
+    return this.httpClient.get<any>(`${this.baseUrl}vote_post/${voting}/${post_id}`, { withCredentials: true });
   }
 
 

@@ -11,6 +11,7 @@ from django.middleware.csrf import get_token
 from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_protect
 
+from .methods import sort_posts, add_like, add_dislike
 from .models import Post, Answer, Topic
 
 from rest_framework import response as drf_response
@@ -41,32 +42,41 @@ def get_csrf_token(request):
         )
 
 
+def vote_post(request, voting, post_id):
+    post = Post.objects.get(id=post_id)
+    user = request.user
+
+    if voting == 'up':
+        # Add a like to the post
+        add_like(post_id, user)
+    elif voting == 'down':
+        # Add a dislike to the post
+        add_dislike(post_id, user)
+
+    # Convert the updated post to a dictionary, excluding non-serializable fields
+    post_dict = model_to_dict(post, exclude=['liked_by', 'disliked_by'])
+
+    # Return the updated post data as JSON
+    return JsonResponse(post_dict)
+
+
 # Posts
 def get_posts(request, sort_order):
     try:
-        posts = Post.objects.values("id", "Subject", "Content", "Topic__name", "User")
+        # Fetch the posts with relevant fields as dictionaries
+        posts = list(Post.objects.values("id", "Subject", "Content", "Topic__name", "User"))
 
-        # asc by topic
-        if sort_order == "asc-topic":
-            sorted_posts = sorted(posts, key=lambda x: x["Topic__name"])
-            return JsonResponse(sorted_posts, safe=False)
-        # desc by topic
-        elif sort_order == "desc-topic":
-            sorted_posts = sorted(posts, key=lambda x: x["Topic__name"], reverse=True)
-            return JsonResponse(sorted_posts, safe=False)
-        # default
-        else:
-            posts = list(reversed(posts))
-            return JsonResponse(posts, safe=False)
+        # Calculate liked_by and disliked_by counts
+        for post in posts:
+            post['liked_by_count'] = Post.objects.get(id=post['id']).liked_by.count()
+            post['disliked_by_count'] = Post.objects.get(id=post['id']).disliked_by.count()
 
-        # # asc by voting
-        # elif (sort_order == 'asc-voting'):
-        #     sorted_posts = sorted(posts, key=lambda x: x['Voting'])
-        #     return JsonResponse(sorted_posts, safe=False)
-        # # desc by voting
-        # elif (sort_order == 'desc-voting'):
-        #     sorted_posts = sorted(posts, key=lambda x: x['Voting'], reverse=True)
-        #     return JsonResponse(sorted_posts, safe=False)
+        # Sort the posts
+        sorted_posts = sort_posts(sort_order, posts)
+
+        # Return the sorted posts as JSON
+        return JsonResponse(sorted_posts, safe=False)
+
     except Exception as ex:
         error_message = f"Exception at get_posts(): {str(ex.__class__.__name__)}: {str(ex)} on line {ex.__traceback__.tb_lineno}"
         # logging
@@ -80,14 +90,18 @@ def get_specific_Post(request, post_id):
     try:
         post = Post.objects.filter(id=post_id).first()
         if post:
-            post_dict = model_to_dict(post)
+            # Convert the post to a dictionary excluding the liked_by and disliked_by fields
+            post_dict = model_to_dict(post, exclude=['liked_by', 'disliked_by'])
+            # Add the counts of likes and dislikes
+            post_dict['likes_count'] = post.liked_by.count()
+            post_dict['dislikes_count'] = post.disliked_by.count()
             return JsonResponse({"post": post_dict})
     except Exception as ex:
         error_message = f"Exception at get_specific_Post(): {str(ex.__class__.__name__)}: {str(ex)} on line {ex.__traceback__.tb_lineno} \n Post_Id: {post_id}"
         # logging
         logging.error(f"error occured: {error_message}")
-        return drf_response.Response(
-            error_message, status=drf_status.HTTP_500_INTERNAL_SERVER_ERROR
+        return JsonResponse(
+            {"error": error_message}, status=500
         )
 
 

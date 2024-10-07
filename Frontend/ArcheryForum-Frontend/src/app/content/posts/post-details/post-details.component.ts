@@ -3,6 +3,7 @@ import { AnswersComponent } from "./answers/answers.component";
 import { RouterLink } from '@angular/router';
 import { ApiService } from '../../../api.service';
 import { CommonModule } from '@angular/common';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-post-details',
@@ -24,7 +25,10 @@ export class PostDetailsComponent {
 
   subject!: string;
   userName!: string;
+  user: boolean = false;
   content!: string;
+  likes!: number;
+  dislikes!: number;
   
   is_superuser: boolean = false;
   is_authoriced: boolean = false;
@@ -40,15 +44,19 @@ export class PostDetailsComponent {
         this.subject = response.post.Subject
         this.apiService.getSpecificUser(response.post.User).subscribe(data => {
           this.userName = data.User[1]
-
           this.apiService.current_user().subscribe((response: any) => {
             this.is_superuser = response.is_superuser
+            if (response.username !== '') {
+              this.user = true
+            }
             if (this.userName === response.username) {
               this.is_authoriced = true
             }
           })
         })
         this.content = response.post.Content
+        this.likes = response.post.likes_count
+        this.dislikes = response.post.dislikes_count
       }
     });
   }
@@ -61,6 +69,28 @@ export class PostDetailsComponent {
       else {
         window.location.href = '/posts';
       }
+    })
+  }
+
+  vote_up() {
+    if (!this.user) {
+      window.alert('You have to loggin to like a post!')
+      return
+    }
+    const voting = 'up'
+    this.apiService.votePost(voting, this.postIdNumber).subscribe(response => {
+      location.reload()
+    })
+  }
+
+  vote_down() {
+    if (!this.user) {
+      window.alert('You have to loggin to dislike a post!')
+      return
+    }
+    const voting = 'down'
+    this.apiService.votePost(voting, this.postIdNumber).subscribe(response => {
+      location.reload()
     })
   }
 }

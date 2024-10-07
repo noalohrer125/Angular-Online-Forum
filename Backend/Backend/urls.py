@@ -18,6 +18,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from Backend_App.views import (
+    vote_post,
     get_answers,
     get_csrf_token,
     get_posts,
@@ -41,10 +42,10 @@ from Backend_App.views import (
     health_check,
     get_specific_user_object,
 )
-from typing import Literal
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("vote_post/<str:voting>/<int:post_id>", vote_post, name="vote_post"),
     path("get_posts/<str:sort_order>/", get_posts, name="get_posts"),
     path("get_answers/", get_answers, name="get_answers"),
     path("get_topics/", get_topics, name="get_topics"),
