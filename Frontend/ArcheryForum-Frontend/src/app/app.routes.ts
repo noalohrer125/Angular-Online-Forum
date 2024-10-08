@@ -10,6 +10,7 @@ import { EditAnswerComponent } from "./content/posts/post-details/answers/edit-a
 import { LoginComponent } from "./user-handling/login/login.component";
 import { RegisterComponent } from "./user-handling/register/register.component";
 import { LogoutComponent } from "./user-handling/logout/logout.component";
+import { LikedPostsComponent } from "./content/posts/liked-posts/liked-posts.component";
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -24,4 +25,5 @@ export const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'sign_up', component: RegisterComponent },
     { path: 'logout', component: LogoutComponent },
+    { path: 'liked_posts', component: LikedPostsComponent },
 ];

@@ -114,6 +114,10 @@ export class ApiService {
     return this.httpClient.get<any>(`${this.baseUrl}get_posts/${sort_order}/`);
   }
 
+  getLikedPosts(): Observable<any> {
+    return this.httpClient.get(`${this.baseUrl}get_liked_posts/`, { withCredentials: true })
+  }
+
   getAnswers(): Observable<any> {
     return this.httpClient.get(`${this.baseUrl}get_answers/`)
   }

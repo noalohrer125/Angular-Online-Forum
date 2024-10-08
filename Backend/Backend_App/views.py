@@ -85,6 +85,12 @@ def get_posts(request, sort_order):
             error_message, status=drf_status.HTTP_500_INTERNAL_SERVER_ERROR
         )
 
+def get_liked_posts(request):
+    user = request.user.id
+    posts = list(Post.objects.filter(liked_by=user).values("id", "Subject", "Content", "Topic__name", "User"))
+    sorted_posts = reversed(posts)
+    return JsonResponse(posts, safe=False)
+
 
 def get_specific_Post(request, post_id):
     try:

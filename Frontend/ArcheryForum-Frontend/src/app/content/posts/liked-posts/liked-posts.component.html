@@ -1,0 +1,13 @@
+<div *ngIf="noPosts === true">
+    <h2>
+        You have no liked posts yet.
+    </h2>
+</div>
+<div *ngIf="noPosts === false">
+    <div *ngFor="let post of Posts">
+        <a class="post-link" [routerLink]="'/post-details/' + post.id"
+            (click)="currentPost(post.id)">
+            <app-post [post]="post" class="post"></app-post>
+        </a>
+    </div>
+</div>

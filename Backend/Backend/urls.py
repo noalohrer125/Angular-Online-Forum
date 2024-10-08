@@ -19,6 +19,7 @@ from django.contrib import admin
 from django.urls import path
 from Backend_App.views import (
     vote_post,
+    get_liked_posts,
     get_answers,
     get_csrf_token,
     get_posts,
@@ -47,6 +48,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("vote_post/<str:voting>/<int:post_id>", vote_post, name="vote_post"),
     path("get_posts/<str:sort_order>/", get_posts, name="get_posts"),
+    path("get_liked_posts/", get_liked_posts, name="get_liked_posts"),
     path("get_answers/", get_answers, name="get_answers"),
     path("get_topics/", get_topics, name="get_topics"),
     path("add_post/", add_post, name="add_post"),

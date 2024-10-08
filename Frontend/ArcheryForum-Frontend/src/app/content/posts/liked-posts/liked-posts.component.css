@@ -1,0 +1,36 @@
+* {
+    display: grid;
+    justify-content: center;
+}
+
+button {
+    margin: 1vh 1vw;
+}
+
+.post {
+    margin: 0 auto 0 auto;
+    width: 60vw;
+    height: 4vh;
+}
+
+a {
+    color: black;
+    justify-content: center;
+}
+
+.filter-sort {
+    display: flex;
+    flex-direction: row;
+}
+
+.post-link {
+    margin-top: 2vh;
+    background-color: rgb(255, 140, 60);
+    border: solid 1px gray;
+    border-radius: 15px;
+}
+
+.post-link:hover {
+    box-shadow: black 5px 5px;
+    color: yellow;
+}
