@@ -19,5 +19,7 @@ class Post(models.Model):
 class Answer(models.Model):
     id = models.IntegerField(primary_key=True, unique=True)
     Content = models.CharField(max_length=1000)
+    liked_by = models.ManyToManyField(User, related_name='liked_answer', blank=True)
+    disliked_by = models.ManyToManyField(User, related_name='disliked_answer', blank=True)
     User = models.ForeignKey(User, on_delete=models.CASCADE)
     Post = models.ForeignKey("Post", on_delete=models.CASCADE)

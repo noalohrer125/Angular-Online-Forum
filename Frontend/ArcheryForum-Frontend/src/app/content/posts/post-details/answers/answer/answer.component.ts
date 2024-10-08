@@ -18,7 +18,10 @@ export class AnswerComponent {
   Answers!: Answer[];
 
   UserName!: string;
+  user: boolean = false;
   Content!: string;
+  likes!: number;
+  dislikes!: number;
 
   is_superuser: boolean = false;
   is_authoriced: boolean = false;
@@ -29,12 +32,20 @@ export class AnswerComponent {
       
       this.apiService.current_user().subscribe((response: any) => {
         this.is_superuser = response.is_superuser
+        if (response.username !== '') {
+          this.user = true
+        }
         if (this.UserName === response.username) {
           this.is_authoriced = true
         }
       })
       this.Content = this.answer.Content
     })
+
+    console.log(this.answer)
+
+    this.likes = this.answer.liked_by_count
+    this.dislikes = this.answer.disliked_by_count
   }
 
   delete(answer_id: number) {
@@ -50,5 +61,27 @@ export class AnswerComponent {
 
   edit(id: number) {
     window.location.href = '/edit-answer/' + id
+  }
+
+  vote_up() {
+    if (!this.user) {
+      window.alert('You have to loggin to like an answer!')
+      return
+    }
+    const voting = 'up'
+    this.apiService.voteAnswer(voting, this.answer.id).subscribe(response => {
+      location.reload()
+    })
+  }
+
+  vote_down() {
+    if (!this.user) {
+      window.alert('You have to loggin to dislike an answer!')
+      return
+    }
+    const voting = 'down'
+    this.apiService.voteAnswer(voting, this.answer.id).subscribe(response => {
+      location.reload()
+    })
   }
 }

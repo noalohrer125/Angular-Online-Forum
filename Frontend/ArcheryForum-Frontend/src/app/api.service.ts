@@ -76,6 +76,10 @@ export class ApiService {
     return this.httpClient.get<any>(`${this.baseUrl}vote_post/${voting}/${post_id}`, { withCredentials: true });
   }
 
+  voteAnswer(voting: voting, answer_id: number): Observable<any> {
+    return this.httpClient.get<any>(`${this.baseUrl}vote_answer/${voting}/${answer_id}`, { withCredentials: true });
+  }
+
 
   // add-APIs
   addPost(post: Post): Observable<any> {

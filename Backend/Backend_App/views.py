@@ -11,7 +11,7 @@ from django.middleware.csrf import get_token
 from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_protect
 
-from .methods import sort_posts, add_like, add_dislike
+from .methods import sort_posts, add_like_post, add_dislike_post, add_like_answer, add_dislike_answer
 from .models import Post, Answer, Topic
 
 from rest_framework import response as drf_response
@@ -48,16 +48,33 @@ def vote_post(request, voting, post_id):
 
     if voting == 'up':
         # Add a like to the post
-        add_like(post_id, user)
+        add_like_post(post_id, user)
     elif voting == 'down':
         # Add a dislike to the post
-        add_dislike(post_id, user)
+        add_dislike_post(post_id, user)
 
     # Convert the updated post to a dictionary, excluding non-serializable fields
     post_dict = model_to_dict(post, exclude=['liked_by', 'disliked_by'])
 
     # Return the updated post data as JSON
     return JsonResponse(post_dict)
+
+def vote_answer(request, voting, answer_id):
+    answer = Answer.objects.get(id=answer_id)
+    user = request.user
+
+    if voting == 'up':
+        # Add a like to the post
+        add_like_answer(answer_id, user)
+    elif voting == 'down':
+        # Add a dislike to the post
+        add_dislike_answer(answer_id, user)
+
+    # Convert the updated post to a dictionary, excluding non-serializable fields
+    answer_dict = model_to_dict(answer, exclude=['liked_by', 'disliked_by'])
+
+    # Return the updated post data as JSON
+    return JsonResponse(answer_dict)
 
 
 # Posts
@@ -88,7 +105,6 @@ def get_posts(request, sort_order):
 def get_liked_posts(request):
     user = request.user.id
     posts = list(Post.objects.filter(liked_by=user).values("id", "Subject", "Content", "Topic__name", "User"))
-    sorted_posts = reversed(posts)
     return JsonResponse(posts, safe=False)
 
 
@@ -179,6 +195,12 @@ def edit_post(request):
 def get_answers(request):
     try:
         answers = list(reversed(Answer.objects.all().values("id", "Content", "Post", "User")))
+
+        # Calculate liked_by and disliked_by counts
+        for answer in answers:
+            answer['liked_by_count'] = Answer.objects.get(id=answer['id']).liked_by.count()
+            answer['disliked_by_count'] = Answer.objects.get(id=answer['id']).disliked_by.count()
+
         return JsonResponse(answers, safe=False)
     except Exception as ex:
         error_message = f"Exception at get_answers(): {str(ex.__class__.__name__)}: {str(ex)} on line {ex.__traceback__.tb_lineno}"

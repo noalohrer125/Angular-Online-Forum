@@ -33,13 +33,14 @@ export class EditPostComponent {
       }
     });
     const post_id_number = Number(this.CurrentPostId())
+    console.log(post_id_number)
     
     this.apiService.getSpecificPost(post_id_number).subscribe(response => {
       if (response.error_message) {
         window.alert('we have issues with our servers, try again later')
       }
       else {
-        this.apiService.getSpecificTopic(response.post.Topic_id).subscribe(data => {
+        this.apiService.getSpecificTopic(response.post.Topic).subscribe(data => {
           // fill edit-form with the data of the current-post
           this.postForm.patchValue({
             subject: response.post.Subject,

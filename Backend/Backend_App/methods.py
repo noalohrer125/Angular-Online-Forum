@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404
-from .models import Post
+from .models import Post, Answer
 
 
 def sort_posts(sort_order, posts):
@@ -22,7 +22,7 @@ def sort_posts(sort_order, posts):
     return sorted_posts
 
 
-def add_like(post_id, user):
+def add_like_post(post_id, user):
     # Get the post by its ID
     post = get_object_or_404(Post, id=post_id)
     
@@ -45,7 +45,7 @@ def add_like(post_id, user):
     post.save()
 
 
-def add_dislike(post_id, user):
+def add_dislike_post(post_id, user):
     # Retrieve the post by its ID, or return a 404 error if not found
     post = get_object_or_404(Post, id=post_id)
     
@@ -67,9 +67,62 @@ def add_dislike(post_id, user):
     post.save()
 
 
+def add_like_answer(answer_id, user):
+    # Get the answer by its ID
+    answer = get_object_or_404(Answer, id=answer_id)
+    
+    # If the user has already liked the answer
+    if user in answer.liked_by.all():
+        # Remove the like
+        answer.liked_by.remove(user)
+
+    # If the user hasn't liked the answer yet
+    else:
+        # Add the user to the liked_by list
+        answer.liked_by.add(user)
+
+        # If the user had disliked the answer, remove the dislike
+        if user in answer.disliked_by.all():
+            answer.disliked_by.remove(user)
+            # Since a dislike removes 1 vote, adding a like should cancel that, so no additional vote change
+
+    # Save the updated answer
+    answer.save()
+
+
+def add_dislike_answer(answer_id, user):
+    # Retrieve the answer by its ID, or return a 404 error if not found
+    answer = get_object_or_404(Answer, id=answer_id)
+    
+    # If the user has already disliked the answer
+    if user in answer.disliked_by.all():
+        # Remove the dislike
+        answer.disliked_by.remove(user)
+        
+    # If the user hasn't disliked the answer yet
+    else:
+        # Add the user to the list of people who disliked the answer
+        answer.disliked_by.add(user)
+        
+        # If the user previously liked the answer, remove the like
+        if user in answer.liked_by.all():
+            answer.liked_by.remove(user)
+
+    # Save the updated answer data
+    answer.save()
+
+
 def get_liked_users_to_post(post_id):
     # Retrieve the post by its ID, or return a 404 error if not found
     post = get_object_or_404(Post, id=post_id)
     
     # Return the list of users who liked the post
     return post.liked_by.all()
+
+
+def get_liked_users_to_answer(post_id):
+    # Retrieve the answer by its ID, or return a 404 error if not found
+    answer = get_object_or_404(Answer, id=post_id)
+    
+    # Return the list of users who liked the answer
+    return answer.liked_by.all()
