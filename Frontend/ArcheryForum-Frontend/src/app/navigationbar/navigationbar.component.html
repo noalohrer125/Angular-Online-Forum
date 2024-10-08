@@ -1,10 +1,11 @@
 <div>
     <a routerLink="/home">Home</a>
     <a routerLink="/posts">Posts</a>
+    <a *ngIf="isAuthenticated" routerLink="/liked_posts">Favorites</a>
     <br>
-    <a *ngIf="isAuthenticated === false" routerLink="/login">Login</a>
-    <a *ngIf="isAuthenticated === true" routerLink="/logout">Logout</a>
-    <a *ngIf="isAuthenticated === false" routerLink="/sign_up">Register</a>
+    <a *ngIf="!isAuthenticated" routerLink="/login">Login</a>
+    <a *ngIf="isAuthenticated" routerLink="/logout">Logout</a>
+    <a *ngIf="!isAuthenticated" routerLink="/sign_up">Register</a>
     <!-- Comming soon, My-Account page with Account-settings -->
-    <!-- <a routerLink="/my-account">My Account</a> -->
+    <!-- <a *ngIf="isAuthenticated" routerLink="/my-account">My Account</a> -->
 </div>
