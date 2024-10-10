@@ -1,2 +1,12 @@
-2024-10-10 08:23 - WARNING - Not Found: /favicon.ico
-2024-10-10 08:30 - INFO - C:\Users\nl\Github\Angular-Online-Forum\Backend\Backend_App\views.py changed, reloading.
+2024-10-10 10:24 - WARNING - Forbidden (CSRF cookie not set.): /vote_post/up/1
+2024-10-10 10:29 - WARNING - Forbidden (CSRF cookie not set.): /vote_post/up/1
+2024-10-10 10:29 - WARNING - Forbidden (CSRF cookie not set.): /vote_post/up/1
+2024-10-10 10:29 - WARNING - Forbidden (CSRF cookie not set.): /vote_post/up/1
+2024-10-10 10:39 - WARNING - Forbidden (CSRF cookie not set.): /vote_post/up/1
+2024-10-10 10:40 - WARNING - Forbidden (CSRF cookie not set.): /vote_post/up/1
+2024-10-10 10:45 - WARNING - Forbidden (CSRF cookie not set.): /vote_post/up/1
+2024-10-10 10:50 - WARNING - Forbidden (CSRF cookie not set.): /vote_post/up/1
+2024-10-10 10:55 - WARNING - Bad Request: /sign_up/
+2024-10-10 10:55 - WARNING - Bad Request: /sign_up/
+2024-10-10 11:12 - INFO - C:\Users\nl\Github\Angular-Online-Forum\Backend\Backend_App\views.py changed, reloading.
+2024-10-10 11:27 - WARNING - Method Not Allowed: /login/

@@ -28,7 +28,7 @@ logging.basicConfig(
     datefmt="%Y-%m-%d %H:%M",
 )
 
-
+@csrf_protect
 def get_csrf_token(request):
     try:
         token = get_token(request)
@@ -42,42 +42,61 @@ def get_csrf_token(request):
         )
 
 
+@csrf_protect
 def vote_post(request, voting, post_id):
-    post = Post.objects.get(id=post_id)
-    user = request.user
+    try:
+        post = Post.objects.get(id=post_id)
+        user = request.user
 
-    if voting == 'up':
-        # Add a like to the post
-        add_like_post(post_id, user)
-    elif voting == 'down':
-        # Add a dislike to the post
-        add_dislike_post(post_id, user)
+        if voting == 'up':
+            # Add a like to the post
+            add_like_post(post_id, user)
+        elif voting == 'down':
+            # Add a dislike to the post
+            add_dislike_post(post_id, user)
 
-    # Convert the updated post to a dictionary, excluding non-serializable fields
-    post_dict = model_to_dict(post, exclude=['liked_by', 'disliked_by'])
+        # Convert the updated post to a dictionary, excluding non-serializable fields
+        post_dict = model_to_dict(post, exclude=['liked_by', 'disliked_by'])
 
-    # Return the updated post data as JSON
-    return JsonResponse(post_dict)
+        # Return the updated post data as JSON
+        return JsonResponse(post_dict)
+    except Exception as ex:
+        error_message = f"Exception at vote_post(): {str(ex.__class__.__name__)}: {str(ex)} on line {ex.__traceback__.tb_lineno}"
+        # logging
+        logging.error(f"error occured: {error_message}")
+        return drf_response.Response(
+            error_message, status=drf_status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
 
+@csrf_protect
 def vote_answer(request, voting, answer_id):
-    answer = Answer.objects.get(id=answer_id)
-    user = request.user
+    try:
+        answer = Answer.objects.get(id=answer_id)
+        user = request.user
 
-    if voting == 'up':
-        # Add a like to the post
-        add_like_answer(answer_id, user)
-    elif voting == 'down':
-        # Add a dislike to the post
-        add_dislike_answer(answer_id, user)
+        if voting == 'up':
+            # Add a like to the post
+            add_like_answer(answer_id, user)
+        elif voting == 'down':
+            # Add a dislike to the post
+            add_dislike_answer(answer_id, user)
 
-    # Convert the updated post to a dictionary, excluding non-serializable fields
-    answer_dict = model_to_dict(answer, exclude=['liked_by', 'disliked_by'])
+        # Convert the updated post to a dictionary, excluding non-serializable fields
+        answer_dict = model_to_dict(answer, exclude=['liked_by', 'disliked_by'])
 
-    # Return the updated post data as JSON
-    return JsonResponse(answer_dict)
+        # Return the updated post data as JSON
+        return JsonResponse(answer_dict)
+    except Exception as ex:
+        error_message = f"Exception at vote_answer(): {str(ex.__class__.__name__)}: {str(ex)} on line {ex.__traceback__.tb_lineno}"
+        # logging
+        logging.error(f"error occured: {error_message}")
+        return drf_response.Response(
+            error_message, status=drf_status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
 
 
 # Posts
+@csrf_protect
 def get_posts(request, sort_order):
     try:
         # Fetch the posts with relevant fields as dictionaries
@@ -103,12 +122,22 @@ def get_posts(request, sort_order):
             error_message, status=drf_status.HTTP_500_INTERNAL_SERVER_ERROR
         )
 
+@csrf_protect
 def get_liked_posts(request):
-    user = request.user.id
-    posts = list(Post.objects.filter(liked_by=user).values("id", "Subject", "Content", "Topic__name", "User"))
-    return JsonResponse(posts, safe=False)
+    try:
+        user = request.user.id
+        posts = list(Post.objects.filter(liked_by=user).values("id", "Subject", "Content", "Topic__name", "User"))
+        return JsonResponse(posts, safe=False)
+    except Exception as ex:
+        error_message = f"Exception at get_liked_posts(): {str(ex.__class__.__name__)}: {str(ex)} on line {ex.__traceback__.tb_lineno}"
+        # logging
+        logging.error(f"error occured: {error_message}")
+        return drf_response.Response(
+            error_message, status=drf_status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
 
 
+@csrf_protect
 def get_specific_Post(request, post_id):
     try:
         post = Post.objects.filter(id=post_id).first()
@@ -154,6 +183,7 @@ def add_post(request):
         )
 
 
+@csrf_protect
 def delete_post(request, id):
     try:
         post = Post.objects.get(id=id)
@@ -193,6 +223,7 @@ def edit_post(request):
 
 
 # Answers
+@csrf_protect
 def get_answers(request):
     try:
         answers = list(reversed(Answer.objects.all().values("id", "Content", "Post", "User")))
@@ -212,6 +243,7 @@ def get_answers(request):
         )
 
 
+@csrf_protect
 def get_specific_Answer(request, answer_id):
     try:
         answer = Answer.objects.filter(id=answer_id).first()
@@ -251,6 +283,7 @@ def add_answer(request):
         )
 
 
+@csrf_protect
 def delete_answer(request, id):
     try:
         answer = Answer.objects.get(id=id)
@@ -287,6 +320,7 @@ def edit_answer(request):
 
 
 # Topics
+@csrf_protect
 def get_topics(request):
     try:
         topics = list(Topic.objects.all().values("id", "name"))
@@ -300,6 +334,7 @@ def get_topics(request):
         )
 
 
+@csrf_protect
 def get_specific_topic(request, topic_id):
     try:
         topic = Topic.objects.filter(id=topic_id).first()
@@ -334,6 +369,7 @@ def add_topic(request):
         )
 
 
+@csrf_protect
 def delete_topic(request, id):
     try:
         topic = Topic.objects.get(id=id)
@@ -374,7 +410,7 @@ def login(request):
             error_message, status=drf_status.HTTP_500_INTERNAL_SERVER_ERROR
         )
 
-
+@csrf_protect
 def logout(request):
     try:
         auth_logout(request)  # User wird ausgeloggt
@@ -439,6 +475,7 @@ def sign_up(request):
 
 
 # Avatars
+@csrf_protect
 def get_avatars(request):
     try:
         avatars = list(Avatar.objects.all().values('id', 'img'))
@@ -452,27 +489,38 @@ def get_avatars(request):
         )
 
 
+@csrf_protect
 def get_specific_user_object(request, user_id):
-    user_object = get_object_or_404(User, id=user_id)
-    avatar = Avatar.get_avatar_by_user_id(user_id)
+    try:
+        user_object = get_object_or_404(User, id=user_id)
+        avatar = Avatar.get_avatar_by_user_id(user_id)
 
-    if user_object:
-        return JsonResponse({
-            "User": [
-                user_object.id,
-                user_object.username,
-                avatar.img.url if avatar else None,
-             ]
-        })
-    print(user_object)
-    return user_object
+        if user_object:
+            return JsonResponse({
+                "User": [
+                    user_object.id,
+                    user_object.username,
+                    avatar.img.url if avatar else None,
+                ]
+            })
+        print(user_object)
+        return user_object
+    except Exception as ex:
+        error_message = f"Exception at get_specific_user_object(): {str(ex.__class__.__name__)}: {str(ex)} on line {ex.__traceback__.tb_lineno}"
+        # logging
+        logging.error(f"error occured: {error_message}")
+        return drf_response.Response(
+            error_message, status=drf_status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
 
 
+@csrf_protect
 def get_current_user_object(request):
     user_object = get_object_or_404(User, id=request.user.id)
     return user_object
 
 
+@csrf_protect
 def get_current_user(request):
     try:
         user = request.user
@@ -510,6 +558,7 @@ def isAuthenticated(request):
 
 
 # Check if the backend is funning
+@csrf_protect
 def health_check(request):
     try:
         return JsonResponse({"status": "running"})
