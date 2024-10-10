@@ -1,11 +1,13 @@
 .username {
     padding-left: 1vw;
-    width: 5vw;
+    min-width: 5vw;
+    max-width: 10vw;
 }
 
 .topic {
     padding-left: 1vw;
     width: 10vw;
+    max-width: 10vw;
     border-left: dotted black 1px;
     border-right: dotted black 1px;
 }
@@ -13,4 +15,7 @@
 .subject {
     padding-left: 1vw;
     width: 40vw;
+    max-width: 40vw;
+    overflow-wrap:normal;
+    overflow: hidden;
 }

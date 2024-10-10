@@ -2,6 +2,7 @@
     cursor: default;
     font-family: Arial, sans-serif;
     user-select: none;
+    overflow-wrap: break-word;
 }
 
 img {

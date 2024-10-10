@@ -25,11 +25,13 @@
 
 .h1 {
     width: max-content;
+    max-width: 40vw;
     grid-area: header;
 }
 
 .content {
     grid-area: content;
+    max-width: 60vw;
 }
 
 .answers {

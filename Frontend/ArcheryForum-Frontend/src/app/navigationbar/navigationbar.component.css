@@ -12,3 +12,7 @@ div {
     display: grid;
     margin: 15vh 5vw;
 }
+
+.a {
+    width: 6vw;
+}

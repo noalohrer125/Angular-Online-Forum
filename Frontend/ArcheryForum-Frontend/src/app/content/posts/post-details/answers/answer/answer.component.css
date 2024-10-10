@@ -1,10 +1,22 @@
 .username {
     padding-left: 1vw;
-    width: 15vw;
-    border-right: dotted black 1px;
+    width: 5vw;
+    max-width: 10vw;
+    border-right: solid rgba(0, 0, 0, 0.2) 1px;
 }
 
 .content {
     padding-left: 1vw;
-    width: 35vw;
+    padding-right: 1vw;
+    width: 45vw;
+    max-width: 45vw;
+}
+
+.voting {
+    padding-left: 1vw;
+}
+
+table {
+    border: solid rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
 }

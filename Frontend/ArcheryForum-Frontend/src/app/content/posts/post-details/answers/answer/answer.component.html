@@ -1,18 +1,20 @@
 <table>
     <tr>
-        <td class="username">Created by: {{ UserName }} <img class="avatar" *ngIf="avatar" src="http://localhost:8000/{{ avatar }}" alt="avatar"></td>
+        <td class="username">{{ UserName }} <img class="avatar" *ngIf="avatar" src="http://localhost:8000/{{ avatar }}" alt="avatar"></td>
         <td class="content">{{ Content }}</td>
-        <td>
-            <button (click)="vote_up()">👍 {{ likes }}</button>
-        </td>
-        <td>
-            <button (click)="vote_down()">👎 {{ dislikes }}</button>
-        </td>
-        <td>
-            <button *ngIf="is_superuser || is_authoriced" (click)="delete(answer!.id)">delete</button>
-        </td>
-        <td>
-            <button *ngIf="is_superuser || is_authoriced" (click)="edit(answer!.id)">edit</button>
-        </td>
+        <div class="voting">
+            <td>
+                <button (click)="vote_up()">👍 {{ likes }}</button>
+            </td>
+            <td>
+                <button (click)="vote_down()">👎 {{ dislikes }}</button>
+            </td>
+            <td>
+                <button *ngIf="is_superuser || is_authoriced" (click)="delete(answer!.id)">delete</button>
+            </td>
+            <td>
+                <button *ngIf="is_superuser || is_authoriced" (click)="edit(answer!.id)">edit</button>
+            </td>
+        </div>
     </tr>
 </table>
