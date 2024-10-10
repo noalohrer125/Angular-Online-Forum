@@ -25,13 +25,14 @@ export class PostDetailsComponent {
 
   subject!: string;
   userName!: string;
+  avatar!: any;
   user: boolean = false;
   content!: string;
   likes!: number;
   dislikes!: number;
   
   is_superuser: boolean = false;
-  is_authoriced: boolean = false;
+  is_authorised: boolean = false;
 
   ngOnInit() {
     this.postIdNumber = Number(this.postId());
@@ -44,13 +45,15 @@ export class PostDetailsComponent {
         this.subject = response.post.Subject
         this.apiService.getSpecificUser(response.post.User).subscribe(data => {
           this.userName = data.User[1]
+          this.avatar = data.User[2]
+          console.log('data.User ', data.User)
           this.apiService.current_user().subscribe((response: any) => {
             this.is_superuser = response.is_superuser
             if (response.username !== '') {
               this.user = true
             }
             if (this.userName === response.username) {
-              this.is_authoriced = true
+              this.is_authorised = true
             }
           })
         })

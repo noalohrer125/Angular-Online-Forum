@@ -18,6 +18,7 @@ export class AnswerComponent {
   Answers!: Answer[];
 
   UserName!: string;
+  avatar!: any;
   user: boolean = false;
   Content!: string;
   likes!: number;
@@ -29,6 +30,7 @@ export class AnswerComponent {
   ngOnInit() {
     this.apiService.getSpecificUser(this.answer.User).subscribe(data => {
       this.UserName = data.User[1]
+      this.avatar = data.User[2]
       
       this.apiService.current_user().subscribe((response: any) => {
         this.is_superuser = response.is_superuser

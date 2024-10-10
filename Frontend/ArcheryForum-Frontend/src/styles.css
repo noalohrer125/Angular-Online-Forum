@@ -8,6 +8,12 @@ img {
     pointer-events: none;
 }
 
+.avatar {
+    width: 2vw;
+    border-radius: 10vmax;
+    overflow: hidden;
+}
+
 body {
     margin: 0;
 }

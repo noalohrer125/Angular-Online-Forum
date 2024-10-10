@@ -11,8 +11,8 @@ from django.middleware.csrf import get_token
 from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_protect
 
-from .methods import sort_posts, add_like_post, add_dislike_post, add_like_answer, add_dislike_answer
-from .models import Post, Answer, Topic
+from .methods import sort_posts, add_like_post, add_dislike_post, add_like_answer, add_dislike_answer, add_user_avatar
+from .models import Post, Answer, Topic, Avatar
 
 from rest_framework import response as drf_response
 from rest_framework import status as drf_status
@@ -87,6 +87,7 @@ def get_posts(request, sort_order):
         for post in posts:
             post['liked_by_count'] = Post.objects.get(id=post['id']).liked_by.count()
             post['disliked_by_count'] = Post.objects.get(id=post['id']).disliked_by.count()
+            post['voting_score'] = post['liked_by_count'] - post['disliked_by_count']
 
         # Sort the posts
         sorted_posts = sort_posts(sort_order, posts)
@@ -395,6 +396,7 @@ def sign_up(request):
             data = json.loads(request.body)  # Parse JSON data from the request body
             username = data.get("name")  # Get the username from the parsed data
             password = data.get("password")  # Get the password from the parsed data
+            avatar_id = int(data.get("avatar"))
 
             # Check if username and password are provided
             if not username or not password:
@@ -413,12 +415,16 @@ def sign_up(request):
                 return JsonResponse({"error": "Username already exists."}, status=400)
 
             # Create a new user with the provided username and password
-            user = User.objects.create_user(username=username, password=password)
+            user = User.objects.create_user(
+                username=username,
+                password=password
+            )
             user.save()  # Save the user to the database
+            add_user_avatar(avatar_id, user) # save avatar for the user
             return JsonResponse({"message": "User created successfully."}, status=201)
 
         except json.JSONDecodeError:  # Handle JSON decoding errors
-            error_message = f"Exception at sign_up(): JSONDecodeError: Invalid JSON data on line {ex.__traceback__.tb_lineno} \n User: {request.user}"
+            error_message = f"Exception at sign_up(): JSONDecodeError: Invalid JSON data on line {ex.__traceback__.tb_lineno} \n User: {request.user}, {user}"
             logging.error(f"error occurred: {error_message}")
             return JsonResponse({"error": "Invalid JSON data."}, status=400)
         except Exception as ex:  # Handle other exceptions
@@ -432,10 +438,32 @@ def sign_up(request):
         return JsonResponse({"error": "Invalid request method."}, status=405)
 
 
+# Avatars
+def get_avatars(request):
+    try:
+        avatars = list(Avatar.objects.all().values('id', 'img'))
+        return JsonResponse(avatars, safe=False)
+    except Exception as ex:
+        error_message = f"Exception at get_avatars(): {str(ex.__class__.__name__)}: {str(ex)} on line {ex.__traceback__.tb_lineno}"
+        # logging
+        logging.error(f"error occured: {error_message}")
+        return drf_response.Response(
+            error_message, status=drf_status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
+
+
 def get_specific_user_object(request, user_id):
     user_object = get_object_or_404(User, id=user_id)
+    avatar = Avatar.get_avatar_by_user_id(user_id)
+
     if user_object:
-        return JsonResponse({"User": [user_object.id, user_object.username]})
+        return JsonResponse({
+            "User": [
+                user_object.id,
+                user_object.username,
+                avatar.img.url if avatar else None,
+             ]
+        })
     print(user_object)
     return user_object
 
@@ -448,9 +476,11 @@ def get_current_user_object(request):
 def get_current_user(request):
     try:
         user = request.user
+        avatar = Avatar.get_avatar_by_user_id(user.id)
         user_data = {
             "username": str(user.username),
             "is_superuser": bool(user.is_superuser),
+            "avatar": avatar.img.url if avatar else None,
         }
         return JsonResponse(user_data)
     except Exception as ex:

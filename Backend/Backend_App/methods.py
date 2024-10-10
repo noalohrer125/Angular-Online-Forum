@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404
-from .models import Post, Answer
+from .models import Post, Answer, Avatar
 
 
 def sort_posts(sort_order, posts):
@@ -12,10 +12,10 @@ def sort_posts(sort_order, posts):
 
     # asc by voting
     elif sort_order == "asc-voting":
-        sorted_posts = sorted(posts, key=lambda x: x["voting_score"])
+        sorted_posts = sorted(posts, key=lambda x: x["voting_score"], reverse=True)
     # desc by voting
     elif sort_order == "desc-voting":
-        sorted_posts = sorted(posts, key=lambda x: x["voting_score"], reverse=True)
+        sorted_posts = sorted(posts, key=lambda x: x["voting_score"])
     else:
         sorted_posts = list(reversed(posts))
 
@@ -126,3 +126,20 @@ def get_liked_users_to_answer(post_id):
     
     # Return the list of users who liked the answer
     return answer.liked_by.all()
+
+
+def add_user_avatar(avatar_id, user):
+    # Retrieve the avatar by its ID, or return a 404 error if not found
+    avatar = get_object_or_404(Avatar, id=avatar_id)
+
+    avatar.users.add(user)
+
+    # Save the updated avatar data
+    avatar.save()
+
+def get_user_avatar(user_id):
+    avatar = Avatar.get_avatar_by_user_id(user_id)
+    if avatar:
+        return avatar
+    else:
+        return 'no avatar found'

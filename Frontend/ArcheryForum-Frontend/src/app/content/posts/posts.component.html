@@ -12,10 +12,8 @@
     <button (click)="sortPosts('default')">newest first</button>
     <button (click)="sortPosts('asc-topic')">Topics ascending</button>
     <button (click)="sortPosts('desc-topic')">Topics descending</button>
-    <!--
     <button (click)="sortPosts('asc-voting')">sort by Voting (asccnding)</button>
     <button (click)="sortPosts('desc-voting')">sort by Voting (desccending)</button>
-    -->
 </div>
 <div *ngIf="noPosts === true">
     <h2>

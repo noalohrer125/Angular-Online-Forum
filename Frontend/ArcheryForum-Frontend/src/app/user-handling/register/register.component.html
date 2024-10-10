@@ -10,6 +10,14 @@
             <td><input type="password" id="password" name="password" formControlName="password" /></td>
         </tr>
         <tr>
+            <td>
+                <div *ngFor="let avatar of avatars">
+                    <input formControlName="avatar" type="radio" name="avatar" value="{{ avatar.id }}" required>
+                    <img class="avatar" src="http://localhost:8000/media/{{ avatar.img }}" alt="Avatar {{ avatar.id }}">
+                </div>
+            </td>
+        </tr>
+        <tr>
             <td><button type="submit" (click)="onSubmit()" [disabled]="!registerForm.value.name || !registerForm.value.password">Submit</button></td>
             <td><button routerLink="/home">Cancel</button></td>
         </tr>

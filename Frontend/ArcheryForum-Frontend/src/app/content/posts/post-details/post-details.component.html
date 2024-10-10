@@ -1,13 +1,13 @@
 <div class="container">
-    <p class="p">Created by: {{ userName }}</p>
+    <p class="p">Created by: {{ userName }} <img class="avatar" *ngIf="avatar" src="http://localhost:8000/{{ avatar }}" alt="avatar"></p>
     <h1 class="h1">{{ subject }}</h1>
     <div class="edit_delete_container">
         <td><button (click)="vote_up()">👍 {{ likes }}</button></td>
         <td><button (click)="vote_down()">👎 {{ dislikes }}</button></td>
         <br>
-        <button *ngIf="is_superuser || is_authoriced" class="edit-delete" (click)="delete()">delete</button>
+        <button *ngIf="is_superuser || is_authorised" class="edit-delete" (click)="delete()">delete</button>
         <br>
-        <button *ngIf="is_superuser || is_authoriced" class="edit-delete" [routerLink]="['/edit-post', postId()]">edit</button>
+        <button *ngIf="is_superuser || is_authorised" class="edit-delete" [routerLink]="['/edit-post', postId()]">edit</button>
     </div>
     <h3 class="content">{{ content }}</h3>
     <br>

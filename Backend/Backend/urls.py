@@ -17,6 +17,8 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 from Backend_App.views import (
     vote_post,
     vote_answer,
@@ -39,10 +41,11 @@ from Backend_App.views import (
     login,
     logout,
     sign_up,
+    get_avatars,
     get_current_user,
+    get_specific_user_object,
     isAuthenticated,
     health_check,
-    get_specific_user_object,
 )
 
 urlpatterns = [
@@ -68,8 +71,9 @@ urlpatterns = [
     path("login/", login, name="login"),
     path("logout/", logout, name="logout"),
     path("sign_up/", sign_up, name="sign_up"),
+    path("get_avatars/", get_avatars, name="get_avatars"),
     path("current_user/", get_current_user, name="get_current_user"),
     path("isAuthenticated/", isAuthenticated, name="isAuthenticated"),
     path('health-check/', health_check, name='health_check'),
     path("get_specific_user_object/<int:user_id>/", get_specific_user_object, name="get_specific_user_object"),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

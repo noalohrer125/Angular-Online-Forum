@@ -130,6 +130,10 @@ export class ApiService {
     return this.httpClient.get(`${this.baseUrl}get_topics/`)
   }
 
+  getAvatars(): Observable<any> {
+    return this.httpClient.get(`${this.baseUrl}get_avatars/`)
+  }
+
   // specific get-APIs
   getSpecificTopic(topic_id: number): Observable<any> {
     return this.httpClient.get<any>(`${this.baseUrl}get_specific_topic/${topic_id}/`);
