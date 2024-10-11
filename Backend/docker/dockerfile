@@ -1,0 +1,21 @@
+# Verwende das offizielle Python-Image als Basis
+FROM python:3.11
+
+# Setze das Arbeitsverzeichnis im Container
+WORKDIR /Backend_App
+
+# Kopiere die Anforderungen und installiere sie
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Kopiere den Rest des Django-Projekts
+COPY . .
+
+# Setze Umgebungsvariablen
+ENV PYTHONUNBUFFERED 1
+
+# Exponiere den Port (Standard: 8000 für Django)
+EXPOSE 8000
+
+# Definiere den Befehl, um die Anwendung zu starten
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

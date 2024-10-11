@@ -1,0 +1,64 @@
+2024-10-11 08:28 - INFO - C:\Users\nl\Github\Angular-Online-Forum\Backend\Backend\settings.py changed, reloading.
+2024-10-11 08:39 - INFO - C:\Users\nl\Github\Angular-Online-Forum\Backend\Backend\settings.py changed, reloading.
+2024-10-11 08:39 - INFO - C:\Users\nl\Github\Angular-Online-Forum\Backend\Backend\settings.py changed, reloading.
+2024-10-11 08:39 - INFO - C:\Users\nl\Github\Angular-Online-Forum\Backend\Backend\settings.py changed, reloading.
+2024-10-11 08:39 - INFO - C:\Users\nl\Github\Angular-Online-Forum\Backend\Backend\settings.py changed, reloading.
+2024-10-11 08:40 - INFO - C:\Users\nl\Github\Angular-Online-Forum\Backend\Backend\settings.py changed, reloading.
+2024-10-11 08:40 - INFO - C:\Users\nl\Github\Angular-Online-Forum\Backend\Backend\settings.py changed, reloading.
+2024-10-11 08:55 - INFO - C:\Users\nl\Github\Angular-Online-Forum\Backend\Backend\settings.py changed, reloading.
+2024-10-11 08:57 - INFO - C:\Users\nl\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\psycopg2\_json.py changed, reloading.
+2024-10-11 08:57 - INFO - C:\Users\nl\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\psycopg2\_ipaddress.py changed, reloading.
+2024-10-11 08:58 - INFO - C:\Users\nl\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\psycopg2\_ipaddress.py changed, reloading.
+2024-10-11 14:28 - INFO - C:\Users\nl\Github\Angular-Online-Forum\Backend\Backend\settings.py changed, reloading.
+2024-10-11 14:31 - ERROR - error occurred: Exception at sign_up(): ValueError: invalid literal for int() with base 10: '' on line 435 
+ User: AnonymousUser
+2024-10-11 14:31 - ERROR - Internal Server Error: /sign_up/
+2024-10-11 14:32 - ERROR - error occurred: Exception at sign_up(): ValueError: invalid literal for int() with base 10: '' on line 435 
+ User: AnonymousUser
+2024-10-11 14:32 - ERROR - Internal Server Error: /sign_up/
+2024-10-11 14:43 - WARNING - Not Found: /favicon.ico
+2024-10-11 14:44 - ERROR - error occurred: Exception at sign_up(): ValueError: invalid literal for int() with base 10: '' on line 435 
+ User: AnonymousUser
+2024-10-11 14:44 - ERROR - Internal Server Error: /sign_up/
+2024-10-11 14:46 - INFO - C:\Users\nl\Github\Angular-Online-Forum\Backend\Backend_App\views.py changed, reloading.
+2024-10-11 14:46 - ERROR - error occurred: Exception at sign_up(): ValueError: invalid literal for int() with base 10: '' on line 435 
+ User: AnonymousUser
+2024-10-11 14:46 - ERROR - Internal Server Error: /sign_up/
+2024-10-11 14:46 - ERROR - error occurred: Exception at sign_up(): ValueError: invalid literal for int() with base 10: '' on line 435 
+ User: AnonymousUser
+2024-10-11 14:46 - ERROR - Internal Server Error: /sign_up/
+2024-10-11 14:48 - ERROR - error occurred: Exception at sign_up(): IntegrityError: duplicate key value violates unique constraint "auth_user_pkey"
+DETAIL:  Key (id)=(1) already exists.
+ on line 455 
+ User: AnonymousUser
+2024-10-11 14:48 - ERROR - Internal Server Error: /sign_up/
+2024-10-11 14:54 - ERROR - error occurred: Exception at sign_up(): Http404: No Avatar matches the given query. on line 460 
+ User: AnonymousUser
+2024-10-11 14:54 - ERROR - Internal Server Error: /sign_up/
+2024-10-11 14:57 - ERROR - error occured: Exception at add_topic(): IntegrityError: null value in column "id" of relation "Backend_App_topic" violates not-null constraint
+DETAIL:  Failing row contains (null, test, test).
+ on line 358
+2024-10-11 14:57 - ERROR - Internal Server Error: /add_topic/
+Traceback (most recent call last):
+  File "C:\Users\nl\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nl\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\nl\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nl\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\rest_framework\response.py", line 59, in rendered_content
+    assert renderer, ".accepted_renderer not set on Response"
+           ^^^^^^^^
+AssertionError: .accepted_renderer not set on Response
+2024-10-11 15:01 - INFO - C:\Users\nl\Github\Angular-Online-Forum\Backend\Backend_App\models.py changed, reloading.
+2024-10-11 15:01 - INFO - C:\Users\nl\Github\Angular-Online-Forum\Backend\Backend_App\models.py changed, reloading.
+2024-10-11 15:05 - WARNING - Not Found: /media/avatars/avatar2.png
+2024-10-11 15:05 - WARNING - Bad Request: /sign_up/
+2024-10-11 15:05 - WARNING - Bad Request: /sign_up/
+2024-10-11 15:06 - WARNING - Bad Request: /sign_up/
+2024-10-11 15:06 - WARNING - Bad Request: /sign_up/
+2024-10-11 15:09 - WARNING - Bad Request: /sign_up/
+2024-10-11 15:10 - INFO - C:\Users\nl\Github\Angular-Online-Forum\Backend\Backend_App\views.py changed, reloading.

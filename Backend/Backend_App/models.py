@@ -3,13 +3,11 @@ from django.contrib.auth.models import User
 
 # Topic-Model
 class Topic(models.Model):
-    id = models.IntegerField(primary_key=True, unique=True)
     name = models.CharField(max_length=50, unique=True)
     description = models.CharField(max_length=100)
 
 # Post-Model
 class Post(models.Model):
-    id = models.IntegerField(primary_key=True, unique=True)
     Subject = models.CharField(max_length=100)
     Content = models.CharField(max_length=1000)
     liked_by = models.ManyToManyField(User, related_name='liked_posts', blank=True)
@@ -19,7 +17,6 @@ class Post(models.Model):
 
 # Answer-Model
 class Answer(models.Model):
-    id = models.IntegerField(primary_key=True, unique=True)
     Content = models.CharField(max_length=1000)
     liked_by = models.ManyToManyField(User, related_name='liked_answer', blank=True)
     disliked_by = models.ManyToManyField(User, related_name='disliked_answer', blank=True)
@@ -28,7 +25,6 @@ class Answer(models.Model):
 
 # Avatar-Model
 class Avatar(models.Model):
-    id = models.AutoField(primary_key=True)
     img = models.ImageField(upload_to='avatars/')  # Upload the avatar images to the 'avatars/' directory
     users = models.ManyToManyField(User, related_name='avatars', blank=True)
 
