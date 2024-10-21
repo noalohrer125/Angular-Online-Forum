@@ -46,6 +46,7 @@ from Backend_App.views import (
     get_specific_user_object,
     isAuthenticated,
     health_check,
+    report_post,
 )
 
 urlpatterns = [
@@ -76,4 +77,5 @@ urlpatterns = [
     path("isAuthenticated/", isAuthenticated, name="isAuthenticated"),
     path('health-check/', health_check, name='health_check'),
     path("get_specific_user_object/<int:user_id>/", get_specific_user_object, name="get_specific_user_object"),
+    path("report_post/", report_post, name="report_post"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

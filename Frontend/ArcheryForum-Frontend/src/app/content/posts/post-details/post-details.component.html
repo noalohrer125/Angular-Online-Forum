@@ -4,12 +4,23 @@
     <div class="edit_delete_container">
         <td><button (click)="vote_up()">👍 {{ likes }}</button></td>
         <td><button (click)="vote_down()">👎 {{ dislikes }}</button></td>
+        <button (click)="openReportForm()">report this Post</button>
+        <br>
         <br>
         <button *ngIf="is_superuser || is_authorised" class="edit-delete" (click)="delete()">delete</button>
         <br>
         <button *ngIf="is_superuser || is_authorised" class="edit-delete" [routerLink]="['/edit-post', postId()]">edit</button>
+        <br>
+        
     </div>
     <h3 class="content">{{ content }}</h3>
     <br>
     <app-answers class="answers"></app-answers>
+</div>
+
+<div *ngIf="displayReportForm" class="reportForm" id="" [formGroup]="reportForm">
+    <label for="comment">Comment </label>
+    <textarea name="comment" id="comment" placeholder="Wy do you wanna report this Post?" formControlName="comment"></textarea>
+    <br>
+    <button type="submit" (click)="report_post_submit()">Send</button>
 </div>

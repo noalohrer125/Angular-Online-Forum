@@ -11,7 +11,14 @@ from django.middleware.csrf import get_token
 from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_protect
 
-from .methods import sort_posts, add_like_post, add_dislike_post, add_like_answer, add_dislike_answer, add_user_avatar
+from .methods import (
+    sort_posts,
+    add_like_post,
+    add_dislike_post,
+    add_like_answer,
+    add_dislike_answer,
+    add_user_avatar,
+)
 from .models import Post, Answer, Topic, Avatar
 
 from rest_framework import response as drf_response
@@ -27,6 +34,7 @@ logging.basicConfig(
     style="{",
     datefmt="%Y-%m-%d %H:%M",
 )
+
 
 @csrf_protect
 def get_csrf_token(request):
@@ -48,15 +56,15 @@ def vote_post(request, voting, post_id):
         post = Post.objects.get(id=post_id)
         user = request.user
 
-        if voting == 'up':
+        if voting == "up":
             # Add a like to the post
             add_like_post(post_id, user)
-        elif voting == 'down':
+        elif voting == "down":
             # Add a dislike to the post
             add_dislike_post(post_id, user)
 
         # Convert the updated post to a dictionary, excluding non-serializable fields
-        post_dict = model_to_dict(post, exclude=['liked_by', 'disliked_by'])
+        post_dict = model_to_dict(post, exclude=["liked_by", "disliked_by"])
 
         # Return the updated post data as JSON
         return JsonResponse(post_dict)
@@ -68,21 +76,22 @@ def vote_post(request, voting, post_id):
             error_message, status=drf_status.HTTP_500_INTERNAL_SERVER_ERROR
         )
 
+
 @csrf_protect
 def vote_answer(request, voting, answer_id):
     try:
         answer = Answer.objects.get(id=answer_id)
         user = request.user
 
-        if voting == 'up':
+        if voting == "up":
             # Add a like to the post
             add_like_answer(answer_id, user)
-        elif voting == 'down':
+        elif voting == "down":
             # Add a dislike to the post
             add_dislike_answer(answer_id, user)
 
         # Convert the updated post to a dictionary, excluding non-serializable fields
-        answer_dict = model_to_dict(answer, exclude=['liked_by', 'disliked_by'])
+        answer_dict = model_to_dict(answer, exclude=["liked_by", "disliked_by"])
 
         # Return the updated post data as JSON
         return JsonResponse(answer_dict)
@@ -100,13 +109,17 @@ def vote_answer(request, voting, answer_id):
 def get_posts(request, sort_order):
     try:
         # Fetch the posts with relevant fields as dictionaries
-        posts = list(Post.objects.values("id", "Subject", "Content", "Topic__name", "User"))
+        posts = list(
+            Post.objects.values("id", "Subject", "Content", "Topic__name", "User")
+        )
 
         # Calculate liked_by and disliked_by counts
         for post in posts:
-            post['liked_by_count'] = Post.objects.get(id=post['id']).liked_by.count()
-            post['disliked_by_count'] = Post.objects.get(id=post['id']).disliked_by.count()
-            post['voting_score'] = post['liked_by_count'] - post['disliked_by_count']
+            post["liked_by_count"] = Post.objects.get(id=post["id"]).liked_by.count()
+            post["disliked_by_count"] = Post.objects.get(
+                id=post["id"]
+            ).disliked_by.count()
+            post["voting_score"] = post["liked_by_count"] - post["disliked_by_count"]
 
         # Sort the posts
         sorted_posts = sort_posts(sort_order, posts)
@@ -122,11 +135,16 @@ def get_posts(request, sort_order):
             error_message, status=drf_status.HTTP_500_INTERNAL_SERVER_ERROR
         )
 
+
 @csrf_protect
 def get_liked_posts(request):
     try:
         user = request.user.id
-        posts = list(Post.objects.filter(liked_by=user).values("id", "Subject", "Content", "Topic__name", "User"))
+        posts = list(
+            Post.objects.filter(liked_by=user).values(
+                "id", "Subject", "Content", "Topic__name", "User"
+            )
+        )
         return JsonResponse(posts, safe=False)
     except Exception as ex:
         error_message = f"Exception at get_liked_posts(): {str(ex.__class__.__name__)}: {str(ex)} on line {ex.__traceback__.tb_lineno}"
@@ -143,18 +161,16 @@ def get_specific_Post(request, post_id):
         post = Post.objects.filter(id=post_id).first()
         if post:
             # Convert the post to a dictionary excluding the liked_by and disliked_by fields
-            post_dict = model_to_dict(post, exclude=['liked_by', 'disliked_by'])
+            post_dict = model_to_dict(post, exclude=["liked_by", "disliked_by"])
             # Add the counts of likes and dislikes
-            post_dict['likes_count'] = post.liked_by.count()
-            post_dict['dislikes_count'] = post.disliked_by.count()
+            post_dict["likes_count"] = post.liked_by.count()
+            post_dict["dislikes_count"] = post.disliked_by.count()
             return JsonResponse({"post": post_dict})
     except Exception as ex:
         error_message = f"Exception at get_specific_Post(): {str(ex.__class__.__name__)}: {str(ex)} on line {ex.__traceback__.tb_lineno} \n Post_Id: {post_id}"
         # logging
         logging.error(f"error occured: {error_message}")
-        return JsonResponse(
-            {"error": error_message}, status=500
-        )
+        return JsonResponse({"error": error_message}, status=500)
 
 
 @csrf_protect
@@ -226,12 +242,18 @@ def edit_post(request):
 @csrf_protect
 def get_answers(request):
     try:
-        answers = list(reversed(Answer.objects.all().values("id", "Content", "Post", "User")))
+        answers = list(
+            reversed(Answer.objects.all().values("id", "Content", "Post", "User"))
+        )
 
         # Calculate liked_by and disliked_by counts
         for answer in answers:
-            answer['liked_by_count'] = Answer.objects.get(id=answer['id']).liked_by.count()
-            answer['disliked_by_count'] = Answer.objects.get(id=answer['id']).disliked_by.count()
+            answer["liked_by_count"] = Answer.objects.get(
+                id=answer["id"]
+            ).liked_by.count()
+            answer["disliked_by_count"] = Answer.objects.get(
+                id=answer["id"]
+            ).disliked_by.count()
 
         return JsonResponse(answers, safe=False)
     except Exception as ex:
@@ -410,6 +432,7 @@ def login(request):
             error_message, status=drf_status.HTTP_500_INTERNAL_SERVER_ERROR
         )
 
+
 @csrf_protect
 def logout(request):
     try:
@@ -451,12 +474,9 @@ def sign_up(request):
                 return JsonResponse({"error": "Username already exists."}, status=400)
 
             # Create a new user with the provided username and password
-            user = User.objects.create_user(
-                username=username,
-                password=password
-            )
+            user = User.objects.create_user(username=username, password=password)
             user.save()  # Save the user to the database
-            add_user_avatar(avatar_id, user) # save avatar for the user
+            add_user_avatar(avatar_id, user)  # save avatar for the user
             return JsonResponse({"message": "User created successfully."}, status=201)
 
         except json.JSONDecodeError:  # Handle JSON decoding errors
@@ -478,7 +498,7 @@ def sign_up(request):
 @csrf_protect
 def get_avatars(request):
     try:
-        avatars = list(Avatar.objects.all().values('id', 'img'))
+        avatars = list(Avatar.objects.all().values("id", "img"))
         return JsonResponse(avatars, safe=False)
     except Exception as ex:
         error_message = f"Exception at get_avatars(): {str(ex.__class__.__name__)}: {str(ex)} on line {ex.__traceback__.tb_lineno}"
@@ -496,13 +516,15 @@ def get_specific_user_object(request, user_id):
         avatar = Avatar.get_avatar_by_user_id(user_id)
 
         if user_object:
-            return JsonResponse({
-                "User": [
-                    user_object.id,
-                    user_object.username,
-                    avatar.img.url if avatar else None,
-                ]
-            })
+            return JsonResponse(
+                {
+                    "User": [
+                        user_object.id,
+                        user_object.username,
+                        avatar.img.url if avatar else None,
+                    ]
+                }
+            )
         print(user_object)
         return user_object
     except Exception as ex:
@@ -569,3 +591,35 @@ def health_check(request):
         return drf_response.Response(
             error_message, status=drf_status.HTTP_500_INTERNAL_SERVER_ERROR
         )
+
+
+# Report Post with bad Content
+@csrf_protect
+def report_post(request):
+    try:
+        if request.method == "POST":
+            data = json.loads(request.body)
+            post_id = data.get('postId')
+            comment = data.get('comment')
+            send_e_mail(post_id, comment)
+        return HttpResponse(200, 'Email sent')
+    except Exception as ex:
+        error_message = f"Exception at report_post(): {str(ex.__class__.__name__)}: {str(ex)} on line {ex.__traceback__.tb_lineno}"
+        # logging
+        logging.error(f"error occured: {error_message}")
+        return drf_response.Response(
+            error_message, status=drf_status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
+
+from django.core.mail import send_mail
+def send_e_mail(post_id, comment):
+    post_id = post_id
+    comment = comment
+    send_mail(
+        'Archery-Forum',
+        f'Somebody reported a Post on your website with bad Content \nPost-Id: {post_id} \n\nComment: {comment}',
+        'noalohrer125@gmail.com',
+        ['noalohrer125@gmail.com'],
+        fail_silently=False,
+    )
+    return HttpResponse('E-Mail sent')

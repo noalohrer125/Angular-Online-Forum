@@ -145,3 +145,14 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# Settings for sending E-Mails
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend" 
+from Backend.apikeys import apikey
+SENDGRID_API_KEY = apikey
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'apikey' # actually must be the value 'apikey'
+EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'noalohrer125@gmail.com'

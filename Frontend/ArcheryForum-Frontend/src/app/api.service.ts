@@ -236,4 +236,14 @@ export class ApiService {
       }
     );
   }
+  
+  
+  // user-report-api
+  repostPost(data: object): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-CSRFToken': this.csrfToken || ''
+    });
+  return this.httpClient.post(`${this.baseUrl}report_post/`, data, { headers, withCredentials: true });
+  }
 }

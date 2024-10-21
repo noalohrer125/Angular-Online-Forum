@@ -3,7 +3,8 @@ import { AnswersComponent } from "./answers/answers.component";
 import { RouterLink } from '@angular/router';
 import { ApiService } from '../../../api.service';
 import { CommonModule } from '@angular/common';
-import { Observable } from 'rxjs';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-post-details',
@@ -12,6 +13,7 @@ import { Observable } from 'rxjs';
     AnswersComponent,
     RouterLink,
     CommonModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './post-details.component.html',
   styleUrl: './post-details.component.css'
@@ -19,7 +21,7 @@ import { Observable } from 'rxjs';
 export class PostDetailsComponent {
   postId = input.required()
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService, public dialog: MatDialog) { }
 
   postIdNumber!: number;
 
@@ -95,5 +97,28 @@ export class PostDetailsComponent {
     this.apiService.votePost(voting, this.postIdNumber).subscribe(response => {
       location.reload()
     })
+  }
+
+  reportForm = new FormGroup({
+    comment: new FormControl,
+  })
+
+  report_post_submit() {
+    this.displayReportForm = false
+
+    const email_data = {
+      postId: this.postIdNumber,
+      comment: this.reportForm.value.comment
+    }
+
+    this.apiService.repostPost(email_data).subscribe(response => {
+      console.log(response)
+    })
+  }
+
+  displayReportForm: boolean = false;
+
+  openReportForm() {
+    this.displayReportForm = true
   }
 }
