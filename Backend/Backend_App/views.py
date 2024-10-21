@@ -600,7 +600,7 @@ def report_post(request):
         if request.method == "POST":
             data = json.loads(request.body)
             post_id = data.get('postId')
-            comment = data.get('comment')
+            comment = data.get('comment') or 'no content sent'
             send_e_mail(post_id, comment)
         return HttpResponse(200, 'Email sent')
     except Exception as ex:
