@@ -19,6 +19,7 @@ export class PostComponent {
   avatar!: any;
   topic!: string;
   subject!: string;
+  likes!: number;
 
   ngOnInit() {
     this.apiService.getSpecificUser(this.post.User).subscribe(data => {
@@ -26,6 +27,9 @@ export class PostComponent {
       this.avatar = data.User[2]
       this.topic = this.post.Topic__name
       this.subject = this.post.Subject
+      this.likes = this.post.liked_by_count
+
+      console.log(JSON.stringify(this.post))
     })
   }
 }

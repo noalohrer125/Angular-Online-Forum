@@ -62,3 +62,22 @@ AssertionError: .accepted_renderer not set on Response
 2024-10-11 15:06 - WARNING - Bad Request: /sign_up/
 2024-10-11 15:09 - WARNING - Bad Request: /sign_up/
 2024-10-11 15:10 - INFO - C:\Users\nl\Github\Angular-Online-Forum\Backend\Backend_App\views.py changed, reloading.
+2024-10-11 15:34 - ERROR - error occured: Exception at add_post(): DataError: value too long for type character varying(100)
+ on line 170
+2024-10-11 15:34 - ERROR - Internal Server Error: /add_post/
+Traceback (most recent call last):
+  File "C:\Users\nl\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nl\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\nl\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nl\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\rest_framework\response.py", line 59, in rendered_content
+    assert renderer, ".accepted_renderer not set on Response"
+           ^^^^^^^^
+AssertionError: .accepted_renderer not set on Response
+2024-10-11 15:38 - INFO - C:\Users\nl\Github\Angular-Online-Forum\Backend\Backend_App\models.py changed, reloading.
+2024-10-11 15:38 - INFO - C:\Users\nl\Github\Angular-Online-Forum\Backend\Backend_App\models.py changed, reloading.

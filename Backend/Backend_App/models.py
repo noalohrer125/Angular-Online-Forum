@@ -9,7 +9,7 @@ class Topic(models.Model):
 # Post-Model
 class Post(models.Model):
     Subject = models.CharField(max_length=100)
-    Content = models.CharField(max_length=1000)
+    Content = models.CharField()
     liked_by = models.ManyToManyField(User, related_name='liked_posts', blank=True)
     disliked_by = models.ManyToManyField(User, related_name='disliked_posts', blank=True)
     User = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -17,7 +17,7 @@ class Post(models.Model):
 
 # Answer-Model
 class Answer(models.Model):
-    Content = models.CharField(max_length=1000)
+    Content = models.CharField()
     liked_by = models.ManyToManyField(User, related_name='liked_answer', blank=True)
     disliked_by = models.ManyToManyField(User, related_name='disliked_answer', blank=True)
     User = models.ForeignKey(User, on_delete=models.CASCADE)

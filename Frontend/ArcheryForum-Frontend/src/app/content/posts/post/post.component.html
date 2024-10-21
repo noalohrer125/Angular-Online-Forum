@@ -1,7 +1,8 @@
 <table>
     <tr>
-        <td class="username">{{ user_name }} <img class="avatar" *ngIf="avatar" src="http://localhost:8000/{{ avatar }}" alt="avatar"></td>
+        <td class="username">{{ user_name }}<img class="avatar" *ngIf="avatar" src="http://localhost:8000/{{ avatar }}" alt="avatar"></td>
         <td class="topic">{{ topic }}</td>
         <td class="subject">{{ subject }}</td>
+        <td class="likes">👍 {{ likes }}</td>
     </tr>
 </table>

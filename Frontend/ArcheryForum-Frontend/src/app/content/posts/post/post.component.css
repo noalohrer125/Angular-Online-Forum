@@ -14,8 +14,14 @@
 
 .subject {
     padding-left: 1vw;
-    width: 40vw;
+    width: 35vw;
     max-width: 40vw;
-    overflow-wrap:normal;
+    overflow-wrap: normal;
     overflow: hidden;
+}
+
+.likes {
+    border: solid rgb(255, 225, 58) 1px;
+    border-radius: 15px;
+    padding: 5px;
 }
