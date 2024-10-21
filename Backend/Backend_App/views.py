@@ -217,7 +217,7 @@ def delete_post(request, id):
 @csrf_protect
 def edit_post(request):
     try:
-        if request.method == "POST":
+        if request.method == "PUT":
             data = json.loads(request.body)
             post_id = data.get("id")
 
@@ -323,7 +323,7 @@ def delete_answer(request, id):
 @csrf_protect
 def edit_answer(request):
     try:
-        if request.method == "POST":
+        if request.method == "PUT":
             data = json.loads(request.body)
             answer_id = data.get("id")
 
