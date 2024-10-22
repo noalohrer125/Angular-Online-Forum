@@ -1,23 +1,50 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, filter, Observable, throwError } from 'rxjs';
-import { Answer, Post, sort_order, Topic, voting } from './interfaces';
+import { Answer, Post, sort_order, Topic, voting } from '../interfaces';
 import { NavigationEnd, Router } from '@angular/router';
 import { catchError } from 'rxjs/operators';
+import { ErrorService } from './error.service';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
+  constructor(private router: Router, private errorService: ErrorService) {
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd) // Filter for NavigationEnd events
+    ).subscribe((event: NavigationEnd) => {
+      this.onURLChange(); // Call onURLChange when URL change detected
+    });
+  }
+
   private httpClient = inject(HttpClient);
   private baseUrl = 'http://localhost:8000/';
   public csrfToken: string | null = this.getCsrfTokenFromCookie();
 
   // Helper method to handle errors
+  // private handleError(error: any) {
+  //   console.error('An error occurred:', error); // Log the error
+  //   return throwError(() => new Error(error)); // Rethrow the error as an observable
+  // }
+
   private handleError(error: any) {
-    console.error('An error occurred:', error); // Log the error
-    return throwError(() => new Error(error)); // Rethrow the error as an observable
+    let errorMessage = 'An unknown error occurred!';
+    
+    if (error.error instanceof ErrorEvent) {
+      // Client-side error
+      errorMessage = `Client Error: ${error.error.message}`;
+    } else {
+      // Server-side error
+      errorMessage = `Server Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+  
+    this.errorService.showError(errorMessage); // Show the error popup
+    // console.error('An error occurred:', errorMessage); // Log the error
+    return throwError(() => new Error(errorMessage)); // Rethrow the error as an observable
   }
+
 
   // Tokens
   getCsrfToken(): Observable<any> {
@@ -50,7 +77,10 @@ export class ApiService {
       'X-CSRFToken': this.csrfToken || ''
     });
     return this.httpClient.post(`${this.baseUrl}login/`, user, { headers, withCredentials: true })
-      .pipe(catchError(this.handleError));
+      .pipe(catchError((error) => { // TODO: change all pipes to the format used here
+        return this.handleError(error); // shows the error
+        // return throwError(() => new Error(error)); // makes sure that the error is returned correctly
+      }));
   }
 
   logout(): Observable<any> {
@@ -247,13 +277,6 @@ export class ApiService {
     return this.runningBackend.asObservable();
   }
 
-  constructor(private router: Router) {
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd) // Filter for NavigationEnd events
-    ).subscribe((event: NavigationEnd) => {
-      this.onURLChange(); // Call onURLChange when URL change detected
-    });
-  }
 
   // Method to check backend-status when URL change detected
   private onURLChange() {
@@ -266,14 +289,14 @@ export class ApiService {
       }
     );
   }
-  
-  
+
+
   // user-report-api
   repostPost(data: object): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'X-CSRFToken': this.csrfToken || ''
     });
-  return this.httpClient.post(`${this.baseUrl}report_post/`, data, { headers, withCredentials: true });
+    return this.httpClient.post(`${this.baseUrl}report_post/`, data, { headers, withCredentials: true });
   }
 }

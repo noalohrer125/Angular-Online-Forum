@@ -1,10 +1,9 @@
 import { Component, input } from '@angular/core';
 import { AnswersComponent } from "./answers/answers.component";
 import { RouterLink } from '@angular/router';
-import { ApiService } from '../../../api.service';
+import { ApiService } from '../../../services/api.service';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-post-details',
@@ -21,7 +20,7 @@ import { MatDialog } from '@angular/material/dialog';
 export class PostDetailsComponent {
   postId = input.required()
 
-  constructor(private apiService: ApiService, public dialog: MatDialog) { }
+  constructor(private apiService: ApiService) { }
 
   postIdNumber!: number;
 

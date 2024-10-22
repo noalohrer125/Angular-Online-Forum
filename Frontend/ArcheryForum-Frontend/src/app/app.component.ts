@@ -6,7 +6,8 @@ import { HomeComponent } from "./content/home/home.component";
 import { PostsComponent } from "./content/posts/posts.component";
 import { PostComponent } from "./content/posts/post/post.component";
 import { CommonModule } from '@angular/common';
-import { ApiService } from './api.service';
+import { ApiService } from './services/api.service';
+import { ErrorPopupComponent } from './error-popup/error-popup.component';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +19,7 @@ import { ApiService } from './api.service';
     HomeComponent,
     PostsComponent,
     PostComponent,
+    ErrorPopupComponent,
     CommonModule,
   ],
   templateUrl: './app.component.html',

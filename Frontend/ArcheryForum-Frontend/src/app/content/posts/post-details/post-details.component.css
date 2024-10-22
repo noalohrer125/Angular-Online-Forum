@@ -11,11 +11,11 @@
     width: max-content;
     height: max-content;
     justify-self: end;
-    grid-area: edit-delete;
+    /* grid-area: edit-delete; */
 }
 
 .edit-delete {
-    grid-area: edit-delete;
+    /* grid-area: edit-delete; */
     width: 4vw;
     font-size: 2vmin;
 }
@@ -25,8 +25,8 @@
 }
 
 .h1 {
-    width: max-content;
-    max-width: 40vw;
+    width: 55vw;
+    max-width: 55vw;
     grid-area: header;
 }
 

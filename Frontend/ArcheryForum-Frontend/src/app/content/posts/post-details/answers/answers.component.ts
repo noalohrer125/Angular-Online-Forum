@@ -3,7 +3,7 @@ import { AnswerComponent } from "./answer/answer.component";
 import { NewAnswerComponent } from "./new-answer/new-answer.component";
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { ApiService } from '../../../../api.service';
+import { ApiService } from '../../../../services/api.service';
 import { Answer } from '../../../../interfaces';
 
 @Component({

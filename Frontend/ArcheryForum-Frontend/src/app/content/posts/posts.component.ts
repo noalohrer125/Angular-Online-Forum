@@ -3,7 +3,7 @@ import { PostComponent } from "./post/post.component";
 import { RouterLink } from '@angular/router';
 import { NewPostComponent } from "./new-post/new-post.component";
 import { CommonModule } from '@angular/common';
-import { ApiService } from '../../api.service';
+import { ApiService } from '../../services/api.service';
 import { current_user, Post, sort_order } from '../../interfaces';
 
 @Component({

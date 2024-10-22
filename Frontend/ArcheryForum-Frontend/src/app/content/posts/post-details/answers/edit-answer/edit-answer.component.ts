@@ -2,7 +2,7 @@ import { Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { ApiService } from '../../../../../api.service';
+import { ApiService } from '../../../../../services/api.service';
 
 @Component({
   selector: 'app-edit-answer',

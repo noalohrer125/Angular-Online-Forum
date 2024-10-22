@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { ApiService } from '../../api.service';
+import { ApiService } from '../../services/api.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
