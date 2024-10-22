@@ -1,20 +1,28 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { BehaviorSubject, filter, Observable } from 'rxjs';
+import { BehaviorSubject, filter, Observable, throwError } from 'rxjs';
 import { Answer, Post, sort_order, Topic, voting } from './interfaces';
 import { NavigationEnd, Router } from '@angular/router';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  private httpClient = inject(HttpClient)
+  private httpClient = inject(HttpClient);
   private baseUrl = 'http://localhost:8000/';
   public csrfToken: string | null = this.getCsrfTokenFromCookie();
 
+  // Helper method to handle errors
+  private handleError(error: any) {
+    console.error('An error occurred:', error); // Log the error
+    return throwError(() => new Error(error)); // Rethrow the error as an observable
+  }
+
   // Tokens
   getCsrfToken(): Observable<any> {
-    return this.httpClient.get(`${this.baseUrl}get-csrf-token/`, { withCredentials: true });
+    return this.httpClient.get(`${this.baseUrl}get-csrf-token/`, { withCredentials: true })
+      .pipe(catchError(this.handleError));
   }
 
   getCsrfTokenFromCookie(): string | null {
@@ -39,57 +47,64 @@ export class ApiService {
   login(user: object): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'X-CSRFToken': this.csrfToken || ''  // Add CSRF token to request header
+      'X-CSRFToken': this.csrfToken || ''
     });
-    return this.httpClient.post(`${this.baseUrl}login/`, user, { headers, withCredentials: true });
+    return this.httpClient.post(`${this.baseUrl}login/`, user, { headers, withCredentials: true })
+      .pipe(catchError(this.handleError));
   }
 
-  logout() {
+  logout(): Observable<any> {
     this.csrfToken = this.getCsrfTokenFromCookie();
-
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'X-CSRFToken': this.csrfToken || ''  // Add CSRF token to request header
+      'X-CSRFToken': this.csrfToken || ''
     });
     return this.httpClient.post(`${this.baseUrl}logout/`, '', { headers, withCredentials: true })
+      .pipe(catchError(this.handleError));
   }
 
   signUp(user: object): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'X-CSRFToken': this.csrfToken || ''  // Add CSRF token to request header
+      'X-CSRFToken': this.csrfToken || ''
     });
-    return this.httpClient.post(`${this.baseUrl}sign_up/`, user, { headers, withCredentials: true });
+    return this.httpClient.post(`${this.baseUrl}sign_up/`, user, { headers, withCredentials: true })
+      .pipe(catchError(this.handleError));
   }
 
-  // user-infomration
-  current_user() {
+  // user-information
+  current_user(): Observable<any> {
     return this.httpClient.get(`${this.baseUrl}current_user/`, { withCredentials: true })
+      .pipe(catchError(this.handleError));
   }
 
-  is_authenticated() {
+  is_authenticated(): Observable<any> {
     return this.httpClient.get(`${this.baseUrl}isAuthenticated/`, { withCredentials: true })
+      .pipe(catchError(this.handleError));
   }
 
   getSpecificUser(User_id: number): Observable<any> {
-    return this.httpClient.get<any>(`${this.baseUrl}get_specific_user_object/${User_id}/`, {withCredentials: true});
+    return this.httpClient.get<any>(`${this.baseUrl}get_specific_user_object/${User_id}/`, { withCredentials: true })
+      .pipe(catchError(this.handleError));
   }
 
   // voting-APIs
   votePost(voting: voting, post_id: number): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'X-CSRFToken': this.csrfToken || ''  // Add CSRF token to request header
+      'X-CSRFToken': this.csrfToken || ''
     });
-    return this.httpClient.post<any>(`${this.baseUrl}vote_post/${voting}/${post_id}`, '', { headers, withCredentials: true });
+    return this.httpClient.post<any>(`${this.baseUrl}vote_post/${voting}/${post_id}`, '', { headers, withCredentials: true })
+      .pipe(catchError(this.handleError));
   }
 
   voteAnswer(voting: voting, answer_id: number): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'X-CSRFToken': this.csrfToken || ''  // Add CSRF token to request header
+      'X-CSRFToken': this.csrfToken || ''
     });
-    return this.httpClient.post<any>(`${this.baseUrl}vote_answer/${voting}/${answer_id}`, '', { headers, withCredentials: true });
+    return this.httpClient.post<any>(`${this.baseUrl}vote_answer/${voting}/${answer_id}`, '', { headers, withCredentials: true })
+      .pipe(catchError(this.handleError));
   }
 
 
@@ -99,58 +114,69 @@ export class ApiService {
       'Content-Type': 'application/json',
       'X-CSRFToken': this.csrfToken || ''
     });
-    return this.httpClient.post(`${this.baseUrl}add_post/`, post, { headers, withCredentials: true });
+    return this.httpClient.post(`${this.baseUrl}add_post/`, post, { headers, withCredentials: true })
+      .pipe(catchError(this.handleError));
   }
 
-  addAnswer(answer: Answer) {
+  addAnswer(answer: Answer): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'X-CSRFToken': this.csrfToken || ''
     });
-    return this.httpClient.post(`${this.baseUrl}add_answer/`, answer, { headers, withCredentials: true });
+    return this.httpClient.post(`${this.baseUrl}add_answer/`, answer, { headers, withCredentials: true })
+      .pipe(catchError(this.handleError));
   }
 
-  addTopic(topic: Topic) {
+  addTopic(topic: Topic): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'X-CSRFToken': this.csrfToken || ''
     });
     return this.httpClient.post(`${this.baseUrl}add_topic/`, topic, { headers, withCredentials: true })
+      .pipe(catchError(this.handleError));
   }
 
 
   // get-APIs
   getPosts(sort_order: sort_order): Observable<any> {
-    return this.httpClient.get<any>(`${this.baseUrl}get_posts/${sort_order}/`, { withCredentials: true });
+    return this.httpClient.get<any>(`${this.baseUrl}get_posts/${sort_order}/`, { withCredentials: true })
+      .pipe(catchError(this.handleError));
   }
 
   getLikedPosts(): Observable<any> {
     return this.httpClient.get(`${this.baseUrl}get_liked_posts/`, { withCredentials: true })
+      .pipe(catchError(this.handleError));
   }
 
   getAnswers(): Observable<any> {
     return this.httpClient.get(`${this.baseUrl}get_answers/`, { withCredentials: true })
+      .pipe(catchError(this.handleError));
   }
 
   getTopics(): Observable<any> {
     return this.httpClient.get(`${this.baseUrl}get_topics/`, { withCredentials: true })
+      .pipe(catchError(this.handleError));
   }
 
   getAvatars(): Observable<any> {
     return this.httpClient.get(`${this.baseUrl}get_avatars/`, { withCredentials: true })
+      .pipe(catchError(this.handleError));
   }
 
   // specific get-APIs
   getSpecificTopic(topic_id: number): Observable<any> {
-    return this.httpClient.get<any>(`${this.baseUrl}get_specific_topic/${topic_id}/`, { withCredentials: true });
+    return this.httpClient.get<any>(`${this.baseUrl}get_specific_topic/${topic_id}/`, { withCredentials: true })
+      .pipe(catchError(this.handleError));
   }
 
   getSpecificPost(post_id: number): Observable<any> {
-    return this.httpClient.get<any>(`${this.baseUrl}get_specific_post/${post_id}/`, { withCredentials: true });
+    return this.httpClient.get<any>(`${this.baseUrl}get_specific_post/${post_id}/`, { withCredentials: true })
+      .pipe(catchError(this.handleError));
   }
 
   getSpecificAnswer(answer_id: number): Observable<any> {
-    return this.httpClient.get<any>(`${this.baseUrl}get_specific_answer/${answer_id}/`, { withCredentials: true });
+    return this.httpClient.get<any>(`${this.baseUrl}get_specific_answer/${answer_id}/`, { withCredentials: true })
+      .pipe(catchError(this.handleError));
   }
 
 
@@ -160,7 +186,8 @@ export class ApiService {
       'Content-Type': 'application/json',
       'X-CSRFToken': this.csrfToken || ''
     });
-    return this.httpClient.put(`${this.baseUrl}edit_post/`, post, { headers, withCredentials: true });
+    return this.httpClient.put(`${this.baseUrl}edit_post/`, post, { headers, withCredentials: true })
+      .pipe(catchError(this.handleError));
   }
 
   editAnswer(answer: Answer): Observable<any> {
@@ -168,7 +195,8 @@ export class ApiService {
       'Content-Type': 'application/json',
       'X-CSRFToken': this.csrfToken || ''
     });
-    return this.httpClient.put(`${this.baseUrl}edit_answer/`, answer, { headers, withCredentials: true });
+    return this.httpClient.put(`${this.baseUrl}edit_answer/`, answer, { headers, withCredentials: true })
+      .pipe(catchError(this.handleError));
   }
 
 
@@ -178,7 +206,8 @@ export class ApiService {
       'Content-Type': 'application/json',
       'X-CSRFToken': this.csrfToken || ''
     });
-    return this.httpClient.delete<any>(`${this.baseUrl}delete_post/${post_id}/`, { headers, withCredentials: true});
+    return this.httpClient.delete<any>(`${this.baseUrl}delete_post/${post_id}/`, { headers, withCredentials: true })
+      .pipe(catchError(this.handleError));
   }
 
   deleteAnswer(answer_id: number): Observable<any> {
@@ -186,7 +215,8 @@ export class ApiService {
       'Content-Type': 'application/json',
       'X-CSRFToken': this.csrfToken || ''
     });
-    return this.httpClient.delete<any>(`${this.baseUrl}delete_answer/${answer_id}/`, { headers, withCredentials: true});
+    return this.httpClient.delete<any>(`${this.baseUrl}delete_answer/${answer_id}/`, { headers, withCredentials: true })
+      .pipe(catchError(this.handleError));
   }
 
   deleteTopic(topic_id: number): Observable<any> {
@@ -194,7 +224,8 @@ export class ApiService {
       'Content-Type': 'application/json',
       'X-CSRFToken': this.csrfToken || ''
     });
-    return this.httpClient.delete<any>(`${this.baseUrl}delete_topic/${topic_id}/`, { headers, withCredentials: true});
+    return this.httpClient.delete<any>(`${this.baseUrl}delete_topic/${topic_id}/`, { headers, withCredentials: true })
+      .pipe(catchError(this.handleError));
   }
 
 
@@ -216,7 +247,6 @@ export class ApiService {
     return this.runningBackend.asObservable();
   }
 
-  // Constructor to listen for URL changes
   constructor(private router: Router) {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd) // Filter for NavigationEnd events
