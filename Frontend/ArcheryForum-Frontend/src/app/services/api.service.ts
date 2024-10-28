@@ -24,11 +24,6 @@ export class ApiService {
   public csrfToken: string | null = this.getCsrfTokenFromCookie();
 
   // Helper method to handle errors
-  // private handleError(error: any) {
-  //   console.error('An error occurred:', error); // Log the error
-  //   return throwError(() => new Error(error)); // Rethrow the error as an observable
-  // }
-
   private handleError(error: any) {
     let errorMessage = 'An unknown error occurred!';
     if (error.error instanceof ErrorEvent) {
@@ -38,8 +33,7 @@ export class ApiService {
       // Server-side error
       errorMessage = `Server Error Code: ${error.status}\nMessage: ${error.message}`;
     }
-    this.errorService.showError(errorMessage); // Show the error popup
-    // console.error('An error occurred:', errorMessage); // Log the error
+    this.errorService.showError(error); // Show the error popup
     return throwError(() => new Error(errorMessage)); // Rethrow the error as an observable
   }
 
