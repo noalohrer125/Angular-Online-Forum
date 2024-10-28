@@ -288,7 +288,6 @@ def add_answer(request):
             data = json.loads(request.body)
             content = data.get("Content")
             post_id = data.get("Post_id")
-            print(post_id)
             post = get_object_or_404(Post, id=post_id)
         Answer.objects.create(
             Content=content,
@@ -525,7 +524,6 @@ def get_specific_user_object(request, user_id):
                     ]
                 }
             )
-        print(user_object)
         return user_object
     except Exception as ex:
         error_message = f"Exception at get_specific_user_object(): {str(ex.__class__.__name__)}: {str(ex)} on line {ex.__traceback__.tb_lineno}"
