@@ -33,7 +33,6 @@ export class EditPostComponent {
       }
     });
     const post_id_number = Number(this.CurrentPostId())
-    console.log(post_id_number)
     
     this.apiService.getSpecificPost(post_id_number).subscribe(response => {
       if (response.error_message) {

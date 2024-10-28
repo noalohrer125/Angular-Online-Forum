@@ -47,7 +47,6 @@ export class PostDetailsComponent {
         this.apiService.getSpecificUser(response.post.User).subscribe(data => {
           this.userName = data.User[1]
           this.avatar = data.User[2]
-          console.log('data.User ', data.User)
           this.apiService.current_user().subscribe((response: any) => {
             this.is_superuser = response.is_superuser
             if (response.username !== '') {
@@ -110,9 +109,7 @@ export class PostDetailsComponent {
       comment: this.reportForm.value.comment
     }
 
-    this.apiService.repostPost(email_data).subscribe(response => {
-      console.log(response)
-    })
+    this.apiService.repostPost(email_data).subscribe(response => {})
   }
 
   displayReportForm: boolean = false;

@@ -50,7 +50,6 @@ export class EditAnswerComponent {
         if (response) {
           window.location.href = '/post-details/' + this.post_id;
         }
-        console.log('An error occured, please try again later.')
       }
     });
   }

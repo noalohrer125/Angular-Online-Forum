@@ -44,8 +44,6 @@ export class AnswerComponent {
       this.Content = this.answer.Content
     })
 
-    console.log(this.answer)
-
     this.likes = this.answer.liked_by_count
     this.dislikes = this.answer.disliked_by_count
   }

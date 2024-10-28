@@ -28,8 +28,6 @@ export class PostComponent {
       this.topic = this.post.Topic__name
       this.subject = this.post.Subject
       this.likes = this.post.liked_by_count
-
-      console.log(JSON.stringify(this.post))
     })
   }
 }

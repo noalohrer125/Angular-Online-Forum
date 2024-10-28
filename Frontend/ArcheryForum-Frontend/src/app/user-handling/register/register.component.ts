@@ -30,7 +30,6 @@ export class RegisterComponent implements OnInit {
 
     this.apiService.getAvatars().subscribe(response => {
       this.avatars = response
-      console.log(response)
     })
   }
 
