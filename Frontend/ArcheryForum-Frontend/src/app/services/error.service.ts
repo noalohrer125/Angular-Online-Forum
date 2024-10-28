@@ -23,25 +23,25 @@ export class ErrorService {
         case 204:
             return "Request successful, but there is no data to display.";
         case 301:
-            return "This page has been permanently moved. Please update your bookmarks.";
+            return "This page has been permanently moved and is no longer avaiable on this URL.";
         case 302:
             return "The requested page has been temporarily moved.";
         case 304:
-            return "No changes to the data.";
+            return "No changes detected.";
         case 307:
             return "The page has been temporarily relocated; please try again later.";
         case 308:
-            return "This page has permanently moved; please adjust your bookmarks.";
+            return "This page has permanently moved and is no longer avaiable on this URL.";
         case 400:
-            return "The request was incorrect. Please check your inputs.";
+            return "Bad Request. Please check your inputs and try again.";
         case 401:
-            return "Please log in to continue.";
+            return "You have to log in to continue.";
         case 403:
-            return "Access denied. You don't have permission to perform this action.";
+            return "Access denied. You don't have the permissions to perform this action.";
         case 404:
-            return "Page not found. Something went wrong with an URL. Please refresh the page.";
+            return "Page not found. Try again later.";
         case 405:
-            return "This action is not allowed. Please try a different method.";
+            return "This action is not allowed. Please refresh the page and try again.";
         case 408:
             return "Request timed out. Please try again.";
         case 409:
@@ -49,16 +49,15 @@ export class ErrorService {
         case 410:
             return "This page is no longer available.";
         case 413:
-            return "The file is too large. Please upload a smaller file.";
+            return "Some file is too large. Please upload a smaller file.";
         case 429:
             return "Too many requests. Please wait a moment and try again.";
         case 500:
             return "Something went wrong with our Server. Please refresh the page or try again later.";
         default:
-            return "Something went wrong, thanks for your understanding.";
+            return "Something went wrong, refresh the page or try again later.";
       }
   }
-
 
   showError(error: any) {
     const message = this.getUserFriendlyErrorMessage(error)
