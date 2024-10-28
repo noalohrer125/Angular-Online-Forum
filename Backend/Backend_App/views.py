@@ -204,7 +204,7 @@ def delete_post(request, id):
     try:
         post = Post.objects.get(id=id)
         post.delete()
-        return HttpResponse(200)
+        return HttpResponse(204)
     except Exception as ex:
         error_message = f"Exception at delete_post(): {str(ex.__class__.__name__)}: {str(ex)} on line {ex.__traceback__.tb_lineno} \n Post_Id: {id}"
         # logging
@@ -309,7 +309,7 @@ def delete_answer(request, id):
     try:
         answer = Answer.objects.get(id=id)
         answer.delete()
-        return HttpResponse(200)
+        return HttpResponse(204)
     except Exception as ex:
         error_message = f"Exception at delete_answer(): {str(ex.__class__.__name__)}: {str(ex)} on line {ex.__traceback__.tb_lineno} \n Answer_id: {id}"
         # logging
@@ -395,7 +395,7 @@ def delete_topic(request, id):
     try:
         topic = Topic.objects.get(id=id)
         topic.delete()
-        return HttpResponse(200)
+        return HttpResponse(204)
     except Exception as ex:
         error_message = f"Exception at delete_topic(): {str(ex.__class__.__name__)}: {str(ex)} on line {ex.__traceback__.tb_lineno} \n Topic_id: {id}"
         # logging
@@ -620,4 +620,4 @@ def send_e_mail(post_id, comment):
         ['noalohrer125@gmail.com'],
         fail_silently=False,
     )
-    return HttpResponse('E-Mail sent')
+    return HttpResponse(200, 'E-Mail sent')
