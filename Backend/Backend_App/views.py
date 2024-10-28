@@ -255,7 +255,9 @@ def get_answers(request):
                 id=answer["id"]
             ).disliked_by.count()
 
-        return JsonResponse(answers, safe=False)
+        sorted_answers = sorted(answers, key=lambda x: x["id"], reverse=True)
+
+        return JsonResponse(sorted_answers, safe=False)
     except Exception as ex:
         error_message = f"Exception at get_answers(): {str(ex.__class__.__name__)}: {str(ex)} on line {ex.__traceback__.tb_lineno}"
         # logging
