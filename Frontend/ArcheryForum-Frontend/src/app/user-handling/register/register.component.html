@@ -12,8 +12,10 @@
         <tr>
             <td>
                 <div *ngFor="let avatar of avatars">
-                    <input formControlName="avatar" type="radio" name="avatar" value="{{ avatar.id }}" required>
-                    <img class="avatar" src="http://localhost:8000/media/{{ avatar.img }}" alt="Avatar {{ avatar.id }}">
+                    <label>
+                        <input formControlName="avatar" type="radio" name="avatar" value="{{ avatar.id }}" required>
+                        <img class="avatar" src="http://localhost:8000/media/{{ avatar.img }}" alt="Avatar {{ avatar.id }}">
+                    </label>
                 </div>
             </td>
         </tr>

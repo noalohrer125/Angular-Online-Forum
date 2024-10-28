@@ -37,7 +37,10 @@
 
 .content {
     grid-area: content;
+    display: grid;
     justify-self: end;
+    justify-content: center;
+    align-content: start;
     width: 70vw;
     min-height: 55vh;
     height: max-content;

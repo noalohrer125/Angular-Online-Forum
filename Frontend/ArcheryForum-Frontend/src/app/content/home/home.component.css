@@ -9,3 +9,7 @@ a:hover {
     color: yellow !important;
     box-shadow: none;
 }
+
+* {
+    text-align: center;
+}
