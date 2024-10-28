@@ -189,7 +189,7 @@ def add_post(request):
             User=get_current_user_object(request),
             Topic=topic,
         )
-        return HttpResponse(200)
+        return HttpResponse(201)
     except Exception as ex:
         error_message = f"Exception at add_post(): {str(ex.__class__.__name__)}: {str(ex)} on line {ex.__traceback__.tb_lineno}"
         # logging
@@ -295,7 +295,7 @@ def add_answer(request):
             User=get_current_user_object(request),
             Post=post,
         )
-        return HttpResponse(200)
+        return HttpResponse(201)
     except Exception as ex:
         error_message = f"Exception at add_answer(): {str(ex.__class__.__name__)}: {str(ex)} on line {ex.__traceback__.tb_lineno}"
         # logging
@@ -381,7 +381,7 @@ def add_topic(request):
             name=name,
             description=description,
         )
-        return HttpResponse(200)
+        return HttpResponse(201)
     except Exception as ex:
         error_message = f"Exception at add_topic(): {str(ex.__class__.__name__)}: {str(ex)} on line {ex.__traceback__.tb_lineno}"
         # logging
