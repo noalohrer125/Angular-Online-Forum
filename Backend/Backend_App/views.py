@@ -615,7 +615,7 @@ from django.core.mail import send_mail
 def send_e_mail(post_id, comment):
     post_id = post_id
     comment = comment
-    send_mail(
+    response = send_mail(
         'Archery-Forum',
         f'Somebody reported a Post on your website with bad Content \nPost-Id: {post_id} \n\nComment: {comment}',
         'noalohrer125@gmail.com',

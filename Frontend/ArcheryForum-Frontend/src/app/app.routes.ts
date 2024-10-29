@@ -11,19 +11,20 @@ import { LoginComponent } from "./user-handling/login/login.component";
 import { RegisterComponent } from "./user-handling/register/register.component";
 import { LogoutComponent } from "./user-handling/logout/logout.component";
 import { LikedPostsComponent } from "./content/posts/liked-posts/liked-posts.component";
+import { AuthGuard } from "./user-handling/auth.guard";
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'home', component: HomeComponent },
     { path: 'posts', component: PostsComponent },
     { path: 'post-details/:postId', component: PostDetailsComponent },
-    { path: 'new-post', component: NewPostComponent },
-    { path: 'edit-post/:CurrentPostId', component: EditPostComponent },
-    { path: 'new-topic', component: NewTopicComponent },
-    { path: 'new-answer', component: NewAnswerComponent },
-    { path: 'edit-answer/:CurrentAnswerId', component: EditAnswerComponent },
+    { path: 'new-post', component: NewPostComponent , canActivate: [AuthGuard] },
+    { path: 'edit-post/:CurrentPostId', component: EditPostComponent , canActivate: [AuthGuard] },
+    { path: 'new-topic', component: NewTopicComponent, canActivate: [AuthGuard], data: { role: 'admin' }  },
+    { path: 'new-answer', component: NewAnswerComponent, canActivate: [AuthGuard] },
+    { path: 'edit-answer/:CurrentAnswerId', component: EditAnswerComponent , canActivate: [AuthGuard]},
     { path: 'login', component: LoginComponent },
     { path: 'sign_up', component: RegisterComponent },
-    { path: 'logout', component: LogoutComponent },
-    { path: 'liked_posts', component: LikedPostsComponent },
+    { path: 'logout', component: LogoutComponent , canActivate: [AuthGuard]},
+    { path: 'liked_posts', component: LikedPostsComponent , canActivate: [AuthGuard]},
 ];
