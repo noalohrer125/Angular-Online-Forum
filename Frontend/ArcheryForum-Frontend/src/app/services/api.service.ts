@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, filter, Observable, throwError } from 'rxjs';
 import { Answer, Post, sort_order, Topic, voting } from '../interfaces';
