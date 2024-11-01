@@ -2,7 +2,7 @@
 FROM python:3.11
 
 # Setze das Arbeitsverzeichnis im Container
-WORKDIR /Backend_App
+WORKDIR /Backend
 
 # Kopiere die Anforderungen und installiere sie
 COPY requirements.txt ./

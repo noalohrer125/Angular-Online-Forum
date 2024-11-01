@@ -95,18 +95,16 @@ WSGI_APPLICATION = "Backend.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# TODO: migrate to docker-postgresDB
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'archery-forum-db',
         'USER': 'noa',
         'PASSWORD': 'new_password',
-        'HOST': 'localhost',
+        'HOST': os.getenv('DB_HOST', 'localhost'), # db host wird automatisch ausgewählt
         'PORT': '5432',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators

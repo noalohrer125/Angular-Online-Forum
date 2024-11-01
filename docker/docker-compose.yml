@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  db:
+  postgres-db:
     image: postgres:14.5
     ports:
       - "5432:5432"
@@ -11,6 +11,16 @@ services:
       POSTGRES_PASSWORD: 'new_password'
     volumes:
       - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build: .
+    environment:
+      - DB_HOST=postgres-db  # setzt DB_HOST auf den Docker-Servicenamen
+    ports:
+      - "8000:8000"
+    volumes:
+      # - .:/Backend  # Volume for local synchronisation (optional)
+      - ../Backend:/Backend
 
 volumes:
   postgres_data:
