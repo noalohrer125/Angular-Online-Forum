@@ -1,0 +1,11 @@
+services:
+  archery-forum:
+    container_name: frontend
+    build: .
+    image: archery-forum
+    ports:
+      - 80:80
+    expose:
+      - 80
+    volumes:
+      - ./public:/usr/share/nginx/html/public

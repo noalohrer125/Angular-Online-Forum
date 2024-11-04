@@ -40,12 +40,14 @@ ALLOWED_HOSTS = [
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:4200",
+    "http://localhost",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:4200",  # Add your frontend domain here
+    "http://localhost",
 ]
 
 MIDDLEWARE = [
