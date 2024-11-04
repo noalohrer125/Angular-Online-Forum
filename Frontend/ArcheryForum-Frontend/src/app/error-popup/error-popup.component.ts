@@ -1,5 +1,5 @@
 // error-popup.component.ts
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { ErrorService } from '../services/error.service';
 import { CommonModule } from '@angular/common';
 

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { PostComponent } from '../post/post.component';
 import { ApiService } from '../../../services/api.service';
 import { Post } from '../../../interfaces';

@@ -4,7 +4,6 @@ import { NewAnswerComponent } from "./new-answer/new-answer.component";
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../../../services/api.service';
-import { Answer } from '../../../../interfaces';
 
 @Component({
   selector: 'app-answers',
