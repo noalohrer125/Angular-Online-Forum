@@ -110,7 +110,7 @@ def get_posts(request, sort_order):
     try:
         # Fetch the posts with relevant fields as dictionaries
         posts = list(
-            Post.objects.values("id", "Subject", "Content", "Topic__name", "User")
+            Post.objects.values("id", "Subject", "Content", "Topic__name", "User", "Image")
         )
 
         # Calculate liked_by and disliked_by counts
@@ -142,7 +142,7 @@ def get_liked_posts(request):
         user = request.user.id
         posts = list(
             Post.objects.filter(liked_by=user).values(
-                "id", "Subject", "Content", "Topic__name", "User"
+                "id", "Subject", "Content", "Topic__name", "User", "Image"
             )
         )
         return JsonResponse(posts, safe=False)
@@ -182,12 +182,14 @@ def add_post(request):
             content = data.get("Content")
             topic_name = data.get("Topic_name")
             topic = get_object_or_404(Topic, name=topic_name)
+            image = data.get("image")
 
         post = Post.objects.create(
             Subject=subject,
             Content=content,
             User=get_current_user_object(request),
             Topic=topic,
+            Image=image,  # Handle binary strings
         )
         return HttpResponse(201)
     except Exception as ex:
@@ -599,10 +601,10 @@ def report_post(request):
     try:
         if request.method == "POST":
             data = json.loads(request.body)
-            post_id = data.get('postId')
-            comment = data.get('comment') or 'no content sent'
+            post_id = data.get("postId")
+            comment = data.get("comment") or "no content sent"
             send_e_mail(post_id, comment)
-        return HttpResponse(200, 'Email sent')
+        return HttpResponse(200, "Email sent")
     except Exception as ex:
         error_message = f"Exception at report_post(): {str(ex.__class__.__name__)}: {str(ex)} on line {ex.__traceback__.tb_lineno}"
         # logging
@@ -611,15 +613,18 @@ def report_post(request):
             error_message, status=drf_status.HTTP_500_INTERNAL_SERVER_ERROR
         )
 
+
 from django.core.mail import send_mail
+
+
 def send_e_mail(post_id, comment):
     post_id = post_id
     comment = comment
     response = send_mail(
-        'Archery-Forum',
-        f'Somebody reported a Post on your website with bad Content \nPost-Id: {post_id} \n\nComment: {comment}',
-        'noalohrer125@gmail.com',
-        ['noalohrer125@gmail.com'],
+        "Archery-Forum",
+        f"Somebody reported a Post on your website with bad Content \nPost-Id: {post_id} \n\nComment: {comment}",
+        "noalohrer125@gmail.com",
+        ["noalohrer125@gmail.com"],
         fail_silently=False,
     )
-    return HttpResponse(200, 'E-Mail sent')
+    return HttpResponse(200, "E-Mail sent")

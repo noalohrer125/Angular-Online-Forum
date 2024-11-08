@@ -29,6 +29,14 @@
         </tr>
         <tr>
             <td>
+                <label for="file">Image:</label>
+            </td>
+            <td>
+                <input type="file" id="file" accept="image/png, image/gif, image/jpeg" (change)="onFileSelected($event)">
+            </td>
+        </tr>
+        <tr>
+            <td>
                 <button type="submit" (click)="onSubmit()" [disabled]="!postForm.value.subject || !postForm.value.content || !postForm.value.topic">Submit</button>
             </td>
             <td>

@@ -14,6 +14,7 @@ class Post(models.Model):
     disliked_by = models.ManyToManyField(User, related_name='disliked_posts', blank=True)
     User = models.ForeignKey(User, on_delete=models.CASCADE)
     Topic = models.ForeignKey("Topic", on_delete=models.CASCADE)
+    Image = models.CharField()
 
 # Answer-Model
 class Answer(models.Model):

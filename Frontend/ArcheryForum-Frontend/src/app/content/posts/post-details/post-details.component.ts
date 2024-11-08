@@ -1,9 +1,10 @@
-import { Component, input } from '@angular/core';
+import { Component, ElementRef, input, ViewChild } from '@angular/core';
 import { AnswersComponent } from "./answers/answers.component";
 import { RouterLink } from '@angular/router';
 import { ApiService } from '../../../services/api.service';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { imageService } from '../../../services/image.service';
 
 @Component({
   selector: 'app-post-details',
@@ -20,7 +21,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 export class PostDetailsComponent {
   postId = input.required()
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService, private imageService: imageService) { }
 
   postIdNumber!: number;
 
@@ -29,11 +30,14 @@ export class PostDetailsComponent {
   avatar!: any;
   user: boolean = false;
   content!: string;
+  image!: SVGElement;
   likes!: number;
   dislikes!: number;
-  
+
   is_superuser: boolean = false;
   is_authorised: boolean = false;
+
+  @ViewChild('svg') dataContainer: ElementRef | any;
 
   ngOnInit() {
     this.postIdNumber = Number(this.postId());
@@ -58,6 +62,8 @@ export class PostDetailsComponent {
           })
         })
         this.content = response.post.Content
+        // insert svg-string into #svg div
+        this.dataContainer.nativeElement.innerHTML = response.post.Image;
         this.likes = response.post.likes_count
         this.dislikes = response.post.dislikes_count
       }
@@ -109,7 +115,7 @@ export class PostDetailsComponent {
       comment: this.reportForm.value.comment
     }
 
-    this.apiService.repostPost(email_data).subscribe(response => {})
+    this.apiService.repostPost(email_data).subscribe(response => { })
   }
 
   displayReportForm: boolean = false;

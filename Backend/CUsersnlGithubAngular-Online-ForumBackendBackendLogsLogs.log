@@ -11,3 +11,45 @@
 2024-11-04 13:17 - INFO - /Backend/Backend/settings.py changed, reloading.
 2024-11-04 13:17 - INFO - /Backend/Backend/settings.py changed, reloading.
 2024-11-04 13:17 - INFO - /Backend/Backend/settings.py changed, reloading.
+2024-11-05 10:44 - INFO - /Backend/Backend_App/views.py changed, reloading.
+2024-11-05 10:44 - INFO - /Backend/Backend_App/views.py changed, reloading.
+2024-11-05 10:45 - INFO - /Backend/Backend_App/views.py changed, reloading.
+2024-11-05 10:45 - INFO - /Backend/Backend_App/views.py changed, reloading.
+2024-11-05 10:45 - INFO - /Backend/Backend_App/views.py changed, reloading.
+2024-11-05 10:45 - INFO - /Backend/Backend_App/views.py changed, reloading.
+2024-11-05 10:46 - INFO - /Backend/Backend_App/models.py changed, reloading.
+2024-11-05 10:46 - INFO - /Backend/Backend_App/models.py changed, reloading.
+2024-11-05 10:46 - INFO - /Backend/Backend_App/models.py changed, reloading.
+2024-11-05 10:46 - INFO - /Backend/Backend_App/models.py changed, reloading.
+2024-11-05 11:48 - ERROR - error occured: Exception at get_posts(): TypeError: Object of type memoryview is not JSON serializable on line 128
+2024-11-05 11:48 - ERROR - Internal Server Error: /get_posts/default/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/response.py", line 59, in rendered_content
+    assert renderer, ".accepted_renderer not set on Response"
+           ^^^^^^^^
+AssertionError: .accepted_renderer not set on Response
+2024-11-05 11:48 - ERROR - error occured: Exception at get_posts(): TypeError: Object of type memoryview is not JSON serializable on line 128
+2024-11-05 11:48 - ERROR - Internal Server Error: /get_posts/default/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/response.py", line 59, in rendered_content
+    assert renderer, ".accepted_renderer not set on Response"
+           ^^^^^^^^
+AssertionError: .accepted_renderer not set on Response
