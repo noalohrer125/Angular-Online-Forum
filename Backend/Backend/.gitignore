@@ -3,5 +3,3 @@ apikeys.py
 Logs/Logs.log
 
 __pycache__/
-
-../venv/
