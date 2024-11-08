@@ -12,7 +12,6 @@ import { current_user, Post, sort_order } from '../../interfaces';
   imports: [
     PostComponent,
     RouterLink,
-    NewPostComponent,
     CommonModule,
   ],
   templateUrl: './posts.component.html',
