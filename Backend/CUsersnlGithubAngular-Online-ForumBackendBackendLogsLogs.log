@@ -53,3 +53,23 @@ Traceback (most recent call last):
     assert renderer, ".accepted_renderer not set on Response"
            ^^^^^^^^
 AssertionError: .accepted_renderer not set on Response
+2024-11-08 10:42 - ERROR - error occured: Exception at add_post(): IntegrityError: null value in column "Image" of relation "Backend_App_post" violates not-null constraint
+DETAIL:  Failing row contains (37, sdaf, asdf, 1, 5, null).
+ on line 187
+2024-11-08 10:42 - ERROR - Internal Server Error: /add_post/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/response.py", line 59, in rendered_content
+    assert renderer, ".accepted_renderer not set on Response"
+           ^^^^^^^^
+AssertionError: .accepted_renderer not set on Response
+2024-11-22 07:16 - WARNING - Not Found: /
+2024-11-22 07:16 - WARNING - Not Found: /favicon.ico

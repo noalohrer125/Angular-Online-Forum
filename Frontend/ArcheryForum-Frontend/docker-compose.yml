@@ -9,3 +9,5 @@ services:
       - 80
     volumes:
       - ./public:/usr/share/nginx/html/public
+
+# very important: add <try_files $uri /index.html;> to locations config in etc/ngnix/conf.d/conf.d file

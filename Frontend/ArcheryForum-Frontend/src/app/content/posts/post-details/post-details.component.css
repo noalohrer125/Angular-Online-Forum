@@ -59,3 +59,7 @@
         min-width: 11vw;
     }
 }
+
+#svgDiv {
+    border: solid black 1px;
+}
