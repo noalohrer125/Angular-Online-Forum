@@ -66,7 +66,6 @@ export class PostDetailsComponent {
         this.dataContainer.nativeElement.innerHTML = response.post.Image;
         const imageElement = this.dataContainer!.nativeElement.querySelector('image');
         if (imageElement) {
-          imageElement.style.border = '2px solid red'; // correct syntax for border '<dicke> <stil> <farbe>'
           imageElement.setAttribute('height', '30vh'); // set height
           this.dataContainer.nativeElement.style.display = 'flex'
         }
