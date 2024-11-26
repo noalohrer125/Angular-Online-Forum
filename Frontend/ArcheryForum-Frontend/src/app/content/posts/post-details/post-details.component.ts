@@ -62,8 +62,24 @@ export class PostDetailsComponent {
           })
         })
         this.content = response.post.Content
+        
+        if (response.post.Image === "") {
+          let imageString = this.apiService.getRandomImage().subscribe(response => {
+            console.log('response object: ', response.image)
+            this.image = response.image
+            
+            this.dataContainer.nativeElement.innerHTML = this.imageService.imageUrlToSvg(String(this.image));
+            
+            const imageElement = this.dataContainer!.nativeElement.querySelector('image');
+            if (imageElement) {
+              imageElement.setAttribute('height', '30vh'); // set height
+              this.dataContainer.nativeElement.style.display = 'flex'
+            }
+          });
         // insert svg-string into #svg div
-        this.dataContainer.nativeElement.innerHTML = response.post.Image;
+        } else {
+          this.dataContainer.nativeElement.innerHTML = response.post.Image;
+        }
         const imageElement = this.dataContainer!.nativeElement.querySelector('image');
         if (imageElement) {
           imageElement.setAttribute('height', '30vh'); // set height

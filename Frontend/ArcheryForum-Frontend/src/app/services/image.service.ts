@@ -27,6 +27,15 @@ export class imageService {
         });
     }
 
+    imageUrlToSvg(imageUrl: string): string {
+        const svgString = `
+            <svg xmlns="http://www.w3.org/2000/svg" height="auto" width="auto">
+                <image href="${imageUrl}"/>
+            </svg>
+        `;
+        return svgString;
+    }
+
     svgStringToHtmlElement(svgString: string): SVGElement {
         // Create a new DOMParser instance
         const parser = new DOMParser();

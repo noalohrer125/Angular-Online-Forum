@@ -25,6 +25,7 @@ from rest_framework import response as drf_response
 from rest_framework import status as drf_status
 
 import logging
+import requests
 
 logging.basicConfig(
     filename="C:\\Users\\nl\\Github\\Angular-Online-Forum\\Backend\\Backend\\Logs\\Logs.log",
@@ -628,3 +629,9 @@ def send_e_mail(post_id, comment):
         fail_silently=False,
     )
     return HttpResponse(200, "E-Mail sent")
+
+def get_random_image(request):
+
+    response = requests.get('https://api.thecatapi.com/v1/images/search')
+    data = response.json()[0].get('url')
+    return JsonResponse({'image': data})
