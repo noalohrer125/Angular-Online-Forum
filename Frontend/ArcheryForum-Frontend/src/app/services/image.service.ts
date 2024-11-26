@@ -12,7 +12,7 @@ export class imageService {
                 const base64Image = event.target?.result;
                 if (typeof base64Image === 'string') {
                     const svgString = `
-                        <svg xmlns="http://www.w3.org/2000/svg" class="svg">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="svg" height="auto">
                             <image href="${base64Image}"/>
                         </svg>
                     `;

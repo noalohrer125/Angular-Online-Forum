@@ -64,6 +64,12 @@ export class PostDetailsComponent {
         this.content = response.post.Content
         // insert svg-string into #svg div
         this.dataContainer.nativeElement.innerHTML = response.post.Image;
+        const imageElement = this.dataContainer!.nativeElement.querySelector('image');
+        if (imageElement) {
+          imageElement.style.border = '2px solid red'; // correct syntax for border '<dicke> <stil> <farbe>'
+          imageElement.setAttribute('height', '30vh'); // set height
+          this.dataContainer.nativeElement.style.display = 'flex'
+        }
         this.likes = response.post.likes_count
         this.dislikes = response.post.dislikes_count
       }

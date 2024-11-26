@@ -3,6 +3,7 @@
     grid-template-areas: 
     'user header edit-delete'
     'content content content'
+    'image image image'
     'answers answers answers';
     gap: 2vmax;
 }
@@ -61,5 +62,9 @@
 }
 
 #svgDiv {
-    border: solid black 1px;
+    display: none;
+    grid-area: image;
+    width: 55vw;
+    height: 30vh;
+    flex-direction: row;
 }
