@@ -332,7 +332,7 @@ export class ApiService {
 
   
   // user-report-api
-  repostPost(data: object): Observable<any> {
+  reportPost(data: object): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'X-CSRFToken': this.csrfToken || ''
@@ -346,7 +346,36 @@ export class ApiService {
   image!: string;
 
   getRandomImage(): Observable<any> {
-    return this.httpClient.get<any>(`${this.baseUrl}get_random_image/`, { withCredentials: true })
+    return this.httpClient.get(`${this.baseUrl}get_random_image/`, { withCredentials: true })
+    .pipe(catchError((error) => {
+      return this.handleError(error); // shows the error
+    }));
+  }
+
+  currentUserLikedCatImage(imageUrl: string) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-CSRFToken': this.csrfToken || ''
+    });
+
+    const imageUrlJson = {
+      'url': imageUrl
+    }
+
+    return this.httpClient.post(`${this.baseUrl}current_user_liked_cat_image/`, imageUrlJson, { headers, withCredentials: true })
+  }
+
+  saveCatImage(imageUrl: string) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-CSRFToken': this.csrfToken || ''
+    });
+
+    const imageUrlJson = {
+      'url': imageUrl
+    }
+
+    return this.httpClient.post(`${this.baseUrl}save_cat_image/`, imageUrlJson, { headers, withCredentials: true })
     .pipe(catchError((error) => {
       return this.handleError(error); // shows the error
     }));

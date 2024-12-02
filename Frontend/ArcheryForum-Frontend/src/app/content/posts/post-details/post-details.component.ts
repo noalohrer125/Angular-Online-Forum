@@ -37,6 +37,8 @@ export class PostDetailsComponent {
   is_superuser: boolean = false;
   is_authorised: boolean = false;
 
+  current_user_like_cat_image!: boolean;
+
   @ViewChild('svg') dataContainer: ElementRef | any;
 
   ngOnInit() {
@@ -65,24 +67,32 @@ export class PostDetailsComponent {
         
         if (response.post.Image === "") {
           let imageString = this.apiService.getRandomImage().subscribe(response => {
-            console.log('response object: ', response.image)
             this.image = response.image
             
             this.dataContainer.nativeElement.innerHTML = this.imageService.imageUrlToSvg(String(this.image));
             
             const imageElement = this.dataContainer!.nativeElement.querySelector('image');
             if (imageElement) {
-              imageElement.setAttribute('height', '30vh'); // set height
+              imageElement.setAttribute('width', '30vw'); // set width
               this.dataContainer.nativeElement.style.display = 'flex'
+              
+              // check if current user allready liked the specific cat-image
+              this.apiService.currentUserLikedCatImage(String(this.image)).subscribe((response: any) => {
+                this.current_user_like_cat_image = response.data
+                const button = document.getElementById('saveCatImageButton')
+                button!.style.backgroundColor = 'green';
+              })
             }
           });
         // insert svg-string into #svg div
         } else {
           this.dataContainer.nativeElement.innerHTML = response.post.Image;
+          const button = document.getElementById('saveCatImageButton')
+          button!.style.display = 'none';
         }
         const imageElement = this.dataContainer!.nativeElement.querySelector('image');
         if (imageElement) {
-          imageElement.setAttribute('height', '30vh'); // set height
+          imageElement.setAttribute('width', '30vw'); // set width
           this.dataContainer.nativeElement.style.display = 'flex'
         }
         this.likes = response.post.likes_count
@@ -136,12 +146,17 @@ export class PostDetailsComponent {
       comment: this.reportForm.value.comment
     }
 
-    this.apiService.repostPost(email_data).subscribe(response => { })
+    this.apiService.reportPost(email_data).subscribe(response => { })
   }
 
   displayReportForm: boolean = false;
 
   openReportForm() {
     this.displayReportForm = true
+  }
+
+  saveCatImage() {
+    const imageUrl = this.image
+    this.apiService.saveCatImage(String(imageUrl)).subscribe(response => { })
   }
 }

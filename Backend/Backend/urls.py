@@ -48,6 +48,8 @@ from Backend_App.views import (
     health_check,
     report_post,
     get_random_image,
+    save_cat_image,
+    current_user_liked_cat_image,
 )
 
 urlpatterns = [
@@ -80,4 +82,6 @@ urlpatterns = [
     path("get_specific_user_object/<int:user_id>/", get_specific_user_object, name="get_specific_user_object"),
     path("report_post/", report_post, name="report_post"),
     path("get_random_image/", get_random_image, name="get_random_image"),
+    path("save_cat_image/", save_cat_image, name="save_cat_image"),
+    path("current_user_liked_cat_image/", current_user_liked_cat_image, name="get_random_image"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -61,10 +61,31 @@
     }
 }
 
+.catImagDiv {
+    position: relative; /* Establishes a positioning context for the button */
+    max-height: 60vh;
+    width: 30vw;
+}
+
 #svgDiv {
     display: none;
     grid-area: image;
-    width: 55vw;
-    height: 30vh;
+    width: 30vw;
+    height: 50vh;
+    max-height: 60vh;
     flex-direction: row;
+}
+
+.saveCatImageButton {
+    position: absolute;  /* Position the button absolutely */
+    top: 0;              /* Align to the top */
+    right: 0;            /* Align to the right */
+    display: flex;
+    height: 2vmax;
+    width: 2vmax;
+    align-content: center;
+    justify-content: center;
+    justify-self: end;
+    background-color: #ffbb00;
+    border-radius: 100px;
 }

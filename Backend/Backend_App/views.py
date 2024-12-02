@@ -19,7 +19,7 @@ from .methods import (
     add_dislike_answer,
     add_user_avatar,
 )
-from .models import Post, Answer, Topic, Avatar
+from .models import Post, Answer, Topic, Avatar, CatImage
 
 from rest_framework import response as drf_response
 from rest_framework import status as drf_status
@@ -185,12 +185,22 @@ def add_post(request):
             topic = get_object_or_404(Topic, name=topic_name)
             image = data.get("image")
 
+        # Check if no image is provided and user has liked a CatImage
+            if image == '':  # Empty or null check
+                liked_cat_image = CatImage.objects.filter(Users=request.user).first()  # Get the first liked CatImage
+                if liked_cat_image:
+                    image = f"""
+                    <svg xmlns="http://www.w3.org/2000/svg" height="auto" width="auto">
+                        <image href="{liked_cat_image.image_url}"/>
+                    </svg>
+                    """  # Assign the liked image's URL
+
         post = Post.objects.create(
             Subject=subject,
             Content=content,
             User=get_current_user_object(request),
             Topic=topic,
-            Image=image,  # Handle binary strings
+            Image=image,
         )
         return HttpResponse(201)
     except Exception as ex:
@@ -618,6 +628,7 @@ def report_post(request):
 from django.core.mail import send_mail
 
 
+@csrf_protect
 def send_e_mail(post_id, comment):
     post_id = post_id
     comment = comment
@@ -631,7 +642,41 @@ def send_e_mail(post_id, comment):
     return HttpResponse(200, "E-Mail sent")
 
 def get_random_image(request):
-
     response = requests.get('https://api.thecatapi.com/v1/images/search')
     data = response.json()[0].get('url')
     return JsonResponse({'image': data})
+
+@csrf_protect
+def current_user_liked_cat_image(request):
+    user = request.user
+
+    data = json.loads(request.body)
+    image_url = data.get('url')
+
+    cat_image = get_object_or_404(CatImage, image_url=image_url)
+
+    # Get the CatImage object with the specified image_url
+    if (cat_image):
+        if (cat_image.Users.filter(id=user.id).exists()):
+            return JsonResponse({'data': True})
+        # Check if the user is in the ManyToMany field 'Users'
+        return JsonResponse({'data': False})
+
+@csrf_protect
+def save_cat_image(request):
+    user = request.user
+
+    if request.method == "POST":
+        data = json.loads(request.body)
+        image_url = data.get("url")
+
+        # Check if a CatImage object with the given URL exists
+        cat_image, created = CatImage.objects.get_or_create(image_url=image_url)
+
+        # Add the current user to the users list if not already added
+        if user not in cat_image.Users.all():
+            cat_image.Users.add(user)
+
+        return JsonResponse({"message": "Success", "created": created}, status=201)
+
+    return JsonResponse({"error": "Invalid request method"}, status=400)
