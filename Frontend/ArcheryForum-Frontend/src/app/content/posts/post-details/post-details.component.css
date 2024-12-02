@@ -1,10 +1,10 @@
 .container {
     display: grid;
-    grid-template-areas: 
-    'user header edit-delete'
-    'content content content'
-    'image image image'
-    'answers answers answers';
+    grid-template-areas:
+        'user header edit-delete'
+        'content content content'
+        'image image image'
+        'answers answers answers';
     gap: 2vmax;
 }
 
@@ -62,7 +62,8 @@
 }
 
 .catImagDiv {
-    position: relative; /* Establishes a positioning context for the button */
+    /* Establishes a positioning context for the button */
+    position: relative;
     max-height: 60vh;
     width: 30vw;
 }
@@ -77,9 +78,12 @@
 }
 
 .saveCatImageButton {
-    position: absolute;  /* Position the button absolutely */
-    top: 0;              /* Align to the top */
-    right: 0;            /* Align to the right */
+    /* Position the button absolutely */
+    position: absolute;
+    /* Align to the top */
+    top: 0;
+    /* Align to the right */
+    right: 0;
     display: flex;
     height: 2vmax;
     width: 2vmax;

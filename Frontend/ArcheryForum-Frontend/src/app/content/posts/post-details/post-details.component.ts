@@ -64,18 +64,18 @@ export class PostDetailsComponent {
           })
         })
         this.content = response.post.Content
-        
+
         if (response.post.Image === "") {
           let imageString = this.apiService.getRandomImage().subscribe(response => {
             this.image = response.image
-            
+
             this.dataContainer.nativeElement.innerHTML = this.imageService.imageUrlToSvg(String(this.image));
-            
+
             const imageElement = this.dataContainer!.nativeElement.querySelector('image');
             if (imageElement) {
               imageElement.setAttribute('width', '30vw'); // set width
               this.dataContainer.nativeElement.style.display = 'flex'
-              
+
               // check if current user allready liked the specific cat-image
               this.apiService.currentUserLikedCatImage(String(this.image)).subscribe((response: any) => {
                 this.current_user_like_cat_image = response.data
@@ -84,7 +84,7 @@ export class PostDetailsComponent {
               })
             }
           });
-        // insert svg-string into #svg div
+          // insert svg-string into #svg div
         } else {
           this.dataContainer.nativeElement.innerHTML = response.post.Image;
           const button = document.getElementById('saveCatImageButton')
