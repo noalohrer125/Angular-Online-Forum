@@ -35,17 +35,4 @@ export class imageService {
         `;
         return svgString;
     }
-
-    svgStringToHtmlElement(svgString: string): SVGElement {
-        // Create a new DOMParser instance
-        const parser = new DOMParser();
-        
-        // Parse the SVG string into a Document
-        const doc = parser.parseFromString(svgString, 'image/svg+xml');
-        
-        // Get the SVG element from the parsed document
-        const svgElement = doc.querySelector('svg');
-        
-        return svgElement as SVGElement;
-    }
 }

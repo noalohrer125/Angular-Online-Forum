@@ -39,3 +39,8 @@ class Avatar(models.Model):
             return avatars.first()
         except User.DoesNotExist:
             return None
+
+# CatImage-Model
+class CatImage(models.Model):
+    image_url = models.CharField(max_length=500)
+    Users = models.ManyToManyField(User, related_name='CatImage', blank=True)
